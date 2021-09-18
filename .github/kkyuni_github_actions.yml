@@ -3,7 +3,7 @@ on:
   pull_request:
     branches:
       - develop
-    types: [opened, synchronize, reopened, edited, ready_for_review, review_requested]
+    types: [opened, synchronize]
 
 jobs:
   ci:
