@@ -1,0 +1,13 @@
+apply plugin: 'com.diffplug.spotless'
+spotless {
+    kotlin {
+        target '**/*.kt'
+        targetExclude("$buildDir/**/*.kt")
+        targetExclude('bin/**/*.kt')
+
+        ktlint("0.42.1")
+
+        // Todo: 추후 추가 - https://github.com/mash-up-kr/KKyuni_Android/pull/5#pullrequestreview-755993281
+        // licenseHeaderFile rootProject.file('spotless/copyright.kt')
+    }
+}
