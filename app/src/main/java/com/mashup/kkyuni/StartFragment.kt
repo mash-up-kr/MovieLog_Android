@@ -11,4 +11,4 @@ import androidx.fragment.app.Fragment
  *
  * Todo: 개발이 완료되거나 더 이상 불필요하다고 판단되는 시점에서 해당 Fragment 를 완전히 제거합니다.
  */
-class StartFragment: Fragment()
+class StartFragment : Fragment()
