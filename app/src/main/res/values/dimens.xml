@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BottomButton -->
+    <dimen name="padding_bottombutton_vertical">19dp</dimen>
+    <dimen name="textsize_bottombutton">18sp</dimen>
+
+    <!-- Toolbar -->
+    <dimen name="textsize_toolbar">20sp</dimen>
+</resources>

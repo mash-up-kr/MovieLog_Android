@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BottomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/all_gmarketsans_bold</item>
+        <item name="android:textSize">@dimen/textsize_bottombutton</item>
+        <item name="android:background">@drawable/bottombutton_background</item>
+        <item name="android:textColor">@drawable/bottombutton_textcolor</item>
+        <item name="android:paddingTop">@dimen/padding_bottombutton_vertical</item>
+        <item name="android:paddingBottom">@dimen/padding_bottombutton_vertical</item>
+    </style>
+
+    <style name="ToolbarTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/all_gmarketsans_bold</item>
+        <item name="android:textSize">@dimen/textsize_toolbar</item>
+    </style>
+
+</resources>
