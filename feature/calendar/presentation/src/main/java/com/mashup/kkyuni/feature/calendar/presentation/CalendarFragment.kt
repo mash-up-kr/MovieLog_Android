@@ -3,6 +3,7 @@ package com.mashup.kkyuni.feature.calendar.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentCalendarBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,5 +15,8 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val action = CalendarFragmentDirections.actionToMusic()
+        findNavController().navigate(action)
     }
 }
