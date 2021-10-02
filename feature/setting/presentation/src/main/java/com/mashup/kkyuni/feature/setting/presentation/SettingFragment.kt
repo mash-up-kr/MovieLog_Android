@@ -28,7 +28,6 @@ class SettingFragment : BindingFragment<FragmentSettingBinding>(R.layout.fragmen
                 }
 
                 viewModel.onInquiry.collect {
-
                 }
 
                 viewModel.onCreator.collect {
