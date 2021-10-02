@@ -19,4 +19,8 @@ ext {
     hiltVersion = "2.38.1"
 
     coilVersion = "1.3.2"
+
+    junitVersion = "4.13.2"
+    androidJunitVersion = "1.1.3"
+    espressoCoreVersion = "3.4.0"
 }
