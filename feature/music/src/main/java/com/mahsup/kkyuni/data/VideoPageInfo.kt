@@ -1,6 +1,10 @@
 package com.mahsup.kkyuni.data
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class VideoPageInfo(
-    val totalResults: Int,
-    val resultsPerPage: Int
+    @Json(name="totalResults") val totalResults: Int,
+    @Json(name="resultsPerPage") val resultsPerPage: Int
 )

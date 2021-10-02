@@ -1,9 +1,13 @@
 package com.mahsup.kkyuni.data
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class Videos(
-    val kind: String,
-    val nextPageToken: String,
-    val prevPageToken: String,
-    val pageInfo: VideoPageInfo,
-    val items: List<Video>
+    @Json(name = "kind") val kind: String,
+    @Json(name = "nextPageToken") val nextPageToken: String,
+    @Json(name = "prevPageToken") val prevPageToken: String,
+    @Json(name = "pageInfo") val pageInfo: VideoPageInfo,
+    @Json(name = "items") val items: List<Video>
 )
