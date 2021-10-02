@@ -1,4 +1,4 @@
-package com.mashup.kkyuni.music.data.di
+package com.mashup.kkyuni.feature.music.data.di
 
 import com.mashup.kkyuni.feature.music.data.VideoService
 import dagger.Module
