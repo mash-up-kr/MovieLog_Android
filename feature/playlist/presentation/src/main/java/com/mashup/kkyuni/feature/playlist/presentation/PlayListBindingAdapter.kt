@@ -1,7 +1,9 @@
 package com.mashup.kkyuni.feature.playlist.presentation
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.mashup.kkyuni.feature.playlist.domain.model.PlayListState
 
 @BindingAdapter("updatePlayList")
@@ -13,4 +15,9 @@ fun RecyclerView.updatePlayList(viewState: PlayListState){
             }
         }
     }
+}
+
+@BindingAdapter("setMusicThumbnail")
+fun ImageView.setMusicThumbnail(thumbnailUrl: String){
+    load(thumbnailUrl)
 }
