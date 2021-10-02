@@ -39,10 +39,10 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
     implementation(project(":core"))
     implementation(project(":widget"))
     implementation(project(":data:network"))
+    implementation(project(":feature:music"))
 
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
