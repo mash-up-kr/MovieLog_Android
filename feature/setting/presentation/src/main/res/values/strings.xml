@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="setting">설정</string>
+    <string name="inquiry">문의하기</string>
+    <string name="creator">만든이</string>
+    <string name="app_version">앱 버전정보</string>
+</resources>
