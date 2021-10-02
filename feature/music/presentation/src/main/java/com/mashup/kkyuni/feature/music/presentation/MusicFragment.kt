@@ -6,10 +6,13 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.music.presentation.databinding.FragmentMusicBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MusicFragment:BindingFragment<FragmentMusicBinding>(
+@AndroidEntryPoint
+class MusicFragment : BindingFragment<FragmentMusicBinding>(
     R.layout.fragment_music
 ) {
+
     private val musicViewModel: MusicViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

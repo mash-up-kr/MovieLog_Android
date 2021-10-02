@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 import com.mashup.kkyuni.feature.music.data.model.VideoResponse
+import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
 class MusicAdapter(private val viewModel: MusicViewModel) :
     ListAdapter<VideoResponse, MusicViewHolder>(DiffUtilCallback) {
