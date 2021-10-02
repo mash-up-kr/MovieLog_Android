@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -75,6 +76,9 @@ dependencies {
     implementation "io.coil-kt:coil:$coilVersion"
 
     implementation "androidx.core:core-splashscreen:$splashScreenVersion"
+
+    implementation platform("com.google.firebase:firebase-bom:$firebaseVersion")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
