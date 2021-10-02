@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.R
-import com.mashup.kkyuni.databinding.HolderPlayListEmptyBinding
 import com.mashup.kkyuni.playlist.domain.model.PlayList
 import com.mashup.kkyuni.playlist.presenter.holder.PlayListViewHolder
 import com.mashup.kkyuni.playlist.presenter.holder.impl.PlayListEmptyViewHolderImpl
