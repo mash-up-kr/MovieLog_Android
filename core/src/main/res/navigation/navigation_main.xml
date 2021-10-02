@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_main.xml"
-    app:startDestination="@id/startFragment">
+    app:startDestination="@id/calendarFragment">
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.mashup.kkyuni.StartFragment"
-        android:label="StartFragment" />
+        android:name="com.mashup.kkyuni.StartFragment" />
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.mashup.kkyuni.feature.calendar.presentation.CalendarFragment">
+
+        <action
+            android:id="@+id/action_to_music"
+            app:destination="@id/musicFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/musicFragment"
+        android:name="com.mahsup.kkyuni.feature.MusicFragment" />
 
 </navigation>
