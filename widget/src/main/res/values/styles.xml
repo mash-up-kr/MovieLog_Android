@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BottomButtonStyle" parent="Widget.AppCompat.Button">
+    <style name="KkyuniBottomButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:fontFamily">@font/all_gmarketsans_bold</item>
         <item name="android:textSize">@dimen/textsize_bottombutton</item>
         <item name="android:background">@drawable/bottombutton_background</item>
