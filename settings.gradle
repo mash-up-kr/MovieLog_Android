@@ -15,4 +15,4 @@ include ':app',
         ':feature:calendar:domain',
         ':feature:calendar:data',
         ':data:network',
-        ':feature:music'
+        ':feature:music:data'
