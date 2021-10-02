@@ -4,5 +4,7 @@ import com.mashup.kkyuni.playlist.data.dto.PlayListResponseDto
 import kotlinx.coroutines.flow.Flow
 
 interface PlayListRepository {
-    fun fetchPlayList(): Flow<PlayListResponseDto>
+    fun fetchPlayList(
+        date: String
+    ): Flow<PlayListResponseDto>
 }

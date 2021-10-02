@@ -1,14 +1,14 @@
 package com.mashup.kkyuni.playlist.domain
 
 import com.mashup.kkyuni.playlist.data.dto.PlayListResponseDto
-import com.mashup.kkyuni.playlist.domain.model.PlayList
+import com.mashup.kkyuni.playlist.domain.model.MusicModel
 
-fun PlayListResponseDto.toPlayList(): List<PlayList> {
+fun PlayListResponseDto.toPlayList(): List<MusicModel> {
     return if(data.isEmpty()){
-        listOf(PlayList.EmptyData)
+        listOf(MusicModel.EmptyData)
     }else {
         data.map {
-            PlayList.MusicData(
+            MusicModel.MusicData(
                 thumbnailUrl = it.thumbnailUrl,
                 singer = it.singer,
                 title = it.title,

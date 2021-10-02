@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.mashup.kkyuni.playlist.domain.model.PlayList" />
+            type="com.mashup.kkyuni.playlist.domain.model.MusicModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

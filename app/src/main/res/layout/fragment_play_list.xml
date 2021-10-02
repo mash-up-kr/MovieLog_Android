@@ -15,7 +15,7 @@
             android:id="@+id/recycler_view_play_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:updatePlayList="@{playListViewModel.playListFlow}"
+            app:updatePlayList="@{playListViewModel.playListState}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

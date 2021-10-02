@@ -1,8 +1,8 @@
 package com.mashup.kkyuni.playlist.domain.model
 
-sealed class PlayList {
+sealed class MusicModel {
 
-    object EmptyData: PlayList()
+    object EmptyData: MusicModel()
 
     data class MusicData(
         val thumbnailUrl: String,
@@ -11,5 +11,5 @@ sealed class PlayList {
         val playTime: String,
         val releaseDate: String,
         val linkUrl: String
-    ): PlayList()
+    ): MusicModel()
 }
