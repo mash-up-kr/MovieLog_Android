@@ -21,6 +21,15 @@
     </fragment>
 
     <fragment
+        android:id="@+id/playListFragment"
+        android:name="com.mashup.kkyuni.feature.playlist.presentation.PlayListFragment">
+
+        <action
+            android:id="@+id/action_to_play_list"
+            app:destination="@id/playListFragment"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/musicFragment"
         android:name="com.mahsup.kkyuni.feature.MusicFragment" />
 

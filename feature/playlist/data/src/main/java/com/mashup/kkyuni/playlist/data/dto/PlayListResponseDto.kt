@@ -7,8 +7,6 @@ import com.squareup.moshi.JsonClass
 @Keep
 @JsonClass(generateAdapter = true)
 data class PlayListResponseDto(
-    @Json(name = "result")
-    val result: Int,
     @Json(name = "data")
     val data: List<PlayListDto>
 )
