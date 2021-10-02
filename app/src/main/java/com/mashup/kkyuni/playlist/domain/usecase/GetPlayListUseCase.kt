@@ -11,7 +11,12 @@ class GetPlayListUseCase @Inject constructor(
     private val playListRepository: PlayListRepository
 ) {
 
-    operator fun invoke(): Flow<List<PlayList>> {
+    data class Params(
+        val year: Int,
+        val month: Int
+    )
+
+    operator fun invoke(params: Params): Flow<List<PlayList>> {
         return playListRepository.fetchPlayList()
             .map { it.toPlayList() }
     }
