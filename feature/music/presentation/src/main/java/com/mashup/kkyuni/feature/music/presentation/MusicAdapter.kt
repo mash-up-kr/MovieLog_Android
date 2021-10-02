@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mashup.kkyuni.feature.music.data.model.VideoResponse
+import com.mashup.kkyuni.feature.music.domain.model.Video
 import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
 class MusicAdapter(private val viewModel: MusicViewModel) :
-    ListAdapter<VideoResponse, MusicViewHolder>(DiffUtilCallback) {
+    ListAdapter<Video, MusicViewHolder>(DiffUtilCallback) {
 
-    private object DiffUtilCallback : DiffUtil.ItemCallback<VideoResponse>() {
-        override fun areItemsTheSame(oldItem: VideoResponse, newItem: VideoResponse) = oldItem == newItem
+    private object DiffUtilCallback : DiffUtil.ItemCallback<Video>() {
+        override fun areItemsTheSame(oldItem: Video, newItem: Video) = oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: VideoResponse, newItem: VideoResponse) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: Video, newItem: Video) = oldItem == newItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
@@ -29,7 +29,7 @@ class MusicAdapter(private val viewModel: MusicViewModel) :
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         with(holder.binding) {
-            title = getItem(position).snippetResponse.title
+            title = getItem(position).snippet.title
             viewModel = this@MusicAdapter.viewModel
         }
     }
