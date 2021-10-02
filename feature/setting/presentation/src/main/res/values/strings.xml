@@ -5,4 +5,9 @@
     <string name="inquiry">문의하기</string>
     <string name="creator">만든이</string>
     <string name="app_version">앱 버전정보</string>
+
+    <string name="design">DESIGN</string>
+    <string name="android">ANDROID</string>
+    <string name="web">WEB</string>
+    <string name="spring">SPRING</string>
 </resources>
