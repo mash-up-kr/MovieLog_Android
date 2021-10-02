@@ -65,8 +65,6 @@ dependencies {
 
     implementation "io.coil-kt:coil:$coilVersion"
 
-    // Splash Screen
-    def splashScreenVersion = "1.0.0-alpha02"
     implementation "androidx.core:core-splashscreen:$splashScreenVersion"
 
     testImplementation 'junit:junit:4.+'
