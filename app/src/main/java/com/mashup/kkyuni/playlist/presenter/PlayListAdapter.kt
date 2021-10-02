@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.R
-import com.mashup.kkyuni.playlist.domain.model.PlayList
+import com.mashup.kkyuni.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.playlist.presenter.holder.PlayListViewHolder
 import com.mashup.kkyuni.playlist.presenter.holder.impl.PlayListEmptyViewHolderImpl
 import com.mashup.kkyuni.playlist.presenter.holder.impl.PlayListMusicViewHolderImpl
 
 class PlayListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val playList = mutableListOf<PlayList>()
+    private val playList = mutableListOf<MusicModel>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updatePlayList(list: List<PlayList>){
+    fun updatePlayList(list: List<MusicModel>){
         playList.clear()
         playList.addAll(list)
         notifyDataSetChanged()
@@ -23,8 +23,8 @@ class PlayListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when(playList[position]){
-            is PlayList.EmptyData -> TYPE_EMPTY_LIST
-            is PlayList.MusicData -> TYPE_MUSIC_LIST
+            is MusicModel.EmptyData -> TYPE_EMPTY_LIST
+            is MusicModel.MusicData -> TYPE_MUSIC_LIST
         }
     }
 

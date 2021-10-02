@@ -4,13 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.playlist.domain.model.Date
-import com.mashup.kkyuni.playlist.domain.model.PlayList
+import com.mashup.kkyuni.playlist.domain.model.PlayListState
 import com.mashup.kkyuni.playlist.domain.usecase.GetPlayListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,39 +16,37 @@ class PlayListViewModel @Inject constructor(
     private val getPlayListUseCase: GetPlayListUseCase,
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    private val _dateFlow = MutableStateFlow<Date>(
-        Date(
-            year = savedStateHandle[KEY_YEAR] ?: -1,
-            month = savedStateHandle[KEY_MONTH] ?: -1
+    private val _playListState = MutableStateFlow<PlayListState>(
+        PlayListState.Progress
+    )
+    val playListState = _playListState.asStateFlow()
+
+    init {
+        fetchPlayList(
+            Date(
+                year = savedStateHandle[KEY_YEAR] ?: throw Exception("Check your year data"),
+                month = savedStateHandle[KEY_MONTH] ?: throw Exception("Check your month data")
+            )
         )
-    )
-
-    private val _playListFlow = MutableStateFlow<List<PlayList>>(
-        listOf(PlayList.EmptyData)
-    )
-    val playListFlow = _playListFlow.asStateFlow()
-
-    private fun fetchPlayList() {
-        viewModelScope.launch {
-            runCatching {
-                _dateFlow.collect {
-                    getPlayListUseCase(
-                        GetPlayListUseCase.Params(
-                            year = it.year,
-                            month = it.month
-                        )
-                    )
-                }
-            }.onSuccess {
-                _playListFlow.update { it }
-            }.onFailure {
-                // TODO error 처리
-            }
-        }
     }
 
-    private fun updateDateFlow(year: Int, month: Int){
-        _dateFlow.update { Date(year, month) }
+    fun fetchPlayList(date: Date){
+        viewModelScope.launch {
+            getPlayListUseCase(
+                GetPlayListUseCase.Params(
+                    year = date.year,
+                    month = date.month
+                )
+            ).catch { exception ->
+                _playListState.update {
+                    PlayListState.Fail(
+                    message = exception.message ?: ""
+                    )
+                }
+            }.collect { list ->
+                _playListState.update { PlayListState.Success(list) }
+            }
+        }
     }
 
     companion object {
