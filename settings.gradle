@@ -7,4 +7,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Kkyuni Kkyuni"
-include ':app', ':core', ':widget', ':feature:setting:presentation', ':network'
+include ':app', ':core', ':widget', ':feature:setting:presentation', ':data:network'
+

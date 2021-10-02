@@ -39,9 +39,10 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation(project(":core"))
     implementation(project(":widget"))
-    implementation(project(":network"))
+    implementation(project(":data:network"))
 
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
@@ -56,6 +57,10 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+
+    // OkHttp Logging
+    def loggingVersion = "4.9.1"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingVersion"
     implementation "com.squareup.moshi:moshi:$moshVersion"
 
