@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":widget"))
     implementation(project(":feature:playlist:domain"))
 
     implementation "androidx.core:core-ktx:$coreVersion"

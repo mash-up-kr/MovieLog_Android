@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:background="@color/black_500">
 
         <ImageView
             android:id="@+id/imageview_thumbnail"
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="@{item.title}"
+            android:textAppearance="@style/Music.Title"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="DPRIAN - no blueberries"/>
@@ -48,6 +50,10 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="12dp"
             android:text="@{item.playTime}"
+            android:textAppearance="@style/Music.PlayTime"
+            android:background="@drawable/background_music_playtime"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintTop_toBottomOf="@id/textview_title"
             tools:text="3:24" />
@@ -58,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:text="@{item.releaseDate}"
+            android:textAppearance="@style/Music.ReleaseDate"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail"
             tools:text="2021.09.12"/>
@@ -74,6 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
+            android:background="@color/white_alpha50"
             app:layout_constraintTop_toBottomOf="@id/imageview_thumbnail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
