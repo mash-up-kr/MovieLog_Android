@@ -16,16 +16,14 @@ data class PlayListResponseDto(
 @Keep
 @JsonClass(generateAdapter = true)
 data class PlayListDto(
-    @Json(name = "thumbnailUrl")
-    val thumbnailUrl: String,
-    @Json(name = "singer")
-    val singer: String,
+    @Json(name = "musicThumbnailImage")
+    val musicThumbnailImage: String,
     @Json(name = "title")
     val title: String,
-    @Json(name = "playTime")
-    val playTime: String,
-    @Json(name = "releaseDate")
-    val releaseDate: String,
-    @Json(name = "linkUrl")
-    val linkUrl: String
+    @Json(name = "musicPlayTime")
+    val musicPlayTime: String,
+    @Json(name = "writingDate")
+    val writingDate: String,
+    @Json(name = "youtubeLink")
+    val youtubeLink: String
 )
