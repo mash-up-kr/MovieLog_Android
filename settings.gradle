@@ -15,11 +15,13 @@ include ':app',
         ':feature:calendar:domain',
         ':feature:calendar:data',
         ':data:network',
-        ':feature:music',
         ':feature:playlist:presentation',
         ':feature:playlist:domain',
         ':feature:playlist:data',
         ':feature:login:presentation',
         ':feature:login:data',
-        ':feature:login:domain'
-        ':feature:music:data'
+        ':feature:login:domain',
+        ':feature:music:data',
+        ':feature:music:presentation',
+        ':feature:music:domain'
+
