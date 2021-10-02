@@ -28,4 +28,6 @@ ext {
     hiltVersion = "2.38.1"
 
     coilVersion = "1.3.2"
+
+    playServiceAuthVersion = "19.2.0"
 }
