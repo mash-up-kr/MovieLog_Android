@@ -18,5 +18,6 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="windowSplashScreenAnimationDuration">200</item>
         <item name="postSplashScreenTheme">@style/Theme.AppCompat</item>
+        <item name="android:windowBackground">@color/black_500</item>
     </style>
 </resources>
