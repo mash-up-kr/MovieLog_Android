@@ -11,13 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingFragment : BindingFragment<FragmentSettingBinding>(R.layout.fragment_setting) {
 
     private val viewModel: SettingViewModel by viewModels()
-    private val adapter by lazy { SettingAdapter(viewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        with(binding) {
-            recyclerView.adapter = this@SettingFragment.adapter
-        }
     }
 }
