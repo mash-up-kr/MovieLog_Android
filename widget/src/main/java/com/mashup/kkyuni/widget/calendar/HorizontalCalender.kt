@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.widget.R
-import com.mashup.kkyuni.widget.calendar.AdapterForDates.Companion.attributes
+import com.mashup.kkyuni.widget.calendar.CalendarAdapter.Companion.attributes
 import com.mashup.kkyuni.widget.databinding.CalenderViewBinding
 import java.text.DateFormatSymbols
 import java.text.ParseException
@@ -24,16 +24,16 @@ class HorizontalCalender @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
 
-    private var mFirstCompleteVisibleItemPosition = -1
-    private var mLastCompleteVisibleItemPosition = -1
-    private var mEndDate: Date? = null
-    private var mMonths = DateFormatSymbols().months
-    private var mStartD: Date? = null
-    private lateinit var mBaseDateList: ArrayList<Date>
-    private val mCal = Calendar.getInstance()
-    private var mFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
-    private var mTextColor: Int? = null
-    private var mShowTodayIcon: Boolean? = null
+    private var firstCompleteVisibleItemPosition = -1
+    private var lastCompleteVisibleItemPosition = -1
+    private var endDate: Date? = null
+    private var months = DateFormatSymbols().months
+    private var startD: Date? = null
+    private lateinit var baseDateList: ArrayList<Date>
+    private val calendar = Calendar.getInstance()
+    private var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+    private var textColor: Int? = null
+    private var showTodayIcon: Boolean? = null
 
     private val binding = CalenderViewBinding.inflate(LayoutInflater.from(context))
 
@@ -54,19 +54,19 @@ class HorizontalCalender @JvmOverloads constructor(
     }
 
     private fun horizontalDates(dateItemClickListener: DateItemClickListener) {
-        mFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
-        mStartD = Date()
+        formatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+        startD = Date()
         val calendar = Calendar.getInstance()
-        calendar.time = mStartD
-        val currentMonth = mMonths[calendar.get(Calendar.MONTH)]
+        calendar.time = startD
+        val currentMonth = months[calendar.get(Calendar.MONTH)]
         val currentYear = calendar.get(Calendar.YEAR).toString()
         binding.month.text = "$currentMonth ,$currentYear"
         calendar.add(Calendar.MONTH, -1)
-        mEndDate = calendar.time
-        mBaseDateList = getDates(mFormatter.format(mEndDate), mFormatter.format(mStartD))
-        setAdapter(mBaseDateList, dateItemClickListener)
-        val layoutManager3 = binding.datesRv.layoutManager as? LinearLayoutManager
-        layoutManager3?.scrollToPosition(mBaseDateList.size - 1)
+        endDate = calendar.time
+        baseDateList = getDates(formatter.format(endDate), formatter.format(startD))
+        setAdapter(baseDateList, dateItemClickListener)
+        val layoutManager3 = binding.recyclerView.layoutManager as? LinearLayoutManager
+        layoutManager3?.scrollToPosition(baseDateList.size - 1)
     }
 
     private fun getDates(dateString1: String, dateString2: String): ArrayList<Date> {
@@ -74,16 +74,15 @@ class HorizontalCalender @JvmOverloads constructor(
         val mDates = ArrayList<Date>()
         var startDate: Date? = null
         try {
-            startDate = mFormatter.parse(dateString1)
+            startDate = formatter.parse(dateString1)
         } catch (e: ParseException) {
             e.printStackTrace()
         }
 
         var endDate: Date? = null
         try {
-            endDate = mFormatter.parse(dateString2)
+            endDate = formatter.parse(dateString2)
         } catch (e: ParseException) {
-
             e.printStackTrace()
         }
 
@@ -96,7 +95,6 @@ class HorizontalCalender @JvmOverloads constructor(
         }
 
         return mDates
-
     }
 
     private fun setAdapter(
@@ -104,7 +102,7 @@ class HorizontalCalender @JvmOverloads constructor(
         dateItemClickListener: DateItemClickListener
     ) {
 
-        val mFinalDates = ArrayList<Model>()
+        val finalDateList = ArrayList<Model>()
         val clickedDate = ArrayList<String>()
 
         for (i in 0 until dates.size) {
@@ -118,44 +116,44 @@ class HorizontalCalender @JvmOverloads constructor(
 
             val dayLongName =
                 c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
-            mFinalDates.add(Model(dayOfWeek.toString(), dayLongName))
+            finalDateList.add(Model(dayOfWeek.toString(), dayLongName))
             clickedDate.add(String.format("%02d-%02d-%04d", dayOfWeek, monthh + 1, year))
         }
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         layoutManager.stackFromEnd = true
-        binding.datesRv.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
         layoutManager.scrollToPosition(30)
+        val adapter = CalendarAdapter(finalDateList, context, clickedDate, dates, dateItemClickListener)
+        binding.recyclerView.adapter = adapter
 
-        val adapter =
-            AdapterForDates(mFinalDates, context, clickedDate, dates, dateItemClickListener)
-        binding.datesRv.adapter = adapter
+        adapter.submitList(finalDateList)
 
         binding.today.setOnClickListener {
-            layoutManager.scrollToPosition(mFinalDates.size - 1)
+            layoutManager.scrollToPosition(finalDateList.size - 1)
             binding.today.visibility = View.GONE
         }
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                mCal.set(Calendar.YEAR, year)
-                mCal.set(Calendar.MONTH, monthOfYear)
-                mCal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                Log.d("date", mCal.time.toString())
+                Log.d("date", calendar.time.toString())
                 val calendarSelect = Calendar.getInstance()
-                calendarSelect.time = mCal.time
+                calendarSelect.time = calendar.time
                 calendarSelect.add(Calendar.MONTH, -1)
                 val endDate = calendarSelect.time
                 binding.month.text =
-                    mMonths[calendarSelect.get(Calendar.MONTH)] + ", " + calendarSelect.get(Calendar.YEAR)
-                mBaseDateList = getDates(mFormatter.format(endDate), mFormatter.format(mStartD))
-                setAdapter(mBaseDateList, dateItemClickListener)
-                mEndDate = endDate
-                if (mBaseDateList.size > 30) {
-                    binding.datesRv.smoothScrollToPosition(32)
+                    months[calendarSelect.get(Calendar.MONTH)] + ", " + calendarSelect.get(Calendar.YEAR)
+                baseDateList = getDates(formatter.format(endDate), formatter.format(startD))
+                setAdapter(baseDateList, dateItemClickListener)
+                this.endDate = endDate
+                if (baseDateList.size > 30) {
+                    binding.recyclerView.smoothScrollToPosition(32)
                 } else {
-                    binding.datesRv.smoothScrollToPosition(30)
+                    binding.recyclerView.smoothScrollToPosition(30)
                 }
             }
 
@@ -165,14 +163,14 @@ class HorizontalCalender @JvmOverloads constructor(
             DatePickerDialog(
                 context,
                 dateSetListener,
-                mCal.get(Calendar.YEAR),
-                mCal.get(Calendar.MONTH),
-                mCal.get(Calendar.DAY_OF_MONTH)
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
-            mCal.add(Calendar.MONTH, -1)
+            calendar.add(Calendar.MONTH, -1)
         }
 
-        binding.datesRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -182,41 +180,41 @@ class HorizontalCalender @JvmOverloads constructor(
 
                 if (layoutManagerForPos is GridLayoutManager) {
                     val gridLayoutManager = layoutManagerForPos as GridLayoutManager?
-                    mFirstCompleteVisibleItemPosition =
+                    firstCompleteVisibleItemPosition =
                         gridLayoutManager!!.findFirstCompletelyVisibleItemPosition()
-                    mLastCompleteVisibleItemPosition =
+                    lastCompleteVisibleItemPosition =
                         gridLayoutManager.findLastCompletelyVisibleItemPosition()
                 } else if (layoutManagerForPos is LinearLayoutManager) {
                     val linearLayoutManager = layoutManagerForPos as LinearLayoutManager?
-                    mFirstCompleteVisibleItemPosition =
+                    firstCompleteVisibleItemPosition =
                         linearLayoutManager!!.findFirstCompletelyVisibleItemPosition()
-                    mLastCompleteVisibleItemPosition =
+                    lastCompleteVisibleItemPosition =
                         linearLayoutManager.findLastCompletelyVisibleItemPosition()
                 }
-                if (mFirstCompleteVisibleItemPosition == 0) {
+                if (firstCompleteVisibleItemPosition == 0) {
                     if (dy < 0 || dx < 0) {
                         if (dx < 0) {
                             Log.d("status", "Scrolled LEFT")
                             if (getShowTodayIcon()!!) binding.today.visibility = View.VISIBLE
                             val calendar = Calendar.getInstance()
-                            calendar.time = mEndDate
+                            calendar.time = endDate
                             calendar.add(Calendar.MONTH, -1)
                             val tempEndDate = calendar.time
                             binding.month.text =
-                                mMonths[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
-                            mBaseDateList =
-                                getDates(mFormatter.format(tempEndDate), mFormatter.format(mStartD))
-                            setAdapter(mBaseDateList, dateItemClickListener)
-                            mEndDate = tempEndDate
+                                months[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
+                            baseDateList =
+                                getDates(formatter.format(tempEndDate), formatter.format(startD))
+                            setAdapter(baseDateList, dateItemClickListener)
+                            endDate = tempEndDate
                         }
                     }
                 } else if (totalItemCount != null) {
-                    if (mLastCompleteVisibleItemPosition == totalItemCount - 1) {
+                    if (lastCompleteVisibleItemPosition == totalItemCount - 1) {
                         val calendar = Calendar.getInstance()
-                        val date = mBaseDateList[mLastCompleteVisibleItemPosition]
+                        val date = baseDateList[lastCompleteVisibleItemPosition]
                         calendar.time = date
                         binding.month.text =
-                            mMonths[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
+                            months[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
 
                         if (dy > 0 || dx > 0) {
                             if (dy > 0) {
@@ -232,16 +230,16 @@ class HorizontalCalender @JvmOverloads constructor(
                             Log.d("status", "Scrolled LEFT")
                             if (getShowTodayIcon()!!) binding.today.visibility = View.VISIBLE
                             val calendar = Calendar.getInstance()
-                            val date = mBaseDateList[mFirstCompleteVisibleItemPosition + 1]
+                            val date = baseDateList[firstCompleteVisibleItemPosition + 1]
                             calendar.time = date
                             binding.month.text =
-                                mMonths[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
+                                months[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
                         } else {
                             val calendar = Calendar.getInstance()
-                            val date = mBaseDateList[mLastCompleteVisibleItemPosition]
+                            val date = baseDateList[lastCompleteVisibleItemPosition]
                             calendar.time = date
                             binding.month.text =
-                                mMonths[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
+                                months[calendar.get(Calendar.MONTH)] + ", " + calendar.get(Calendar.YEAR)
                         }
                     }
                 }
@@ -250,20 +248,20 @@ class HorizontalCalender @JvmOverloads constructor(
     }
 
     private fun setTextColorA(int: Int) {
-        this.mTextColor = int
+        this.textColor = int
     }
 
     private fun getTextColorA(): Int? {
-        return mTextColor
+        return textColor
     }
 
 
     private fun setShowTodayIcon(image: Boolean?) {
-        this.mShowTodayIcon = image
+        this.showTodayIcon = image
     }
 
     private fun getShowTodayIcon(): Boolean? {
-        return mShowTodayIcon
+        return showTodayIcon
     }
 
 }

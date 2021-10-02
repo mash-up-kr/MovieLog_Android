@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name    ="com.mashup.kkyuni.StartFragment" />
+        android:name="com.mashup.kkyuni.StartFragment" />
 
     <fragment
         android:id="@+id/calendarFragment"

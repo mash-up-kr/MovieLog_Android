@@ -15,13 +15,13 @@ import com.mashup.kkyuni.widget.databinding.ItemCalendarDateBinding
 import java.text.DateFormatSymbols
 import java.util.*
 
-class AdapterForDates(
+class CalendarAdapter(
     private val mModelItems: ArrayList<Model>,
     private val mContext: Context,
     private val mDatesList: ArrayList<String>,
     private val fullFormatDate: ArrayList<Date>,
     private val dateItemClickListener: DateItemClickListener
-) : ListAdapter<Model, AdapterForDates.ViewHolder>(DiffCallback) {
+) : ListAdapter<Model, CalendarAdapter.CalendarViewHolder>(DiffCallback) {
 
     private object DiffCallback : DiffUtil.ItemCallback<Model>() {
         override fun areItemsTheSame(oldItem: Model, newItem: Model) = oldItem == newItem
@@ -35,17 +35,15 @@ class AdapterForDates(
     private var mSelectedColor: Int? = null
     private var mStrokeWidth: Float? = null
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ViewHolder {
-        return ViewHolder(
-            ItemCalendarDateBinding.inflate(
-                LayoutInflater.from(viewGroup.context),
-                viewGroup,
-                false
-            )
+    override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int) = CalendarViewHolder(
+        ItemCalendarDateBinding.inflate(
+            LayoutInflater.from(viewGroup.context),
+            viewGroup,
+            false
         )
-    }
+    )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val mMonths = DateFormatSymbols().months
         holder.binding.date.text = mModelItems[position].date
         holder.binding.date.setTextColor(
@@ -135,7 +133,8 @@ class AdapterForDates(
         }
     }
 
-    class ViewHolder(val binding: ItemCalendarDateBinding) : RecyclerView.ViewHolder(binding.root)
+    class CalendarViewHolder(val binding: ItemCalendarDateBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     companion object {
         var mMonth: String? = null
