@@ -9,9 +9,18 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class PlayListDataModule {
-    @Binds
-    abstract fun bindPlayListRepository(
-        repositoryImpl: PlayListRepositoryImpl
-    ): PlayListRepository
+class PlayListDataModule {
+    @Provides
+    @Singleton
+    fun provideVideoService(@Named("kkyuni_api") retrofit: Retrofit) =
+        retrofit.create(PlayListService::class.java)
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    interface AbstractModule {
+        @Binds
+        fun bindPlayListRepository(
+            repositoryImpl: PlayListRepositoryImpl
+        ): PlayListRepository
+    }
 }
