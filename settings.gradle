@@ -16,3 +16,6 @@ include ':app',
         ':feature:calendar:data',
         ':data:network',
         ':feature:music'
+include ':feature:playlist:presentation'
+include ':feature:playlist:domain'
+include ':feature:playlist:data'
