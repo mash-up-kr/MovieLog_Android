@@ -1,10 +1,10 @@
-package com.mashup.kkyuni.music.data.model
+package com.mashup.kkyuni.feature.music.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class VideoId(
+data class VideoIdResponse(
     @Json(name="kind") val kind: String,
     @Json(name="videoId") val videoId: String,
     @Json(name="channelId") val channelId: String,
