@@ -20,4 +20,8 @@
         android:id="@+id/musicFragment"
         android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment" />
 
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.mashup.kkyuni.feature.setting.presentation.SettingFragment" />
+
 </navigation>

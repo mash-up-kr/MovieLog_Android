@@ -5,10 +5,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
-
+import retrofit2.Retrofit
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -16,6 +15,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideVideoService(@Named("youtube_api") retrofit: Retrofit) =
+    fun provideVideoService(@Named("youtube_api") retrofit: Retrofit): VideoService =
         retrofit.create(VideoService::class.java)
 }

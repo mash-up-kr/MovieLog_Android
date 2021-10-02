@@ -15,7 +15,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 class NetworkModule {
 
-    private val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
+    private val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/"
 
     @Provides
     @Singleton
