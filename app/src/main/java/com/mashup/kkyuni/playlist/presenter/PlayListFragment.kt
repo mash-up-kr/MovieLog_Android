@@ -9,11 +9,14 @@ import com.mashup.kkyuni.R
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.databinding.FragmentPlayListBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragment_play_list){
     private val playListViewModel: PlayListViewModel by viewModels()
-    private val playListAdapter: PlayListAdapter = PlayListAdapter()
+
+    @Inject
+    lateinit var playListAdapter: PlayListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
