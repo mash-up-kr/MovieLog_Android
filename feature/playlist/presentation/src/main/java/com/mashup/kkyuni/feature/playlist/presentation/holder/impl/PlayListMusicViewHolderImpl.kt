@@ -11,7 +11,9 @@ class PlayListMusicViewHolderImpl(
 
     override fun bind(item: MusicModel) {
         binding.run {
-            this.item = item
+            (item as? MusicModel.MusicData)?.let {
+                this.item = item
+            }
             executePendingBindings()
         }
     }
