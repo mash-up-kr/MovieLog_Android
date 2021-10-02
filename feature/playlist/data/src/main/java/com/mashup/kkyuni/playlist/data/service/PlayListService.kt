@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface PlayListService {
     @GET("getPlayList")
-    fun fetchPlayList(
+    suspend fun fetchPlayList(
         @Query("date")
         date: String
     ): PlayListResponseDto

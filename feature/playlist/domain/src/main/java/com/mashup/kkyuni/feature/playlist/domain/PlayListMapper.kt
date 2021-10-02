@@ -10,8 +10,7 @@ fun PlayListResponseDto.toPlayList(): List<MusicModel> {
         data.map {
             MusicModel.MusicData(
                 thumbnailUrl = it.thumbnailUrl,
-                singer = it.singer,
-                title = it.title,
+                title = "${it.title} - ${it.singer}",
                 playTime = it.playTime,
                 releaseDate = it.releaseDate,
                 linkUrl = it.linkUrl
