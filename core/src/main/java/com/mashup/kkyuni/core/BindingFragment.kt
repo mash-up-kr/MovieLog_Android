@@ -1,4 +1,4 @@
-package com.mashup.kkyuni.base
+package com.mashup.kkyuni.core
 
 import android.os.Bundle
 import android.view.LayoutInflater
