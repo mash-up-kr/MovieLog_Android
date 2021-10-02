@@ -15,7 +15,10 @@ include ':app',
         ':feature:calendar:domain',
         ':feature:calendar:data',
         ':data:network',
-        ':feature:music'
-include ':feature:playlist:presentation'
-include ':feature:playlist:domain'
-include ':feature:playlist:data'
+        ':feature:music',
+        ':feature:playlist:presentation'
+        ':feature:playlist:domain'
+        ':feature:playlist:data'
+        ':feature:login:presentation',
+        ':feature:login:data',
+        ':feature:login:domain'

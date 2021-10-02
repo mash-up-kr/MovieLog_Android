@@ -68,6 +68,10 @@ dependencies {
 
     implementation(project(":feature:setting:presentation"))
 
+    implementation(project(":feature:login:presentation"))
+    implementation(project(":feature:login:domain"))
+    implementation(project(":feature:login:data"))
+
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
@@ -98,6 +102,8 @@ dependencies {
 
     implementation platform("com.google.firebase:firebase-bom:$firebaseVersion")
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation "com.google.android.gms:play-services-auth:$playServiceAuthVersion"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
