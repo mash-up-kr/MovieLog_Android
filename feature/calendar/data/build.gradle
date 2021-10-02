@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 }
@@ -18,7 +18,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -32,13 +32,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:calendar:domain"))
 
-    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
-
-    implementation "com.squareup.moshi:moshi:$moshVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
-    implementation "com.squareup.okhttp3:logging-interceptor:$loggingVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }

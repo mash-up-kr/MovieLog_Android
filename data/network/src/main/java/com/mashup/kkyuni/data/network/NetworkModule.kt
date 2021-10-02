@@ -4,13 +4,18 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
+import javax.inject.Named
 import javax.inject.Singleton
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 @InstallIn(SingletonComponent::class)
 @Module
-object NetworkModule {
+class NetworkModule {
+
+    private val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
 
     @Provides
     @Singleton
@@ -19,4 +24,23 @@ object NetworkModule {
             .build()
     }
 
+    @Named("youtube_api")
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(YOUTUBE_API_URL)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+
+    @Named("kkyuni_api")
+    @Provides
+    @Singleton
+    fun provideKKyuniRetrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl("")
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
 }
