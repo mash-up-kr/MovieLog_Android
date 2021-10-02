@@ -1,6 +1,6 @@
-package com.mahsup.kkyuni.feature.service
+package com.mashup.kkyuni.music.data.service
 
-import com.mahsup.kkyuni.feature.data.Videos
+import com.mashup.kkyuni.music.data.model.Videos
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,6 +12,6 @@ interface SearchVideoService {
         @Query("part") party: String,
         @Query("q") query: String,
         @Query("key") key: String,
-    ): Flow<Videos>
+    ): Flow<com.mashup.kkyuni.music.data.model.Videos>
 
 }

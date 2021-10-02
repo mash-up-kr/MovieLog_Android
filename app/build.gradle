@@ -62,7 +62,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":widget"))
     implementation(project(":data:network"))
-    implementation(project(":feature:music"))
+    implementation(project(':feature:music'))
 
     implementation(project(":feature:playlist:presentation"))
     implementation(project(":feature:playlist:domain"))
