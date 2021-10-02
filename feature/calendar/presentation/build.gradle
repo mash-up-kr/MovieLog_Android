@@ -55,4 +55,6 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    implementation 'com.michalsvec:single-row-calednar:1.0.0'
 }
