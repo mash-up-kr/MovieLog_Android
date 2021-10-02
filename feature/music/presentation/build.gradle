@@ -35,6 +35,7 @@ dependencies {
     implementation(project(":widget"))
     implementation(project(":core"))
     implementation(project(":feature:music:domain"))
+    implementation(project(":feature:music:data"))
 
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"

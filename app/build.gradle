@@ -43,11 +43,16 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":widget"))
     implementation(project(":data:network"))
-    implementation implementation(project(':feature:musics',))
 
     implementation(project(":feature:calendar:presentation"))
     implementation(project(":feature:calendar:domain"))
     implementation(project(":feature:calendar:data"))
+
+
+    implementation(project(':feature:music:presentation'))
+    implementation(project(':feature:music:domain'))
+    implementation(project(':feature:music:data'))
+
 
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
