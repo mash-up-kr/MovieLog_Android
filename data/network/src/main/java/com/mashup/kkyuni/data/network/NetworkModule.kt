@@ -16,7 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class NetworkModule {
 
     private val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
-
+    private val BASE_API_URL = "http://3.37.106.181:8080/api/v1/"
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -39,7 +39,7 @@ class NetworkModule {
     @Singleton
     fun provideKKyuniRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(BASE_API_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
