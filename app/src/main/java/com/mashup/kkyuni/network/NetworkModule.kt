@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
-    const val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search"
+    const val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
 
     @Named("youtube_api")
     @Provides

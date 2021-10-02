@@ -41,4 +41,12 @@ dependencies {
     def moshVersion = "1.12.0"
     implementation "com.squareup.moshi:moshi:$moshVersion"
 
+    // Retrofit
+    def retrofitVersion = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+
+    def coroutineVersion = "1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+
+
 }

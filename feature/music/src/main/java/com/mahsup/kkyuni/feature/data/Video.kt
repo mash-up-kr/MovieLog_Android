@@ -1,4 +1,4 @@
-package com.mahsup.kkyuni.data
+package com.mahsup.kkyuni.feature.data
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
