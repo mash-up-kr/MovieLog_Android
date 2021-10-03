@@ -39,8 +39,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
-    implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
-
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
 }

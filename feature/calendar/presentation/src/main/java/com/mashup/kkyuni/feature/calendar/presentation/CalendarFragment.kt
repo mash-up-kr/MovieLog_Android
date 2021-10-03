@@ -2,31 +2,51 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentCalendarBinding
-import com.mashup.kkyuni.widget.calendar.DateItemClickListener
-import com.michalsvec.singlerowcalendar.calendar.CalendarChangesObserver
-import com.michalsvec.singlerowcalendar.calendar.CalendarViewManager
-import com.michalsvec.singlerowcalendar.calendar.SingleRowCalendarAdapter
-import com.michalsvec.singlerowcalendar.selection.CalendarSelectionManager
-import com.michalsvec.singlerowcalendar.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragment_calendar), DateItemClickListener {
+class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragment_calendar) {
 
     private val viewModel: CalendarViewModel by viewModels()
+
+    private val adapter by lazy { CalendarDayAdapter() }
+    private val snapHelper by lazy { PagerSnapHelper() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.calendar.initialize(this)
-    }
+        binding.recyclerView.adapter = this.adapter
+        snapHelper.attachToRecyclerView(binding.recyclerView)
 
-    override fun onDateClick(date: String) {
+        val list = ArrayList<String>()
+        for (i in 0..50) {
+            list.add("$i")
+        }
+        adapter.submitList(list)
 
+        binding.viewModel = this.viewModel
+
+        viewModel.run {
+            viewLifecycleOwner.lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                    onSetting.collect {
+
+                    }
+
+                    onPlayList.collect {
+
+                    }
+                }
+            }
+        }
     }
 }

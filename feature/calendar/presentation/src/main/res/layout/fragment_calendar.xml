@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.mashup.kkyuni.feature.calendar.presentation.CalendarViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +26,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:onClick="@{() -> viewModel.onClickSetting()}"
                 app:srcCompat="@drawable/ic_setting" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -38,27 +43,25 @@
                 tools:text="2021.10.09" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/play_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
+                android:onClick="@{() -> viewModel.onClickPlayList()}"
                 app:srcCompat="@drawable/ic_play_list" />
         </FrameLayout>
 
-        <com.mashup.kkyuni.widget.calendar.HorizontalCalender
-            android:id="@+id/calendar"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:textColor="#863A5E"
-            app:dayView="true"
-            app:layout_constraintBottom_toTopOf="@id/message"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:selectedColor="#000"
-            app:showTodayIcon="true"
-            app:strokeColor="@color/purple_700_alpha50"
-            app:strokeWidth="4dp"
-            app:unSelectedColor="#7485C9" />
+            tools:listitem="@layout/item_calendar_day" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/message"
