@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185775160482",
+    "project_id": "kkyuni-976aa",
+    "storage_bucket": "kkyuni-976aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185775160482:android:a29b6a59042da2e758abfb",
+        "android_client_info": {
+          "package_name": "com.mashup.kkyuni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185775160482-i5pc90bb9hjk0c2edtnljmj3hjo0smkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDQz1hjAL7cly8GrkeW3MxOA8L3JBJHg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185775160482-i5pc90bb9hjk0c2edtnljmj3hjo0smkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
