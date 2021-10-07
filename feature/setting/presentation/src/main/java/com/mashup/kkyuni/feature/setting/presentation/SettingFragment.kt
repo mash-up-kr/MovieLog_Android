@@ -22,7 +22,7 @@ class SettingFragment : BindingFragment<FragmentSettingBinding>(R.layout.fragmen
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.onBack.collect {
                     findNavController().popBackStack()
                 }
