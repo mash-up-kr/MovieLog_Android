@@ -58,6 +58,10 @@ dependencies {
     implementation(project(":data:network"))
     implementation(project(":feature:music"))
 
+    implementation(project(":feature:playlist:presentation"))
+    implementation(project(":feature:playlist:domain"))
+    implementation(project(":feature:playlist:data"))
+
     implementation(project(":feature:calendar:presentation"))
     implementation(project(":feature:calendar:domain"))
     implementation(project(":feature:calendar:data"))
@@ -80,6 +84,7 @@ dependencies {
     // OkHttp Logging
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingVersion"
     implementation "com.squareup.moshi:moshi:$moshVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshVersion"
 
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"

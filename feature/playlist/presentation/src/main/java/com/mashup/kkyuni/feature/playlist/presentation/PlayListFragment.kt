@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.mashup.kkyuni.core.BindingFragment
+import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.presentation.databinding.FragmentPlayListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,6 +30,13 @@ class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragme
     private fun initView() {
         binding.recyclerViewPlayList.run {
             adapter = playListAdapter
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.run {
+            this.viewModel = playListViewModel
         }
     }
 }

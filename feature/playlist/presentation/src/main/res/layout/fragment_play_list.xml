@@ -4,18 +4,19 @@
 
     <data>
         <variable
-            name="playListViewModel"
+            name="viewModel"
             type="com.mashup.kkyuni.feature.playlist.presentation.PlayListViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:toastMessage="@{viewModel.toastFlow}">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_play_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:updatePlayList="@{playListViewModel.playListState}"
+            app:updatePlayList="@{viewModel.playList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

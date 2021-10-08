@@ -1,22 +1,20 @@
 package com.mashup.kkyuni.playlist.data.repository.impl
 
-import com.mashup.kkyuni.playlist.data.dto.PlayListResponseDto
+import com.mashup.kkyuni.playlist.data.dto.PlayListDto
 import com.mashup.kkyuni.playlist.data.repository.PlayListRepository
 import com.mashup.kkyuni.playlist.data.service.PlayListService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 
-class PlayListRepositoryImpl(
+class PlayListRepositoryImpl @Inject constructor(
     private val service: PlayListService
 ): PlayListRepository {
 
-    override fun fetchPlayList(
+    override suspend fun fetchPlayList(
         date: String
-    ): Flow<PlayListResponseDto> =
-        flow {
-            emit(service.fetchPlayList(date))
-        }.flowOn(Dispatchers.IO)
+    ): Flow<List<PlayListDto>> = flow {
+        emit(service.fetchPlayList(date))
+    }
 }

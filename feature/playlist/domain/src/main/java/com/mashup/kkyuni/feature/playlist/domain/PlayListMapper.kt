@@ -1,17 +1,17 @@
 package com.mashup.kkyuni.feature.playlist.domain
 
 import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
-import com.mashup.kkyuni.playlist.data.dto.PlayListResponseDto
+import com.mashup.kkyuni.playlist.data.dto.PlayListDto
 
-fun PlayListResponseDto.toPlayList(): List<MusicModel> {
-    return if(data.isEmpty()){
+fun List<PlayListDto>.toPlayList(): List<MusicModel> {
+    return if(isEmpty()){
         listOf(MusicModel.EmptyData)
     }else {
-        data.map {
+        map {
             MusicModel.MusicData(
                 thumbnailUrl = it.musicThumbnailImage,
                 title = it.title,
-                playTime = it.musicPlayTime,
+                playTime = it.musicPlayTime.toString(),
                 releaseDate = it.writingDate,
                 linkUrl = it.youtubeLink
             )

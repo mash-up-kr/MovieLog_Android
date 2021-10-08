@@ -3,8 +3,8 @@ package com.mashup.kkyuni.feature.playlist.domain.usecase
 import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.feature.playlist.domain.toPlayList
 import com.mashup.kkyuni.playlist.data.repository.PlayListRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class GetPlayListUseCase @Inject constructor(
@@ -16,9 +16,22 @@ class GetPlayListUseCase @Inject constructor(
         val month: Int
     )
 
-    operator fun invoke(params: Params): Flow<List<MusicModel>> {
+    suspend operator fun invoke(
+        params: Params,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ): Flow<List<MusicModel>> {
         return playListRepository.fetchPlayList(
             date = "${params.year}-${params.month}"
-        ).map { it.toPlayList() }
+        ).map {
+            it.toPlayList()
+        }.onStart {
+            onStart()
+        }.onCompletion {
+            onComplete()
+        }.catch { throwable ->
+            onError(throwable.message)
+        }.flowOn(Dispatchers.IO)
     }
 }

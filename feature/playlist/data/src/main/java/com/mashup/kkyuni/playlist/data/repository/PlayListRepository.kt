@@ -1,10 +1,10 @@
 package com.mashup.kkyuni.playlist.data.repository
 
-import com.mashup.kkyuni.playlist.data.dto.PlayListResponseDto
+import com.mashup.kkyuni.playlist.data.dto.PlayListDto
 import kotlinx.coroutines.flow.Flow
 
 interface PlayListRepository {
-    fun fetchPlayList(
+    suspend fun fetchPlayList(
         date: String
-    ): Flow<PlayListResponseDto>
+    ): Flow<List<PlayListDto>>
 }

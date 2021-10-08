@@ -1,13 +1,13 @@
 package com.mashup.kkyuni.playlist.data.service
 
-import com.mashup.kkyuni.playlist.data.dto.PlayListResponseDto
+import com.mashup.kkyuni.playlist.data.dto.PlayListDto
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface PlayListService {
-    @GET("getPlayList")
+    @GET("diary/{date}/list")
     suspend fun fetchPlayList(
-        @Query("date")
+        @Path("date")
         date: String
-    ): PlayListResponseDto
+    ): List<PlayListDto>
 }

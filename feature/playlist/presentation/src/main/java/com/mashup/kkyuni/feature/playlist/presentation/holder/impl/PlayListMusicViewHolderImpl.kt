@@ -13,8 +13,8 @@ class PlayListMusicViewHolderImpl(
         binding.run {
             (item as? MusicModel.MusicData)?.let {
                 this.item = item
+                executePendingBindings()
             }
-            executePendingBindings()
         }
     }
 }
