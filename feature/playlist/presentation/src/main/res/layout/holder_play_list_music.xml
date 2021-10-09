@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="16dp"
         tools:background="@color/black_500">
 
         <ImageView
@@ -21,11 +22,11 @@
             app:setMusicThumbnail="@{item.thumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_foreground"/>
+            tools:src="@drawable/ic_thumbnail_music"/>
 
         <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_play"
             app:layout_constraintStart_toStartOf="@id/imageview_thumbnail"
             app:layout_constraintTop_toTopOf="@id/imageview_thumbnail"
@@ -73,9 +74,10 @@
             android:id="@+id/imageview_emotion"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_foreground"
+            app:setEmotionImage="@{item.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_emotion_happy"/>
 
         <View
             android:layout_width="0dp"

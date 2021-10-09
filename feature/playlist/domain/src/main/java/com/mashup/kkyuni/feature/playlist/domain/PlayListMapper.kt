@@ -13,7 +13,8 @@ fun List<PlayListDto>.toPlayList(): List<MusicModel> {
                 title = it.title,
                 playTime = it.musicPlayTime.toString(),
                 releaseDate = it.writingDate,
-                linkUrl = it.youtubeLink
+                linkUrl = it.youtubeLink,
+                emotion = it.emotion
             )
         }
     }

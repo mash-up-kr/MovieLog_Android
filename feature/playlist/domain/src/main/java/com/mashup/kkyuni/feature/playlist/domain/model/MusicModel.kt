@@ -9,6 +9,7 @@ sealed class MusicModel {
         val title: String,
         val playTime: String,
         val releaseDate: String,
-        val linkUrl: String
+        val linkUrl: String,
+        val emotion: String
     ): MusicModel()
 }
