@@ -1,4 +1,4 @@
-package com.mashup.kkyuni.playlist.data
+package com.mashup.kkyuni.playlist.data.di
 
 import com.mashup.kkyuni.playlist.data.repository.PlayListRepository
 import com.mashup.kkyuni.playlist.data.repository.impl.PlayListRepositoryImpl
@@ -19,12 +19,12 @@ import javax.inject.Singleton
 class PlayListDataModule {
     @Provides
     @Singleton
-    fun provideVideoService(@Named("kkyuni_api") retrofit: Retrofit) =
+    fun provideVideoService(@Named("kkyuni_api") retrofit: Retrofit): PlayListService =
         retrofit.create(PlayListService::class.java)
 
     @Module
     @InstallIn(ViewModelComponent::class)
-    interface AbstractModule {
+    interface RepositoryModule {
         @Binds
         @ViewModelScoped
         fun bindPlayListRepository(
