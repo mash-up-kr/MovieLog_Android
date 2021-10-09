@@ -11,7 +11,7 @@ import com.mashup.kkyuni.feature.playlist.presentation.holder.impl.PlayListEmpty
 import com.mashup.kkyuni.feature.playlist.presentation.holder.impl.PlayListMusicViewHolderImpl
 import javax.inject.Inject
 
-class PlayListAdapter @Inject constructor(
+class PlayListAdapter(
     private val viewModel: PlayListViewModel
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val playList = mutableListOf<MusicModel>()
