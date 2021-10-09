@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mashup.kkyuni.feature.playlist.presentation.PlayListViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -44,6 +50,7 @@
             android:textAppearance="@style/PlayList.AddMusic"
             android:text="@string/playlist_add_music"
             android:background="@drawable/background_playlist_addmusic"
+            app:onThrottleClick="@{() -> viewModel.onWriteDiary()}"
             app:layout_constraintTop_toBottomOf="@id/textview_empty_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

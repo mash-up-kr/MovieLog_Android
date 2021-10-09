@@ -38,7 +38,8 @@ class PlayListAdapter @Inject constructor(
                 R.layout.holder_play_list_empty,
                 parent,
                 false
-                )
+                ),
+                viewModel
             )
 
             TYPE_MUSIC_LIST -> PlayListMusicViewHolderImpl(

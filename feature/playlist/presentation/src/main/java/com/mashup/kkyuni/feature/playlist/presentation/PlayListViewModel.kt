@@ -83,6 +83,11 @@ class PlayListViewModel @Inject constructor(
         updateDate(date.year, date.month + 1)
     }
 
+    fun onWriteDiary(){
+        //TODO 일기 작성
+        _toastLiveData.value = "일기 작성 하기"
+    }
+
     companion object {
         const val TAG = "PlayListViewModel"
 
