@@ -1,5 +1,6 @@
 package com.mashup.kkyuni.feature.playlist.presentation
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
@@ -18,11 +19,11 @@ class PlayListViewModel @Inject constructor(
     private val _loadingFlow = MutableStateFlow(false)
     val loadingFlow = _loadingFlow.asStateFlow()
 
-    private val _toastFlow = MutableStateFlow("")
-    val toastFlow = _toastFlow.asStateFlow()
+    private val _toastLiveData = MutableLiveData<String>()
+    val toastLiveData get() = _toastLiveData
 
-    private val _backEventFlow = MutableSharedFlow<Unit>()
-    val backEventFlow = _backEventFlow.asSharedFlow()
+    private val _backLiveData = MutableLiveData<Unit>()
+    val backLiveData get() = _backLiveData
 
     private val _dateFlow = MutableStateFlow(
         Date(
@@ -31,7 +32,13 @@ class PlayListViewModel @Inject constructor(
         )
     )
 
-    private val _playListFlow = _dateFlow.flatMapLatest { date ->
+    private val _playListFlow = _dateFlow.filter {
+        val isValid = isValidDate(it)
+
+        if(!isValid) _backLiveData.value = Unit
+
+        isValid
+    }.flatMapLatest { date ->
         getPlayListUseCase(
             GetPlayListUseCase.Params(
                 year = date.year,
@@ -39,21 +46,29 @@ class PlayListViewModel @Inject constructor(
             ),
             onStart = { _loadingFlow.update { true } },
             onComplete = { _loadingFlow.update { false } },
-            onError = { _toastFlow.value = it ?: ""}
+            onError = {
+                if(!it.isNullOrBlank()) Log.e(TAG, it)
+            }
         )
     }
 
     val playList = _playListFlow.asLiveData(viewModelScope.coroutineContext)
+
+    private fun isValidDate(date: Date): Boolean {
+        return !(date.year == -1 || date.month == -1)
+    }
 
     fun updateDate(year: Int, month: Int){
         _dateFlow.value = Date(year, month)
     }
 
     fun onMusicClicked(item: MusicModel.MusicData){
-        _toastFlow.value = item.linkUrl
+        _toastLiveData.value = item.linkUrl
     }
 
     companion object {
+        const val TAG = "PlayListViewModel"
+
         const val KEY_YEAR = "year"
         const val KEY_MONTH = "month"
     }

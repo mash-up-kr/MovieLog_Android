@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.mashup.kkyuni.core.BindingFragment
-import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.presentation.databinding.FragmentPlayListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragment_play_list){
@@ -35,6 +33,20 @@ class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragme
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bindingViewModel()
+        observeLiveData()
+    }
+
+    private fun observeLiveData() {
+        playListViewModel.run {
+            backLiveData.observe(viewLifecycleOwner) {
+                // TODO back
+            }
+        }
+    }
+
+    private fun bindingViewModel(){
         binding.run {
             this.viewModel = playListViewModel
         }
