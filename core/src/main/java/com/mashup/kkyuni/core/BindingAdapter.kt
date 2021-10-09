@@ -13,7 +13,7 @@ fun onThrottleClick(
     view.setOnClickListener(
         ThrottleClickListener(
             listener,
-            interval ?: 1000L
+            interval ?: 500L
         )
     )
 }

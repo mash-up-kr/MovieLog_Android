@@ -6,10 +6,8 @@ import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.feature.playlist.domain.usecase.GetPlayListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -77,6 +75,8 @@ class PlayListViewModel @Inject constructor(
     }
 
     fun onChangeDate(){
+        if(_loadingFlow.value) return
+
         //TODO 테스트 코드 제거
         var date = _dateFlow.value
         if(date.month == 12) date = date.copy(month = 0)
