@@ -1,15 +1,18 @@
 package com.mashup.kkyuni.feature.playlist.presentation
 
+import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.mashup.kkyuni.core.constant.Constant
+import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 
 @BindingAdapter("updatePlayList")
@@ -53,4 +56,10 @@ fun getImageResourceIdByEmotion(emotion: String): Int{
         Constant.Emotion.SAD -> R.drawable.ic_emotion_sad
         else -> R.drawable.ic_emotion_happy
     }
+}
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("setDateText")
+fun bindDateText(view: TextView, date: Date){
+    view.text = "${date.year}.${date.month}"
 }

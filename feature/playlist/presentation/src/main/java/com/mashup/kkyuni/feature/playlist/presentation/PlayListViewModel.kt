@@ -31,14 +31,9 @@ class PlayListViewModel @Inject constructor(
             month = savedStateHandle[KEY_MONTH] ?: -1
         )
     )
+    val dateFlow = _dateFlow.asStateFlow()
 
-    private val _playListFlow = _dateFlow.filter {
-        val isValid = isValidDate(it)
-
-        if(!isValid) _backLiveData.value = Unit
-
-        isValid
-    }.flatMapLatest { date ->
+    private val _playListFlow = _dateFlow.dateFilter().flatMapLatest { date ->
         getPlayListUseCase(
             GetPlayListUseCase.Params(
                 year = date.year,
@@ -58,12 +53,24 @@ class PlayListViewModel @Inject constructor(
         return !(date.year == -1 || date.month == -1)
     }
 
+    private fun Flow<Date>.dateFilter(): Flow<Date> = transform { value ->
+        if (isValidDate(value)) {
+            return@transform emit(value)
+        }else {
+            _backLiveData.value = Unit
+        }
+    }
+
     fun updateDate(year: Int, month: Int){
         _dateFlow.value = Date(year, month)
     }
 
     fun onMusicClicked(item: MusicModel.MusicData){
         _toastLiveData.value = item.linkUrl
+    }
+
+    fun onBack(){
+        _backLiveData.value = Unit
     }
 
     companion object {
