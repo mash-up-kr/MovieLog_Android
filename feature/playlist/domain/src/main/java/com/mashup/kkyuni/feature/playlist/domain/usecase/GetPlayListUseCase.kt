@@ -18,20 +18,11 @@ class GetPlayListUseCase @Inject constructor(
 
     suspend operator fun invoke(
         params: Params,
-        onStart: () -> Unit,
-        onComplete: () -> Unit,
-        onError: (String?) -> Unit
     ): Flow<List<MusicModel>> {
         return playListRepository.fetchPlayList(
             date = "${params.year}-${params.month}"
         ).map {
             it.toPlayList()
-        }.onStart {
-            onStart()
-        }.onCompletion {
-            onComplete()
-        }.catch { throwable ->
-            onError(throwable.message)
-        }.flowOn(Dispatchers.IO)
+        }
     }
 }

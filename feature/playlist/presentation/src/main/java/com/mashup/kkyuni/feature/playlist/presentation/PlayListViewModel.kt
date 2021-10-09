@@ -7,6 +7,7 @@ import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.feature.playlist.domain.usecase.GetPlayListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,13 +39,15 @@ class PlayListViewModel @Inject constructor(
             GetPlayListUseCase.Params(
                 year = date.year,
                 month = date.month
-            ),
-            onStart = { _loadingFlow.update { true } },
-            onComplete = { _loadingFlow.update { false } },
-            onError = {
-                if(!it.isNullOrBlank()) Log.e(TAG, it)
-            }
-        )
+            )
+        ).onStart {
+            _loadingFlow.update { true }
+        }.onCompletion {
+            _loadingFlow.update { false }
+        }.catch { error ->
+            emit(listOf(MusicModel.EmptyData))
+            Log.e(TAG, error.message ?: "")
+        }.flowOn(Dispatchers.IO)
     }
 
     val playList = _playListFlow.asLiveData(viewModelScope.coroutineContext)
