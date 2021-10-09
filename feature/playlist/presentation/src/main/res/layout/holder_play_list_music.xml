@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.mashup.kkyuni.feature.playlist.presentation.PlayListViewModel" />
@@ -27,7 +28,7 @@
             app:setMusicThumbnail="@{item.thumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_thumbnail_music"/>
+            tools:src="@drawable/ic_thumbnail_music" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
             app:layout_constraintStart_toStartOf="@id/imageview_thumbnail"
             app:layout_constraintTop_toTopOf="@id/imageview_thumbnail"
             app:layout_constraintEnd_toEndOf="@id/imageview_thumbnail"
-            app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail"/>
+            app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail" />
 
         <TextView
             android:id="@+id/textview_title"
@@ -47,7 +48,7 @@
             android:textAppearance="@style/Music.Title"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="DPRIAN - no blueberries"/>
+            tools:text="DPRIAN - no blueberries" />
 
         <TextView
             android:id="@+id/textview_play_time"
@@ -73,7 +74,7 @@
             android:textAppearance="@style/Music.ReleaseDate"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail"
-            tools:text="2021.09.12"/>
+            tools:text="2021.09.12" />
 
         <ImageView
             android:id="@+id/imageview_emotion"
@@ -82,7 +83,7 @@
             app:setEmotionImage="@{item.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@drawable/ic_emotion_happy"/>
+            tools:src="@drawable/ic_emotion_happy" />
 
         <View
             android:layout_width="0dp"
@@ -91,7 +92,7 @@
             android:background="@color/white_alpha50"
             app:layout_constraintTop_toBottomOf="@id/imageview_thumbnail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

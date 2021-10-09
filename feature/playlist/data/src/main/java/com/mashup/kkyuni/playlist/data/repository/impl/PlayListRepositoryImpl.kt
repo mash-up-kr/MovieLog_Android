@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class PlayListRepositoryImpl @Inject constructor(
     private val service: PlayListService
-): PlayListRepository {
+) : PlayListRepository {
 
     override suspend fun fetchPlayList(
         date: String

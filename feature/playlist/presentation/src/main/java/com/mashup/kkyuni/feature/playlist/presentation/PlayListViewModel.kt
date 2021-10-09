@@ -14,7 +14,7 @@ import javax.inject.Inject
 class PlayListViewModel @Inject constructor(
     private val getPlayListUseCase: GetPlayListUseCase,
     private val savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
     private val _loadingFlow = MutableStateFlow(false)
     val loadingFlow = _loadingFlow.asStateFlow()
 
@@ -53,7 +53,7 @@ class PlayListViewModel @Inject constructor(
     private fun Flow<Date>.dateFilter(): Flow<Date> = transform { value ->
         if (isValidDate(value)) {
             return@transform emit(value)
-        }else {
+        } else {
             _backLiveData.value = Unit
         }
     }
@@ -62,28 +62,28 @@ class PlayListViewModel @Inject constructor(
         return !(date.year == -1 || date.month == -1)
     }
 
-    fun updateDate(year: Int, month: Int){
+    fun updateDate(year: Int, month: Int) {
         _dateFlow.update { Date(year, month) }
     }
 
-    fun onMusicClicked(item: MusicModel.MusicData){
+    fun onMusicClicked(item: MusicModel.MusicData) {
         _toastLiveData.value = item.linkUrl
     }
 
-    fun onBack(){
+    fun onBack() {
         _backLiveData.value = Unit
     }
 
-    fun onChangeDate(){
-        if(_loadingFlow.value) return
+    fun onChangeDate() {
+        if (_loadingFlow.value) return
 
         //TODO 테스트 코드 제거
         var date = _dateFlow.value
-        if(date.month == 12) date = date.copy(month = 0)
+        if (date.month == 12) date = date.copy(month = 0)
         updateDate(date.year, date.month + 1)
     }
 
-    fun onWriteDiary(){
+    fun onWriteDiary() {
         //TODO 일기 작성
         _toastLiveData.value = "일기 작성 하기"
     }

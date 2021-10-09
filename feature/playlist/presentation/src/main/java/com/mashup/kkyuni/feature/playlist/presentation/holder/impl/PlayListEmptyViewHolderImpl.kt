@@ -9,7 +9,7 @@ import com.mashup.kkyuni.feature.playlist.presentation.holder.PlayListViewHolder
 class PlayListEmptyViewHolderImpl(
     private val binding: HolderPlayListEmptyBinding,
     private val viewModel: PlayListViewModel
-): RecyclerView.ViewHolder(binding.root), PlayListViewHolder {
+) : RecyclerView.ViewHolder(binding.root), PlayListViewHolder {
     init {
         binding.viewModel = viewModel
     }

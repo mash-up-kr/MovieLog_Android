@@ -4,9 +4,9 @@ import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.playlist.data.dto.PlayListDto
 
 fun List<PlayListDto>.toPlayList(): List<MusicModel> {
-    return if(isEmpty()){
+    return if (isEmpty()) {
         listOf(MusicModel.EmptyData)
-    }else {
+    } else {
         map {
             MusicModel.MusicData(
                 thumbnailUrl = it.musicThumbnailImage,

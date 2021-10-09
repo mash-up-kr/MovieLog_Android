@@ -10,7 +10,7 @@ import com.mashup.kkyuni.feature.playlist.presentation.databinding.FragmentPlayL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragment_play_list){
+class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragment_play_list) {
     private val playListViewModel: PlayListViewModel by viewModels()
 
     private val playListAdapter: PlayListAdapter by lazy { PlayListAdapter(playListViewModel) }
@@ -46,7 +46,7 @@ class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragme
         }
     }
 
-    private fun bindingViewModel(){
+    private fun bindingViewModel() {
         binding.run {
             this.viewModel = playListViewModel
         }

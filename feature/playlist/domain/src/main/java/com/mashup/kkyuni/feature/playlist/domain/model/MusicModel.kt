@@ -2,7 +2,7 @@ package com.mashup.kkyuni.feature.playlist.domain.model
 
 sealed class MusicModel {
 
-    object EmptyData: MusicModel()
+    object EmptyData : MusicModel()
 
     data class MusicData(
         val thumbnailUrl: String,
@@ -11,5 +11,5 @@ sealed class MusicModel {
         val releaseDate: String,
         val linkUrl: String,
         val emotion: String
-    ): MusicModel()
+    ) : MusicModel()
 }

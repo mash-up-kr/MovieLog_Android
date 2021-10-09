@@ -13,31 +13,31 @@ import javax.inject.Inject
 
 class PlayListAdapter @Inject constructor(
     private val viewModel: PlayListViewModel
-): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val playList = mutableListOf<MusicModel>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updatePlayList(list: List<MusicModel>){
+    fun updatePlayList(list: List<MusicModel>) {
         playList.clear()
         playList.addAll(list)
         notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(playList[position]){
+        return when (playList[position]) {
             is MusicModel.EmptyData -> TYPE_EMPTY_LIST
             is MusicModel.MusicData -> TYPE_MUSIC_LIST
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
+        return when (viewType) {
             TYPE_EMPTY_LIST -> PlayListEmptyViewHolderImpl(
                 DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.holder_play_list_empty,
-                parent,
-                false
+                    LayoutInflater.from(parent.context),
+                    R.layout.holder_play_list_empty,
+                    parent,
+                    false
                 ),
                 viewModel
             )
@@ -58,9 +58,9 @@ class PlayListAdapter @Inject constructor(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is PlayListViewHolder){
+        if (holder is PlayListViewHolder) {
             holder.bind(playList[position])
-        }else {
+        } else {
             throw TypeCastException("is impossible type cast to PlayListViewHolder")
         }
     }

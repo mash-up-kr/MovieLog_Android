@@ -9,10 +9,11 @@ import com.mashup.kkyuni.feature.playlist.presentation.holder.PlayListViewHolder
 class PlayListMusicViewHolderImpl(
     private val binding: HolderPlayListMusicBinding,
     private val viewModel: PlayListViewModel
-): RecyclerView.ViewHolder(binding.root), PlayListViewHolder {
+) : RecyclerView.ViewHolder(binding.root), PlayListViewHolder {
     init {
         binding.viewModel = viewModel
     }
+
     override fun bind(item: MusicModel) {
         binding.run {
             (item as? MusicModel.MusicData)?.let {
