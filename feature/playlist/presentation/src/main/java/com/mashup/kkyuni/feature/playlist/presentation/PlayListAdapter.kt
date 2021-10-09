@@ -9,8 +9,11 @@ import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.feature.playlist.presentation.holder.PlayListViewHolder
 import com.mashup.kkyuni.feature.playlist.presentation.holder.impl.PlayListEmptyViewHolderImpl
 import com.mashup.kkyuni.feature.playlist.presentation.holder.impl.PlayListMusicViewHolderImpl
+import javax.inject.Inject
 
-class PlayListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlayListAdapter @Inject constructor(
+    private val viewModel: PlayListViewModel
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val playList = mutableListOf<MusicModel>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -37,13 +40,15 @@ class PlayListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 false
                 )
             )
+
             TYPE_MUSIC_LIST -> PlayListMusicViewHolderImpl(
                 DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
                     R.layout.holder_play_list_music,
                     parent,
                     false
-                )
+                ),
+                viewModel
             )
             else -> {
                 throw Exception("is undefined view type")

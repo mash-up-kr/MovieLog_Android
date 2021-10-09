@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PlayListFragment: BindingFragment<FragmentPlayListBinding>(R.layout.fragment_play_list){
     private val playListViewModel: PlayListViewModel by viewModels()
 
-    @Inject lateinit var playListAdapter: PlayListAdapter
+    private val playListAdapter: PlayListAdapter by lazy { PlayListAdapter(playListViewModel) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

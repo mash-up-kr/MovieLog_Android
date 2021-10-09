@@ -5,6 +5,10 @@
 
     <data>
         <variable
+            name="viewModel"
+            type="com.mashup.kkyuni.feature.playlist.presentation.PlayListViewModel" />
+
+        <variable
             name="item"
             type="com.mashup.kkyuni.feature.playlist.domain.model.MusicModel.MusicData" />
     </data>
@@ -13,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
+        app:onThrottleClick="@{() -> viewModel.onMusicClicked(item)}"
         tools:background="@color/black_500">
 
         <ImageView

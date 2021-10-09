@@ -39,14 +39,18 @@ class PlayListViewModel @Inject constructor(
             ),
             onStart = { _loadingFlow.update { true } },
             onComplete = { _loadingFlow.update { false } },
-            onError = { _toastFlow.update { it } }
+            onError = { _toastFlow.value = it ?: ""}
         )
     }
 
     val playList = _playListFlow.asLiveData(viewModelScope.coroutineContext)
 
     fun updateDate(year: Int, month: Int){
-        _dateFlow.update { Date(year, month) }
+        _dateFlow.value = Date(year, month)
+    }
+
+    fun onMusicClicked(item: MusicModel.MusicData){
+        _toastFlow.value = item.linkUrl
     }
 
     companion object {
