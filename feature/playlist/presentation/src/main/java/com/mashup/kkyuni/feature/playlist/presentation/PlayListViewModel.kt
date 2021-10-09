@@ -49,10 +49,6 @@ class PlayListViewModel @Inject constructor(
 
     val playList = _playListFlow.asLiveData(viewModelScope.coroutineContext)
 
-    private fun isValidDate(date: Date): Boolean {
-        return !(date.year == -1 || date.month == -1)
-    }
-
     private fun Flow<Date>.dateFilter(): Flow<Date> = transform { value ->
         if (isValidDate(value)) {
             return@transform emit(value)
@@ -61,8 +57,12 @@ class PlayListViewModel @Inject constructor(
         }
     }
 
+    private fun isValidDate(date: Date): Boolean {
+        return !(date.year == -1 || date.month == -1)
+    }
+
     fun updateDate(year: Int, month: Int){
-        _dateFlow.value = Date(year, month)
+        _dateFlow.update { Date(year, month) }
     }
 
     fun onMusicClicked(item: MusicModel.MusicData){
@@ -71,6 +71,13 @@ class PlayListViewModel @Inject constructor(
 
     fun onBack(){
         _backLiveData.value = Unit
+    }
+
+    fun onChangeDate(){
+        //TODO 아래는 테스트 코드
+        var date = _dateFlow.value
+        if(date.month == 12) date = date.copy(month = 0)
+        updateDate(date.year, date.month + 1)
     }
 
     companion object {
