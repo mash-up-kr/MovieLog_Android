@@ -27,7 +27,7 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
             storePassword 'android'
-            storeFile file("../debug.keystore")
+            storeFile file("debug.keystore")
         }
     }
 
