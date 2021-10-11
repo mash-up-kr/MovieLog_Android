@@ -36,6 +36,9 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
+    implementation "com.squareup.moshi:moshi-kotlin:$moshVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshVersion"
+
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }

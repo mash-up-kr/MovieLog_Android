@@ -1,6 +1,6 @@
 package com.mashup.kkyuni.feature.calendar.data.di
 
-import com.mashup.kkyuni.feature.calendar.data.CalendarService
+import com.mashup.kkyuni.feature.calendar.data.DiaryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +16,5 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideCalendarService(@Named("kkyuni_api") retrofit: Retrofit) =
-        retrofit.create(CalendarService::class.java)
+        retrofit.create(DiaryService::class.java)
 }
