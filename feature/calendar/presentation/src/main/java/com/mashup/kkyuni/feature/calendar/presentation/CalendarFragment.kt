@@ -150,10 +150,10 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         })
 
         formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
-        startDate = Date(1630486800000L)
+        startDate = Date(START_DATE)
 
         Calendar.getInstance().run {
-            time = endDate ?: Date(System.currentTimeMillis() + 604800000L)
+            time = endDate ?: Date(System.currentTimeMillis() + ONE_WEEK)
             endDate = time
             baseDateList = getDateList(formatter.format(startDate), formatter.format(endDate))
             setDateList(baseDateList)
@@ -203,5 +203,12 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         }
 
         return dateList
+    }
+
+    companion object {
+        // 2021.09.01 09:00:00
+        const val START_DATE = 1630486800000L
+        // 1주일 시간
+        const val ONE_WEEK = 604800000L
     }
 }

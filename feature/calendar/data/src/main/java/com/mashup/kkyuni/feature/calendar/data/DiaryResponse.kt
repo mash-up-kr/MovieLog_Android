@@ -7,8 +7,8 @@ import com.squareup.moshi.JsonClass
 data class DiaryResponse(
     @Json(name = "content")
     val content: String,
-    @Json(name = "diaryId")
-    val diaryId: Int? = null,
+    @Json(name = "diaryID")
+    val diaryId: Int,
     @Json(name = "diaryType")
     val diaryType: String,
     @Json(name = "emotion")
