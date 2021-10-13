@@ -1,8 +1,8 @@
-package com.mashup.kkyuni.core
+package com.mashup.kkyuni.widget
 
 import android.view.View
 import androidx.databinding.BindingAdapter
-import com.mashup.kkyuni.core.custom.ThrottleClickListener
+import com.mashup.kkyuni.widget.custom.ThrottleClickListener
 
 @BindingAdapter(requireAll = false, value = ["onThrottleClick", "throttleInterval"])
 fun onThrottleClick(

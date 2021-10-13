@@ -1,4 +1,4 @@
-package com.mashup.kkyuni.core.custom
+package com.mashup.kkyuni.widget.custom
 
 import android.view.View
 import kotlinx.coroutines.CoroutineScope
