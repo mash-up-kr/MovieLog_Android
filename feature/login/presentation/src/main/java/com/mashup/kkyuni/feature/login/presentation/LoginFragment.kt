@@ -58,6 +58,10 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
                     //Todo: 홈 화면으로 넘어가기
                 }
             }
+
+            isLoading.observe(viewLifecycleOwner) {
+                binding.progrssbarLogin.isVisible = it
+            }
         }
     }
 }
