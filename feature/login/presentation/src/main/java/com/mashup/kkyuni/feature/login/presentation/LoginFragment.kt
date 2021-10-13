@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import com.mashup.kkyuni.feature.login.presentation.databinding.FragmentLoginBinding
@@ -34,22 +36,18 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         }
 
         viewModel.run {
-            googleLoginState.observe(viewLifecycleOwner) {
-                if (it == null) {
+            googleLoginState.observe(viewLifecycleOwner) { state ->
+                if (state == null) {
                     return@observe
                 }
-                when (it) {
-                    GoogleLoginState.Success -> {
+                when (state) {
+                    is GoogleLoginState.Success -> {
                         viewModel.loginRequest()
                     }
-                    GoogleLoginState.Canceled -> {
-                        //Doing nothing
-                    }
-                    GoogleLoginState.NetworkError -> {
-                        //Todo: 에러 토스트
-                    }
-                    else -> {
-                        //Todo : 에러 토스트
+                    is GoogleLoginState.Fail -> {
+                        state.errorMessage?.let { message ->
+                            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
