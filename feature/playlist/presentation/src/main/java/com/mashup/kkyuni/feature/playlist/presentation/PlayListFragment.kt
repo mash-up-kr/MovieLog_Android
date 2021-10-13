@@ -15,14 +15,12 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
 
     private val playListAdapter: PlayListAdapter by lazy { PlayListAdapter(playListViewModel) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         initView()
-        return view
+        bindingViewModel()
+        observeLiveData()
     }
 
     private fun initView() {
@@ -31,11 +29,10 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        bindingViewModel()
-        observeLiveData()
+    private fun bindingViewModel() {
+        binding.run {
+            this.viewModel = playListViewModel
+        }
     }
 
     private fun observeLiveData() {
@@ -43,12 +40,6 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
             backLiveData.observe(viewLifecycleOwner) {
                 // TODO back
             }
-        }
-    }
-
-    private fun bindingViewModel() {
-        binding.run {
-            this.viewModel = playListViewModel
         }
     }
 }
