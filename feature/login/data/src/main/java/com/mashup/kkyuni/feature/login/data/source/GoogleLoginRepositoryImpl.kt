@@ -36,11 +36,7 @@ class GoogleLoginRepositoryImpl @Inject constructor(
             id = signInClient.getSignInCredentialFromIntent(data).googleIdToken
             state = GoogleLoginState.Success
         } catch (e: ApiException) {
-            state = when (e.statusCode) {
-                CommonStatusCodes.CANCELED -> GoogleLoginState.Canceled
-                CommonStatusCodes.NETWORK_ERROR -> GoogleLoginState.NetworkError
-                else -> GoogleLoginState.OtherError
-            }
+            state = GoogleLoginState.Fail(e.message)
         }
         callback.invoke(id, state)
     }
