@@ -6,15 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk compile_sdk_version
 
     defaultConfig {
-        minSdk 21
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -30,9 +27,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-    buildFeatures {
-        dataBinding true
     }
 }
 
