@@ -1,4 +1,4 @@
-package com.mashup.kkyuni.feature.login.data
+package com.mashup.kkyuni.feature.login.data.source
 
 import android.content.Intent
 import android.content.IntentSender
@@ -6,7 +6,10 @@ import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
-import com.mashup.kkyuni.feature.login.domain.GoogleLoginRepository
+import com.mashup.kkyuni.feature.login.data.GoogleLoginRequest
+import com.mashup.kkyuni.feature.login.data.toEntity
+import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
+import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginRepository
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -42,15 +45,9 @@ class GoogleLoginRepositoryImpl @Inject constructor(
         callback.invoke(id, state)
     }
 
-    override fun loginRequest(idToken: String, onSuccess: () -> Unit, onFailure: (String?) -> Unit): Flow<String> = flow {
-
-        val response = googleLoginService.login(GoogleLoginRequestDTO(idToken))
-        if (response != null) {
-            //emit(response)
-            emit("")
-            onSuccess.invoke()
-        } else {
-            onFailure.invoke("Error")
-        }
+    override fun loginRequest(idToken: String, onSuccess: () -> Unit, onFailure: (String?) -> Unit): Flow<GoogleLoginAuthInfo> = flow {
+        val response = googleLoginService.login(GoogleLoginRequest(idToken))
+        emit(response.toEntity())
+        onSuccess.invoke()
     }
 }

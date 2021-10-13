@@ -1,13 +1,13 @@
-package com.mashup.kkyuni.feature.login.data
+package com.mashup.kkyuni.feature.login.data.di
 
 import android.content.Context
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.mashup.kkyuni.feature.login.data.source.GoogleLoginService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit

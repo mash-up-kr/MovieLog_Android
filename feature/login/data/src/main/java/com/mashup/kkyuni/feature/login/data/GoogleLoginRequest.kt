@@ -4,6 +4,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class GoogleLoginRequestDTO(
+data class GoogleLoginRequest(
     @Json(name = "idToken") val idToken: String
 )

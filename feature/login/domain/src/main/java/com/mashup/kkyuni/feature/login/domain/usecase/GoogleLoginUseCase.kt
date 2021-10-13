@@ -1,6 +1,7 @@
-package com.mashup.kkyuni.feature.login.domain
+package com.mashup.kkyuni.feature.login.domain.usecase
 
 import android.content.IntentSender
+import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginRepository
 import javax.inject.Inject
 
 class GoogleLoginUseCase @Inject constructor(private val googleGoogleLoginRepository: GoogleLoginRepository) {
