@@ -18,6 +18,27 @@
         <action
             android:id="@+id/action_to_play_list"
             app:destination="@id/action_to_play_list" />
+
+        <action
+            android:id="@+id/action_to_music"
+            app:destination="@id/musicFragment" />
+
+        <action
+            android:id="@+id/action_calendarFragment_to_playListFragment"
+            app:destination="@id/playListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playListFragment"
+        android:name="com.mashup.kkyuni.feature.playlist.presentation.PlayListFragment">
+
+        <argument
+            android:name="year"
+            app:argType="integer"/>
+
+        <argument
+            android:name="month"
+            app:argType="integer"/>
     </fragment>
 
     <fragment

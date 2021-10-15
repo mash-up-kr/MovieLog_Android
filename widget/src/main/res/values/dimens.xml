@@ -6,4 +6,5 @@
 
     <!-- Toolbar -->
     <dimen name="textsize_toolbar">20sp</dimen>
+
 </resources>

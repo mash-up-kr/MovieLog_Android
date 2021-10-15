@@ -205,6 +205,12 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         return dateList
     }
 
+    private fun navigateToPlayListFragment(year: Int, month: Int) {
+        CalendarFragmentDirections.actionCalendarFragmentToPlayListFragment(year, month).run {
+            findNavController().navigate(this)
+        }
+    }
+
     companion object {
         // 2021.09.01 09:00:00
         const val START_DATE = 1630486800000L
