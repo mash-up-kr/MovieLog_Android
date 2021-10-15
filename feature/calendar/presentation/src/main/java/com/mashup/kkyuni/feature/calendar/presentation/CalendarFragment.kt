@@ -80,7 +80,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     val year = get(Calendar.YEAR)
                     val month = get(Calendar.MONTH) + 1
                     val day = get(Calendar.DATE)
-                    viewModel.getDiary("$year-$month-$day")
+                    viewModel.requestDiary("$year-$month-$day")
                 }
             }
         ) {}

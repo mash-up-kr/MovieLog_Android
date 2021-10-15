@@ -24,8 +24,8 @@ class CalendarViewModel @Inject constructor(
     private val _diary = MutableSharedFlow<DiaryEntity>()
     val diary: SharedFlow<DiaryEntity> get() = _diary
 
-    fun getDiary(date: String) = viewModelScope.launch {
-        _diary.emit(getDiary.invoke(date))
+    fun requestDiary(date: String) = viewModelScope.launch {
+        _diary.emit(getDiary(date))
     }
 
     fun onClickSetting() = viewModelScope.launch {
