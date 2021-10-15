@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -17,10 +18,15 @@ class NetworkModule {
 
     private val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3"
     private val BASE_API_URL = "http://3.37.106.181:8080/api/v1/"
+
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
         return OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
             .build()
     }
 

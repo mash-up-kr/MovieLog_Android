@@ -6,16 +6,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
+import com.mashup.kkyuni.feature.calendar.presentation.SnapPageScrollListener.OnChangeListener
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentCalendarBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -31,9 +33,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     private var lastCompleteVisibleItemPosition = -1
 
     private var startDate: Date? = null
-
     private var endDate: Date? = null
-    private var months = DateFormatSymbols().months
 
     private lateinit var baseDateList: ArrayList<Date>
 
@@ -47,13 +47,18 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
         viewModel.run {
             viewLifecycleOwner.lifecycleScope.launch {
-                lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                    onSetting.collect {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
+                    onSetting.collect {
+                        CalendarFragmentDirections.actionToSetting().run {
+                            findNavController().navigate(this)
+                        }
                     }
 
                     onPlayList.collect {
-
+                        CalendarFragmentDirections.actionToPlayList().run {
+                            findNavController().navigate(this)
+                        }
                     }
                 }
             }
@@ -63,6 +68,24 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     private fun initView() {
         binding.recyclerView.adapter = this.adapter
         snapHelper.attachToRecyclerView(binding.recyclerView)
+
+        val snapPagerScrollListener = object : SnapPageScrollListener(
+            snapHelper = snapHelper,
+            type = ON_SETTLED,
+            notifyOnInit = true,
+            listener = OnChangeListener {
+                val time = Date(baseDateList[it].time)
+                Calendar.getInstance().run {
+                    this.time = time
+                    val year = get(Calendar.YEAR)
+                    val month = get(Calendar.MONTH) + 1
+                    val day = get(Calendar.DATE)
+                    viewModel.requestDiary("$year-$month-$day")
+                }
+            }
+        ) {}
+
+        binding.recyclerView.addOnScrollListener(snapPagerScrollListener)
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -127,19 +150,16 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         })
 
         formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
-        startDate = Date(System.currentTimeMillis() + 100000000000L)
-        
+        startDate = Date(START_DATE)
+
         Calendar.getInstance().run {
-            time = startDate
-            val currentMonth = months[get(Calendar.MONTH)]
-            val currentYear = get(Calendar.YEAR).toString()
-            add(Calendar.MONTH, -1)
+            time = endDate ?: Date(System.currentTimeMillis() + ONE_WEEK)
             endDate = time
-            baseDateList = getDateList(formatter.format(endDate), formatter.format(startDate))
+            baseDateList = getDateList(formatter.format(startDate), formatter.format(endDate))
             setDateList(baseDateList)
             val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
             // 현재 위치 찾아서 포지셔닝
-            layoutManager.scrollToPosition(baseDateList.size - 30)
+            layoutManager.scrollToPosition(baseDateList.size - 10)
         }
     }
 
@@ -160,17 +180,17 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         adapter.submitList(list)
     }
 
-    private fun getDateList(dateString1: String, dateString2: String): ArrayList<Date> {
+    private fun getDateList(startDateString: String, endDateString: String): ArrayList<Date> {
         val dateList = ArrayList<Date>()
         var startDate: Date? = null
 
         kotlin.runCatching {
-            startDate = formatter.parse(dateString1)
+            startDate = formatter.parse(startDateString)
         }
 
         var endDate: Date? = null
         kotlin.runCatching {
-            endDate = formatter.parse(dateString2)
+            endDate = formatter.parse(endDateString)
         }
 
         val interval = (24 * 1000 * 60 * 60).toLong()
@@ -183,5 +203,12 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         }
 
         return dateList
+    }
+
+    companion object {
+        // 2021.09.01 09:00:00
+        const val START_DATE = 1630486800000L
+        // 1주일 시간
+        const val ONE_WEEK = 604800000L
     }
 }

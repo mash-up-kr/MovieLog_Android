@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="message">영화같은 오늘을 남겨보세요.</string>
+    <string name="preview_text">영화같은 오늘을 남겨보세요.</string>
+    <string name="message">남기러 가기</string>
 </resources>
