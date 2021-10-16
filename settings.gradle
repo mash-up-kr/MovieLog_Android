@@ -23,5 +23,6 @@ include ':app',
         ':feature:login:domain',
         ':feature:music:data',
         ':feature:music:presentation',
-        ':feature:music:domain'
-
+        ':feature:music:domain',
+        ':feature:music',
+        ':feature:writing:presentation'
