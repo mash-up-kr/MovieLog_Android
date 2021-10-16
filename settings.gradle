@@ -26,4 +26,5 @@ include ':app',
         ':feature:music:domain',
         ':feature:splash:domain',
         ':feature:splash:data',
-        ':feature:splash:presentation'
+        ':feature:splash:presentation',
+        ':feature:writing:presentation'
