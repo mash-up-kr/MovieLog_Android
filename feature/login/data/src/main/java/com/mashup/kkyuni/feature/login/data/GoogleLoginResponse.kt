@@ -8,8 +8,7 @@ import com.squareup.moshi.JsonClass
 data class GoogleLoginResponse(
     @Json(name = "memberID") val memberId: Int,
     @Json(name = "refreshToken") val refreshToken: String,
-    @Json(name = "sub") val sub: String,
     @Json(name = "token") val token: String
 )
 
-fun GoogleLoginResponse.toEntity() = GoogleLoginAuthInfo(memberId, refreshToken, sub, token)
+fun GoogleLoginResponse.toEntity() = GoogleLoginAuthInfo(memberId, refreshToken, token)

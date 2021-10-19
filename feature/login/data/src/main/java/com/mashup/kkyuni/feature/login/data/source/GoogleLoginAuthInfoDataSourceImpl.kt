@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import com.mashup.kkyuni.core.CoroutineDispatcherModule.DispatcherIO
+import com.mashup.kkyuni.feature.login.domain.source.LoginPreferenceManager
 
 class GoogleLoginAuthInfoDataSourceImpl @Inject constructor(
     private val loginPreferenceManager: LoginPreferenceManager,
@@ -18,7 +19,6 @@ class GoogleLoginAuthInfoDataSourceImpl @Inject constructor(
             with(loginPreferenceManager) {
                 setMemberId(googleLoginAuthInfo.memberId)
                 setRefreshToken(googleLoginAuthInfo.refreshToken)
-                setSub(googleLoginAuthInfo.sub)
                 setToken(googleLoginAuthInfo.token)
             }
         }
@@ -29,8 +29,7 @@ class GoogleLoginAuthInfoDataSourceImpl @Inject constructor(
             val memberId = loginPreferenceManager.getMemberId()
             if (memberId < 0) return@withContext null
             val refreshToken = loginPreferenceManager.getRefreshToken() ?: return@withContext null
-            val sub = loginPreferenceManager.getSub() ?: return@withContext null
             val token = loginPreferenceManager.getToken() ?: return@withContext null
-            return@withContext GoogleLoginAuthInfo(memberId, refreshToken, sub, token)
+            return@withContext GoogleLoginAuthInfo(memberId, refreshToken, token)
         }
 }
