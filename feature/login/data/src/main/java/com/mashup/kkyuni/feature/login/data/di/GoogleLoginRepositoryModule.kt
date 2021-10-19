@@ -27,19 +27,4 @@ class GoogleLoginRepositoryModule {
         @Binds
         fun bindGoogleLoginAuthInfoRepository(repository: GoogleLoginAuthInfoRepositoryImpl): GoogleLoginAuthInfoRepository
     }
-
-//    @Provides
-//    fun provideGoogleLoginRepository(
-//        signInClient: SignInClient, signInRequest: BeginSignInRequest
-//    ): GoogleLoginRepository = GoogleLoginRepositoryImpl(signInClient, signInRequest)
-
-//    @Provides
-//    fun provideGoogleLoginAuthInfoDataSource(
-//        loginPreferenceManager: LoginPreferenceManager
-//    ): GoogleLoginAuthInfoDataSource = GoogleLoginAuthInfoDataSourceImpl(loginPreferenceManager)
-//
-//    @Provides
-//    fun provideGoogleLoginAuthRepository(
-//        googleLoginService: GoogleLoginService
-//    ): GoogleLoginAuthInfoRepository = GoogleLoginAuthInfoRepositoryImpl(googleLoginService)
 }
