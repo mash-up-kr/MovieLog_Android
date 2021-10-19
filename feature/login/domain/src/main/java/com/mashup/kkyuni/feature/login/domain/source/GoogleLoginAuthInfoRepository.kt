@@ -3,8 +3,5 @@ package com.mashup.kkyuni.feature.login.domain.source
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
 
 interface GoogleLoginAuthInfoRepository {
-
-    fun setGoogleLoginAuthInfo(googleLoginAuthInfo: GoogleLoginAuthInfo)
-
-    fun getGoogleLoginAuthInfo(): GoogleLoginAuthInfo?
+    suspend fun loginRequest(idToken: String): GoogleLoginAuthInfo
 }

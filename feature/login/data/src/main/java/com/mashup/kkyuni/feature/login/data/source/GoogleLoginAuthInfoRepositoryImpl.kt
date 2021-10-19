@@ -1,28 +1,22 @@
 package com.mashup.kkyuni.feature.login.data.source
 
+import com.mashup.kkyuni.feature.login.data.GoogleLoginRequest
+import com.mashup.kkyuni.feature.login.data.toEntity
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
 import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginAuthInfoRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import com.mashup.kkyuni.core.CoroutineDispatcherModule.DispatcherIO
 
 class GoogleLoginAuthInfoRepositoryImpl @Inject constructor(
-    private val loginPreferenceManager: LoginPreferenceManager
+    private val googleLoginService: GoogleLoginService,
+    @DispatcherIO private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : GoogleLoginAuthInfoRepository {
 
-    override fun setGoogleLoginAuthInfo(googleLoginAuthInfo: GoogleLoginAuthInfo) {
-        with(loginPreferenceManager) {
-            setMemberId(googleLoginAuthInfo.memberId)
-            setRefreshToken(googleLoginAuthInfo.refreshToken)
-            setSub(googleLoginAuthInfo.sub)
-            setToken(googleLoginAuthInfo.token)
+    override suspend fun loginRequest(idToken: String): GoogleLoginAuthInfo =
+        withContext(ioDispatcher) {
+            return@withContext googleLoginService.login(GoogleLoginRequest(idToken)).toEntity()
         }
-    }
-
-    override fun getGoogleLoginAuthInfo(): GoogleLoginAuthInfo? {
-        val memberId = loginPreferenceManager.getMemberId()
-        if (memberId < 0) return null
-        val refreshToken = loginPreferenceManager.getRefreshToken() ?: return null
-        val sub = loginPreferenceManager.getSub() ?: return null
-        val token = loginPreferenceManager.getToken() ?: return null
-        return GoogleLoginAuthInfo(memberId, refreshToken, sub, token)
-    }
 }

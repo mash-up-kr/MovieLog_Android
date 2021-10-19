@@ -5,13 +5,17 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import com.mashup.kkyuni.feature.login.presentation.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_login) {
@@ -20,48 +24,42 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
 
     private val googleLoginActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
-            result.data?.let { viewModel.onActivityResult(it) }
+            result.data?.let { viewModel.tryGoogleLogin(it) }
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.kkyunibottombuttonLogin.setOnClickListener {
-            viewModel.login(
-                onSuccessListener = {
-                    googleLoginActivityResultLauncher.launch(IntentSenderRequest.Builder(it).build())
-                },
-                onFailureListener = {
-                    Log.e("LoginFragment", "${it.message}")
-                }
-            )
-        }
+        super.onViewCreated(view, savedInstanceState)
 
-        viewModel.run {
-            googleLoginState.observe(viewLifecycleOwner) { state ->
-                if (state == null) {
-                    return@observe
-                }
-                when (state) {
-                    is GoogleLoginState.Success -> {
-                        viewModel.loginRequest()
+        binding.viewModel = viewModel
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                with(viewModel) {
+                    selectGoogleAccountState.collect { state ->
+                        if (state is GoogleLoginState.Success) {
+                            googleLoginActivityResultLauncher.launch(
+                                state.data?.let { IntentSenderRequest.Builder(it).build() }
+                            )
+                        } else if (state is GoogleLoginState.Fail) {
+                            showErrorSnackBar(state)
+                        }
                     }
-                    is GoogleLoginState.Fail -> {
-                        state.errorMessage?.let { message ->
-                            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+                    googleLoginState.collect { state ->
+                        if (state is GoogleLoginState.Success) {
+                            Log.d(javaClass.simpleName, "go to MainFragment")
+                            //Todo: 메인 프래그먼트로 이동
+                        } else if (state is GoogleLoginState.Fail) {
+                            showErrorSnackBar(state)
                         }
                     }
                 }
             }
+        }
+    }
 
-            isSuccess.observe(viewLifecycleOwner) {
-                if (it) {
-                    Log.d(javaClass.simpleName, "Login success. go to home")
-                    //Todo: 홈 화면으로 넘어가기
-                }
-            }
-
-            isLoading.observe(viewLifecycleOwner) {
-                binding.progrssbarLogin.isVisible = it
-            }
+    private fun showErrorSnackBar(state: GoogleLoginState.Fail) {
+        state.errorMessage?.let {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
         }
     }
 }
