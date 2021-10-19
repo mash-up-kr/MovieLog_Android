@@ -7,6 +7,4 @@ import com.squareup.moshi.JsonClass
 data class VideoIdResponse(
     @Json(name="kind") val kind: String,
     @Json(name="videoId") val videoId: String,
-    @Json(name="channelId") val channelId: String,
-    @Json(name="playlistId") val playlistId: String
 )

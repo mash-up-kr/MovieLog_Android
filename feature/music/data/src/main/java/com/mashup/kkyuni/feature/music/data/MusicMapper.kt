@@ -2,13 +2,12 @@ package com.mashup.kkyuni.feature.music.data
 
 import com.mashup.kkyuni.feature.music.data.model.*
 import com.mashup.kkyuni.feature.music.domain.model.*
-import com.mashup.kkyuni.music.data.model.VideoThumbnailResponse
 
 fun VideosResponse.toEntity(): Videos {
     return Videos(
         kind = this.kind,
         nextPageToken = this.nextPageToken,
-        prevPageToken = this.prevPageToken,
+        prevPageToken = this.prevPageToken ?: "",
         pageInfo = this.pageInfoResponse.toEntity(),
         items = this.items.map {
             Video(
@@ -24,7 +23,6 @@ fun VideoThumbnailResponse.toEntity(): VideoThumbnail {
     return VideoThumbnail(
         default = this.default.toEntity(),
         medium = this.medium.toEntity(),
-        large = this.large.toEntity()
     )
 }
 
@@ -40,8 +38,6 @@ fun VideoIdResponse.toEntity(): VideoId {
     return VideoId(
         kind = this.kind,
         videoId = this.videoId,
-        channelId = this.channelId,
-        playlistId = this.playlistId
     )
 }
 
@@ -63,7 +59,6 @@ fun VideoResponse.toEntity(): Video {
 fun VideoSnippetResponse.toEntity(): VideoSnippet {
     return VideoSnippet(
         publishedAt = this.publishedAt,
-        channelId = this.channelId,
         title = this.title,
         description = this.description,
         thumbnails = this.thumbnails.toEntity(),

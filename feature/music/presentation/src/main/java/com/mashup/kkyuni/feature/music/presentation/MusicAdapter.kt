@@ -29,8 +29,9 @@ class MusicAdapter(private val viewModel: MusicViewModel) :
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         with(holder.binding) {
-            title = getItem(position).snippet.title
+            video = getItem(position)
             viewModel = this@MusicAdapter.viewModel
+            executePendingBindings()
         }
     }
 }

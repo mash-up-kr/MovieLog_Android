@@ -5,10 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface VideoService {
-    @GET("/search")
+    @GET("search")
     suspend fun searchVideo(
-        @Query("part") part: String ="id,snippet",
+        @Query("part") part: String = "snippet",
         @Query("q") query: String,
-        @Query("key") key: String="AIzaSyD_FgKW4mEpbNKMA09TrGhNd_QZhlqBK",
+        @Query("key") key: String = "AIzaSyD_FgKW4mEpbNKMA09TrGhNd_QZhlqBK-M",
     ): VideosResponse
 }

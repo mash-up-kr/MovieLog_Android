@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="title"
-            type="String" />
+            name="video"
+            type="com.mashup.kkyuni.feature.music.domain.model.Video" />
 
         <variable
             name="viewModel"
@@ -23,6 +23,7 @@
             android:id="@+id/thumbail"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            app:setMusicThumbnail="@{video.snippet.thumbnails.medium.url}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{title}"
+                android:text="@{video.snippet.title}"
                 tools:text="DPAIAN- no blueberries"/>
 
             <TextView
