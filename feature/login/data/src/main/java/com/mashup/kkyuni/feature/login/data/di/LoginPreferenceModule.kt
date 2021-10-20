@@ -9,12 +9,8 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class LoginPreferenceModule {
+abstract class LoginPreferenceModule {
 
-    @Module
-    @InstallIn(SingletonComponent::class)
-    interface AbstractModule {
-        @Binds
-        fun bindsLoginPreferenceManager(manager: LoginPreferenceManagerImpl): LoginPreferenceManager
-    }
+    @Binds
+    abstract fun bindsLoginPreferenceManager(manager: LoginPreferenceManagerImpl): LoginPreferenceManager
 }

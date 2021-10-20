@@ -13,18 +13,14 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class GoogleLoginRepositoryModule {
+abstract class GoogleLoginRepositoryModule {
 
-    @Module
-    @InstallIn(ViewModelComponent::class)
-    interface AbstractModule {
-        @Binds
-        fun bindsGoogleLoginRepository(repository: GoogleLoginRepositoryImpl): GoogleLoginRepository
+    @Binds
+    abstract fun bindsGoogleLoginRepository(repository: GoogleLoginRepositoryImpl): GoogleLoginRepository
 
-        @Binds
-        fun bindGoogleLoginAuthInfoDataSource(dataSource: GoogleLoginAuthInfoDataSourceImpl): GoogleLoginAuthInfoDataSource
+    @Binds
+    abstract fun bindGoogleLoginAuthInfoDataSource(dataSource: GoogleLoginAuthInfoDataSourceImpl): GoogleLoginAuthInfoDataSource
 
-        @Binds
-        fun bindGoogleLoginAuthInfoRepository(repository: GoogleLoginAuthInfoRepositoryImpl): GoogleLoginAuthInfoRepository
-    }
+    @Binds
+    abstract fun bindGoogleLoginAuthInfoRepository(repository: GoogleLoginAuthInfoRepositoryImpl): GoogleLoginAuthInfoRepository
 }

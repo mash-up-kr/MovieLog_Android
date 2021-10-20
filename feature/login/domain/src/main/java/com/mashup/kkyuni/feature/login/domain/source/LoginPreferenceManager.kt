@@ -1,5 +1,7 @@
 package com.mashup.kkyuni.feature.login.domain.source
 
+import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
+
 interface LoginPreferenceManager {
 
     fun setMemberId(memberId: Int)
@@ -10,4 +12,7 @@ interface LoginPreferenceManager {
 
     fun setToken(token: String)
     fun getToken(): String?
+
+    fun setGoogleLoginAuthInfo(googleLoginAuthInfo: GoogleLoginAuthInfo)
+    fun getGoogleLoginAuthInfo(): GoogleLoginAuthInfo?
 }

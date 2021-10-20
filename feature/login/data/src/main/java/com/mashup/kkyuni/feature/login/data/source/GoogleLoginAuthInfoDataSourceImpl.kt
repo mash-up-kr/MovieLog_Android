@@ -16,20 +16,12 @@ class GoogleLoginAuthInfoDataSourceImpl @Inject constructor(
 
     override suspend fun setGoogleLoginAuthInfo(googleLoginAuthInfo: GoogleLoginAuthInfo) {
         withContext(ioDispatcher) {
-            with(loginPreferenceManager) {
-                setMemberId(googleLoginAuthInfo.memberId)
-                setRefreshToken(googleLoginAuthInfo.refreshToken)
-                setToken(googleLoginAuthInfo.token)
-            }
+            loginPreferenceManager.setGoogleLoginAuthInfo(googleLoginAuthInfo)
         }
     }
 
     override suspend fun getGoogleLoginAuthInfo(): GoogleLoginAuthInfo? =
         withContext(ioDispatcher) {
-            val memberId = loginPreferenceManager.getMemberId()
-            if (memberId < 0) return@withContext null
-            val refreshToken = loginPreferenceManager.getRefreshToken() ?: return@withContext null
-            val token = loginPreferenceManager.getToken() ?: return@withContext null
-            return@withContext GoogleLoginAuthInfo(memberId, refreshToken, token)
+            loginPreferenceManager.getGoogleLoginAuthInfo()
         }
 }

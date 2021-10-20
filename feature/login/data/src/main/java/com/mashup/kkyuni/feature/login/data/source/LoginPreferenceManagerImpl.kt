@@ -1,6 +1,7 @@
 package com.mashup.kkyuni.feature.login.data.source
 
 import com.mashup.kkyuni.core.preference.SharedPreferenceManager
+import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
 import com.mashup.kkyuni.feature.login.domain.source.LoginPreferenceManager
 import javax.inject.Inject
 
@@ -36,5 +37,19 @@ class LoginPreferenceManagerImpl @Inject constructor(
 
     override fun getToken(): String? {
         return sharedPreferenceManager.getString(PREF_KEY_TOKEN, null)
+    }
+
+    override fun setGoogleLoginAuthInfo(googleLoginAuthInfo: GoogleLoginAuthInfo) {
+        setMemberId(googleLoginAuthInfo.memberId)
+        setRefreshToken(googleLoginAuthInfo.refreshToken)
+        setToken(googleLoginAuthInfo.token)
+    }
+
+    override fun getGoogleLoginAuthInfo(): GoogleLoginAuthInfo? {
+        val memberId = getMemberId()
+        if (memberId < 0) return null
+        val refreshToken = getRefreshToken() ?: return null
+        val token = getToken() ?: return null
+        return GoogleLoginAuthInfo(memberId, refreshToken, token)
     }
 }
