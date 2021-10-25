@@ -20,20 +20,13 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
 ) {
 
     private val musicViewModel: MusicViewModel by viewModels()
+    private val adapter by lazy { MusicAdapter(musicViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(context)
 
-        val adapter = MusicAdapter(musicViewModel)
-        binding.recycler.adapter = adapter
-        binding.recycler.setLayoutManager(layoutManager)
-        binding.searchBar.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                musicViewModel.search(textView.text.toString())
-            }
-            true
-        }
+        initView()
+
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 musicViewModel.videoList.collect {
@@ -42,4 +35,18 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
             }
         }
     }
+
+    private fun initView() {
+        binding.recycler.run {
+            setLayoutManager(LinearLayoutManager(context))
+            adapter = adapter
+        }
+        binding.searchBar.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                musicViewModel.search(textView.text.toString())
+            }
+            true
+        }
+    }
+
 }
