@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.feature.music.domain.model.Video
 import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
-class MusicAdapter(private val viewModel: MusicViewModel) :
+class MusicAdapter() :
     ListAdapter<Video, MusicViewHolder>(DiffUtilCallback) {
 
     private object DiffUtilCallback : DiffUtil.ItemCallback<Video>() {
-        override fun areItemsTheSame(oldItem: Video, newItem: Video) = oldItem == newItem
+        override fun areItemsTheSame(oldItem: Video, newItem: Video) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Video, newItem: Video) = oldItem == newItem
     }
@@ -30,7 +30,6 @@ class MusicAdapter(private val viewModel: MusicViewModel) :
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         with(holder.binding) {
             video = getItem(position)
-            viewModel = this@MusicAdapter.viewModel
             executePendingBindings()
         }
     }

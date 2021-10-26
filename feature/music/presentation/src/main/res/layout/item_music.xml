@@ -7,10 +7,6 @@
         <variable
             name="video"
             type="com.mashup.kkyuni.feature.music.domain.model.Video" />
-
-        <variable
-            name="viewModel"
-            type="com.mashup.kkyuni.feature.music.presentation.MusicViewModel" />
     </data>
 
     <LinearLayout

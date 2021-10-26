@@ -18,10 +18,10 @@ class MusicViewModel @Inject constructor(private val getMusic: GetMusicUseCase) 
 
     fun search(query: String) {
         viewModelScope.launch {
-            val videos = getMusic(query).items
-
             runCatching {
-                _videoList.emit(videos)
+                getMusic(query).items
+            }.onSuccess {
+                _videoList.emit(it)
             }.onFailure { e ->
                 e.printStackTrace()
             }
