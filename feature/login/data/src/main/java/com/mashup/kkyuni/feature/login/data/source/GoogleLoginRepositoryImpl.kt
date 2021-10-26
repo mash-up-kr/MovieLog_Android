@@ -22,7 +22,7 @@ class GoogleLoginRepositoryImpl @Inject constructor(
     @DispatcherIO private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): GoogleLoginRepository {
 
-    override suspend fun googleLogin(): GoogleLoginState<IntentSender> {
+    override suspend fun googleLogin(): GoogleLoginState {
         return withContext(ioDispatcher) {
             try {
                 GoogleLoginState.Success(awaitGoogleLoginForIntentSender())
@@ -32,7 +32,7 @@ class GoogleLoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getIdToken(data: Intent): GoogleLoginState<String> {
+    override suspend fun getIdToken(data: Intent): GoogleLoginState {
         return withContext(ioDispatcher) {
             try {
                 val idToken = signInClient.getSignInCredentialFromIntent(data).googleIdToken

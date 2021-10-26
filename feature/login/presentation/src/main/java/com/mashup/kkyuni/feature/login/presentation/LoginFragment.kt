@@ -1,15 +1,16 @@
 package com.mashup.kkyuni.feature.login.presentation
 
+import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.android.material.snackbar.Snackbar
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import com.mashup.kkyuni.feature.login.presentation.databinding.FragmentLoginBinding
@@ -35,31 +36,27 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 with(viewModel) {
-                    selectGoogleAccountState.collect { state ->
-                        if (state is GoogleLoginState.Success) {
-                            googleLoginActivityResultLauncher.launch(
-                                state.data?.let { IntentSenderRequest.Builder(it).build() }
-                            )
-                        } else if (state is GoogleLoginState.Fail) {
-                            showErrorSnackBar(state)
-                        }
-                    }
                     googleLoginState.collect { state ->
-                        if (state is GoogleLoginState.Success) {
-                            Log.d(javaClass.simpleName, "go to MainFragment")
-                            //Todo: 메인 프래그먼트로 이동
+                        if (state is GoogleLoginState.Success<*>) {
+                            when (val data = state.data) {
+                                is String -> {
+                                    Log.d(javaClass.simpleName, "go to MainFragment")
+                                    //Todo: 메인 프래그먼트로 이동
+                                }
+                                is IntentSender -> {
+                                    googleLoginActivityResultLauncher.launch(
+                                        IntentSenderRequest.Builder(data).build()
+                                    )
+                                }
+                            }
                         } else if (state is GoogleLoginState.Fail) {
-                            showErrorSnackBar(state)
+                            state.errorMessage?.let {
+                                Toast.makeText(binding.root.context, it, Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 }
             }
-        }
-    }
-
-    private fun showErrorSnackBar(state: GoogleLoginState.Fail) {
-        state.errorMessage?.let {
-            Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
         }
     }
 }

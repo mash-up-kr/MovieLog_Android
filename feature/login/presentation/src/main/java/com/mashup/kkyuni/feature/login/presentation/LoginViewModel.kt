@@ -1,7 +1,6 @@
 package com.mashup.kkyuni.feature.login.presentation
 
 import android.content.Intent
-import android.content.IntentSender
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
@@ -19,15 +18,12 @@ class LoginViewModel @Inject constructor(
     private val googleLoginUseCase: GoogleLoginUseCase
 ) : ViewModel() {
 
-    private val _selectGoogleAccountState = MutableSharedFlow<GoogleLoginState<IntentSender>>()
-    val selectGoogleAccountState: SharedFlow<GoogleLoginState<IntentSender>> = _selectGoogleAccountState
-    
-    private val _googleLoginState = MutableSharedFlow<GoogleLoginState<Unit>>()
-    val googleLoginState: MutableSharedFlow<GoogleLoginState<Unit>> = _googleLoginState
+    private val _googleLoginState = MutableSharedFlow<GoogleLoginState>()
+    val googleLoginState: SharedFlow<GoogleLoginState> = _googleLoginState
 
     fun selectGoogleAccount() {
         viewModelScope.launch {
-            _selectGoogleAccountState.emit(selectGoogleAccountUseCase())
+            _googleLoginState.emit(selectGoogleAccountUseCase())
         }
     }
 

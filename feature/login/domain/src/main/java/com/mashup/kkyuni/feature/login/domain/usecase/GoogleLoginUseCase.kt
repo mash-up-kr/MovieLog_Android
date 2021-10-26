@@ -1,8 +1,6 @@
 package com.mashup.kkyuni.feature.login.domain.usecase
 
 import android.content.Intent
-import android.content.IntentSender
-import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginAuthInfoDataSource
 import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginAuthInfoRepository
@@ -15,20 +13,18 @@ class GoogleLoginUseCase @Inject constructor(
     private val googleLoginAuthInfoDataSource: GoogleLoginAuthInfoDataSource
 ) {
 
-    suspend operator fun invoke(data: Intent): GoogleLoginState<Unit> {
+    suspend operator fun invoke(data: Intent): GoogleLoginState {
         return when (val state = googleGoogleLoginRepository.getIdToken(data)) {
-            is GoogleLoginState.Success -> {
-                if (state.data == null) {
-                    GoogleLoginState.Fail("idToken is null")
+            is GoogleLoginState.Success<*> -> {
+                if (state.data == null || state.data !is String) {
+                    GoogleLoginState.Fail("idToken is wrong")
                 } else {
                     val googleLoginAuthInfo = googleLoginAuthInfoRepository.loginRequest(state.data)
                     googleLoginAuthInfoDataSource.setGoogleLoginAuthInfo(googleLoginAuthInfo)
-                    GoogleLoginState.Success(Unit)
+                    GoogleLoginState.Success(state.data)
                 }
             }
-            is GoogleLoginState.Fail -> {
-                state
-            }
+            else -> state
         }
     }
 }
