@@ -30,6 +30,25 @@ class NetworkModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    @Named("movie_log_client")
+    fun provideMovieLogOkHttpClient(): OkHttpClient {
+        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        return OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor {
+                it.proceed(
+                    it.request().newBuilder().addHeader(
+                        "Authorization",
+                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0U3ViIiwiaWF0IjoxNjM1MzQwMTA5LCJleHAiOjE2NjEyNjAxMDl9.7P_6TEytA2gtFYfXMJX-IqNbjzUCfKGYsfBkDlVnlOY"
+                    ).build()
+                )
+            }.build()
+    }
+
     @Named("youtube_api")
     @Provides
     @Singleton
@@ -43,7 +62,7 @@ class NetworkModule {
     @Named("kkyuni_api")
     @Provides
     @Singleton
-    fun provideKKyuniRetrofit(okHttpClient: OkHttpClient): Retrofit =
+    fun provideKKyuniRetrofit(@Named("movie_log_client") okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_API_URL)
             .client(okHttpClient)
