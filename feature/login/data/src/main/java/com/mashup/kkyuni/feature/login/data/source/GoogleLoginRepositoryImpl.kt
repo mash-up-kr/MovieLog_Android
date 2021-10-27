@@ -4,9 +4,7 @@ import android.content.Intent
 import android.content.IntentSender
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.common.api.ApiException
 import com.mashup.kkyuni.core.CoroutineDispatcherModule.DispatcherIO
-import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -20,30 +18,18 @@ class GoogleLoginRepositoryImpl @Inject constructor(
     private val signInClient: SignInClient,
     private val signInRequest: BeginSignInRequest,
     @DispatcherIO private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-): GoogleLoginRepository {
+) : GoogleLoginRepository {
 
-    override suspend fun googleLogin(): GoogleLoginState {
+    override suspend fun googleLogin(): IntentSender {
         return withContext(ioDispatcher) {
-            try {
-                GoogleLoginState.Success(awaitGoogleLoginForIntentSender())
-            } catch (e: Exception) {
-                GoogleLoginState.Fail(e.message)
-            }
+            awaitGoogleLoginForIntentSender()
         }
     }
 
-    override suspend fun getIdToken(data: Intent): GoogleLoginState {
+    override suspend fun getIdToken(data: Intent): String {
         return withContext(ioDispatcher) {
-            try {
-                val idToken = signInClient.getSignInCredentialFromIntent(data).googleIdToken
-                if (idToken != null) {
-                    GoogleLoginState.Success(idToken)
-                } else {
-                    GoogleLoginState.Fail("idToken is null")
-                }
-            } catch (e: ApiException) {
-                GoogleLoginState.Fail(e.message)
-            }
+            signInClient.getSignInCredentialFromIntent(data).googleIdToken
+                ?: throw IllegalStateException("idToken is null")
         }
     }
 

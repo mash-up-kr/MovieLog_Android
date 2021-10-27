@@ -1,10 +1,10 @@
 package com.mashup.kkyuni.feature.login.domain.source
 
 import android.content.Intent
-import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
+import android.content.IntentSender
 
 interface GoogleLoginRepository {
-    suspend fun googleLogin(): GoogleLoginState
+    suspend fun googleLogin(): IntentSender
 
-    suspend fun getIdToken(data: Intent): GoogleLoginState
+    suspend fun getIdToken(data: Intent): String
 }

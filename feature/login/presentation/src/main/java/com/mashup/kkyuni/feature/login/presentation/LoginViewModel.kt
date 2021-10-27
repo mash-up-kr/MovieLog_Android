@@ -1,14 +1,15 @@
 package com.mashup.kkyuni.feature.login.presentation
 
 import android.content.Intent
+import android.content.IntentSender
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mashup.kkyuni.feature.login.domain.GoogleLoginState
 import com.mashup.kkyuni.feature.login.domain.usecase.GoogleLoginUseCase
 import com.mashup.kkyuni.feature.login.domain.usecase.SelectGoogleAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,18 +19,45 @@ class LoginViewModel @Inject constructor(
     private val googleLoginUseCase: GoogleLoginUseCase
 ) : ViewModel() {
 
-    private val _googleLoginState = MutableSharedFlow<GoogleLoginState>()
-    val googleLoginState: SharedFlow<GoogleLoginState> = _googleLoginState
+    private val _loadingFlow = MutableStateFlow(false)
+    val loadingFlow: StateFlow<Boolean> = _loadingFlow
+
+    private val _toastLiveData = MutableLiveData<String>()
+    val toastLiveData: LiveData<String> = _toastLiveData
+
+    private val _loginSuccess = MutableStateFlow(false)
+    val loginSuccess: StateFlow<Boolean> = _loginSuccess
+
+    private val _selectAccountIntentSender = MutableLiveData<IntentSender>()
+    val selectAccountIntentSender: LiveData<IntentSender> = _selectAccountIntentSender
 
     fun selectGoogleAccount() {
         viewModelScope.launch {
-            _googleLoginState.emit(selectGoogleAccountUseCase())
+            selectGoogleAccountUseCase()
+                .onStart {
+                    _loadingFlow.update { true }
+                }.onCompletion {
+                    _loadingFlow.update { false }
+                }.catch { error ->
+                    _toastLiveData.value = error.message
+                }.collect {
+                    _selectAccountIntentSender.value = it
+                }
         }
     }
 
     fun tryGoogleLogin(data: Intent) {
         viewModelScope.launch {
-            _googleLoginState.emit(googleLoginUseCase(data))
+            googleLoginUseCase(data)
+                .onStart {
+                    _loadingFlow.update { true }
+                }.onCompletion {
+                    _loadingFlow.update { false }
+                }.catch { error ->
+                    _toastLiveData.value = error.message
+                }.collect {
+                    _loginSuccess.emit(true)
+                }
         }
     }
 }
