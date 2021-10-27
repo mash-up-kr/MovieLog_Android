@@ -14,7 +14,7 @@ data class DiaryResponse(
     @Json(name = "emotion")
     val emotion: String,
     @Json(name = "musicPlayTime")
-    val musicPlayTime: Int,
+    val musicPlayTime: Double,
     @Json(name = "musicThumbnailImage")
     val musicThumbnailImage: String,
     @Json(name = "title")

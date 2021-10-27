@@ -5,7 +5,7 @@ class DiaryEntity(
     val diaryId: Int,
     val diaryType: String,
     val emotion: String,
-    val musicPlayTime: Int,
+    val musicPlayTime: Double,
     val musicThumbnailImage: String,
     val title: String,
     val writingDate: String,
