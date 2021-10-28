@@ -48,11 +48,11 @@ fun bindEmotionImage(view: ImageView, emotion: String) {
 }
 
 fun getImageResourceIdByEmotion(emotion: String): Int {
-    return when (emotion) {
-        Constant.Emotion.NORMAL -> R.drawable.ic_emotion_normal
-        Constant.Emotion.MAD -> R.drawable.ic_emotion_mad
-        Constant.Emotion.PANIC -> R.drawable.ic_emotion_panic
-        Constant.Emotion.SAD -> R.drawable.ic_emotion_sad
+    return when (emotion.uppercase()) {
+        Constant.Emotion.NORMAL.name -> R.drawable.ic_emotion_normal
+        Constant.Emotion.MAD.name -> R.drawable.ic_emotion_mad
+        Constant.Emotion.PANIC.name -> R.drawable.ic_emotion_panic
+        Constant.Emotion.SAD.name -> R.drawable.ic_emotion_sad
         else -> R.drawable.ic_emotion_happy
     }
 }

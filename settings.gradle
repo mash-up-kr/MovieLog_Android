@@ -28,3 +28,4 @@ include ':app',
         ':feature:splash:data',
         ':feature:splash:presentation',
         ':feature:writing:presentation'
+
