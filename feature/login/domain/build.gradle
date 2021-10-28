@@ -3,10 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
 }
-
-apply from: "$rootDir/spotless.gradle"
 
 android {
     compileSdk compile_sdk_version
@@ -14,13 +11,13 @@ android {
     defaultConfig {
         minSdk min_sdk_version
         targetSdk target_sdk_version
-        versionCode 1
-        versionName "1.0"
+
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,23 +28,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        dataBinding true
-    }
 }
 
 dependencies {
-
     implementation "androidx.core:core-ktx:$coreVersion"
-    implementation "androidx.appcompat:appcompat:$appcompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-
-    implementation "androidx.activity:activity-ktx:$activityVersion"
-    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+    implementation "com.squareup.moshi:moshi:$moshVersion"
 }
