@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="emotionViewModel"
+            type="com.mashup.kkyuni.feature.writing.presentation.emotion.WritingEmotionViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -135,6 +141,8 @@
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:background="@drawable/background_emotion"
+            app:onThrottleClick="@{() -> emotionViewModel.onSelectedMad()}"
+            app:visibleMad="@{emotionViewModel.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/textview_emotion_mad"
             app:layout_constraintEnd_toEndOf="@id/imageview_emotion_mad"
             app:layout_constraintStart_toStartOf="@id/imageview_emotion_mad"
@@ -145,6 +153,8 @@
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:background="@drawable/background_emotion"
+            app:onThrottleClick="@{() -> emotionViewModel.onSelectedHappy()}"
+            app:visibleHappy="@{emotionViewModel.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/textview_emotion_happy"
             app:layout_constraintEnd_toEndOf="@id/imageview_emotion_happy"
             app:layout_constraintStart_toStartOf="@id/imageview_emotion_happy"
@@ -155,6 +165,8 @@
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:background="@drawable/background_emotion"
+            app:onThrottleClick="@{() -> emotionViewModel.onSelectedNormal()}"
+            app:visibleNormal="@{emotionViewModel.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/textview_emotion_normal"
             app:layout_constraintEnd_toEndOf="@id/imageview_emotion_normal"
             app:layout_constraintStart_toStartOf="@id/imageview_emotion_normal"
@@ -165,6 +177,8 @@
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:background="@drawable/background_emotion"
+            app:onThrottleClick="@{() -> emotionViewModel.onSelectedPanic()}"
+            app:visiblePanic="@{emotionViewModel.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/textview_emotion_panic"
             app:layout_constraintEnd_toEndOf="@id/imageview_emotion_panic"
             app:layout_constraintStart_toStartOf="@id/imageview_emotion_panic"
@@ -175,6 +189,8 @@
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:background="@drawable/background_emotion"
+            app:onThrottleClick="@{() -> emotionViewModel.onSelectedSad()}"
+            app:visibleSad="@{emotionViewModel.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/textview_emotion_sad"
             app:layout_constraintEnd_toEndOf="@id/imageview_emotion_sad"
             app:layout_constraintStart_toStartOf="@id/imageview_emotion_sad"
@@ -187,6 +203,7 @@
             android:text="@string/bottom_button_next"
             android:layout_marginHorizontal="@dimen/bottom_button_margin_horizental"
             style="@style/KkyuniBottomButtonStyle"
+            app:enabledButton="@{emotionViewModel.bottomButtonEnabled}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

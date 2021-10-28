@@ -8,6 +8,7 @@
         android:id="@+id/writingFragment"
         android:name="com.mashup.kkyuni.feature.writing.presentation.WritingFragment"
         android:label="WritingFragment" >
+
         <action
             android:id="@+id/action_to_writingEmotionFragment"
             app:destination="@id/writingEmotionFragment" />

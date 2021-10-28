@@ -7,6 +7,7 @@ import com.mashup.kkyuni.feature.playlist.domain.model.MusicModel
 import com.mashup.kkyuni.feature.playlist.domain.usecase.GetPlayListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -32,6 +33,7 @@ class PlayListViewModel @Inject constructor(
     )
     val dateFlow = _dateFlow.asStateFlow()
 
+    @ExperimentalCoroutinesApi
     private val _playListFlow = _dateFlow.dateFilter().flatMapLatest { date ->
         getPlayListUseCase(
             GetPlayListUseCase.Params(
