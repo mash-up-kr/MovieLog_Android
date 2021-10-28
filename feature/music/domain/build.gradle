@@ -33,14 +33,6 @@ android {
 
 dependencies {
 
-    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
-
-    implementation "com.squareup.moshi:moshi:$moshVersion"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshVersion"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-
-    implementation "com.squareup.okhttp3:logging-interceptor:$loggingVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }

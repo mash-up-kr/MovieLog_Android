@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/musicFragment"
-        android:name="com.mahsup.kkyuni.feature.MusicFragment" />
+        android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment" />
 
     <fragment
         android:id="@+id/settingFragment"
