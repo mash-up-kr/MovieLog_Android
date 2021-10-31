@@ -13,7 +13,7 @@ fun VideosResponse.toEntity(): Videos {
             Video(
                 kind = it.kind,
                 id = it.idResponse.toEntity(),
-                snippet = it.snippetResponse.toEntity()
+                snippet = it.snippet.toEntity(),
             )
         }
     )
@@ -52,7 +52,7 @@ fun VideoResponse.toEntity(): Video {
     return Video(
         kind = this.kind,
         id = this.idResponse.toEntity(),
-        snippet = this.snippetResponse.toEntity()
+        snippet = this.snippet.toEntity()
     )
 }
 
@@ -62,6 +62,27 @@ fun VideoSnippetResponse.toEntity(): VideoSnippet {
         title = this.title,
         description = this.description,
         thumbnails = this.thumbnails.toEntity(),
-        channelTitle = this.channelTitle
+        channelTitle = this.channelTitle,
+    )
+}
+
+fun ContentDetailResponse.toEntity(): ContentDetail {
+    return ContentDetail(
+        duration = this.duration
+    )
+}
+
+fun VideoDetailResponse.toEntity(): VideoDetail {
+    return VideoDetail(
+        id = this.id,
+        contentDetail = this.contentDetails.toEntity()
+    )
+}
+
+fun VideoDetailsResponse.toEntity(): VideoDetails {
+    return VideoDetails(
+        items = this.items.map {
+            it.toEntity()
+        }
     )
 }

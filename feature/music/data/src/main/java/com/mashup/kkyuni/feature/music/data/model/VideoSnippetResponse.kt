@@ -9,5 +9,5 @@ data class VideoSnippetResponse(
     @Json(name="title") val title: String,
     @Json(name="description") val description: String,
     @Json(name="thumbnails") val thumbnails: VideoThumbnailResponse,
-    @Json(name="channelTitle") val channelTitle: String
+    @Json(name="channelTitle") val channelTitle: String,
 )
