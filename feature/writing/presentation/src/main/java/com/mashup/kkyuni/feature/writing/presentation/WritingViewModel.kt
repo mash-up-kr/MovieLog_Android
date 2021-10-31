@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.core.constant.Constant
+import com.mashup.kkyuni.feature.writing.domain.model.Music
 import com.mashup.kkyuni.feature.writing.domain.model.Writing
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,14 +16,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WritingViewModel @Inject constructor(): ViewModel() {
-    private val _writing = MutableStateFlow(Writing())
-    val writing = _writing.asStateFlow()
+    private val _writing = MutableLiveData(Writing())
+    val writing: LiveData<Writing> get() = _writing
 
-    fun updateEmotion(emotion: Constant.Emotion){
-        _writing.update {
-            _writing.value.copy(
-                emotion = emotion
-            )
-        }
+    fun updateEmotion(emotion: Constant.Emotion) {
+        _writing.value = _writing.value?.copy(
+            emotion = emotion
+        )
+    }
+
+    fun updateMusic(music: Music) {
+        _writing.value = _writing.value?.copy(
+            music = music
+        )
     }
 }

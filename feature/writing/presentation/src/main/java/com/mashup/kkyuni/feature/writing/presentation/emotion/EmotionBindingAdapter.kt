@@ -62,19 +62,3 @@ fun View.visibleSad(emotion: Emotion){
         }
     )
 }
-
-@BindingAdapter("enabledButton")
-fun Button.enabledButton(isEnabled: Boolean){
-    this.isEnabled = isEnabled
-
-    setTextColor(
-        ContextCompat.getColor(
-            context,
-            if(isEnabled) R.color.white else R.color.white_alpha50
-        )
-    )
-
-    setBackgroundResource(
-        if(isEnabled) R.color.purple_700 else R.color.purple_700_alpha50
-    )
-}

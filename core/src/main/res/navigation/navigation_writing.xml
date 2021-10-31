@@ -18,4 +18,9 @@
         android:id="@+id/writingEmotionFragment"
         android:name="com.mashup.kkyuni.feature.writing.presentation.emotion.WritingEmotionFragment"
         android:label="WritingEmotionFragment" />
+
+    <fragment
+        android:id="@+id/musicFragment"
+        android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment"
+        android:label="MusicFragment"/>
 </navigation>
