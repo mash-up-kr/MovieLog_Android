@@ -10,47 +10,57 @@ import com.mashup.kkyuni.feature.writing.presentation.R
 
 @BindingAdapter("visibleMad")
 fun View.visibleMad(emotion: Emotion){
-    visibility = if(emotion == Emotion.MAD) {
-        View.VISIBLE
-    }else {
-        View.GONE
-    }
+    setBackgroundResource(
+        if(emotion == Emotion.MAD){
+            R.drawable.background_emotion
+        }else {
+            R.drawable.background_emotion_unselected
+        }
+    )
 }
 
 @BindingAdapter("visibleHappy")
 fun View.visibleHappy(emotion: Emotion){
-    visibility = if(emotion == Emotion.HAPPY) {
-        View.VISIBLE
-    }else {
-        View.GONE
-    }
+    setBackgroundResource(
+        if(emotion == Emotion.HAPPY){
+            R.drawable.background_emotion
+        }else {
+            R.drawable.background_emotion_unselected
+        }
+    )
 }
 
 @BindingAdapter("visibleNormal")
 fun View.visibleNormal(emotion: Emotion){
-    visibility = if(emotion == Emotion.NORMAL) {
-        View.VISIBLE
-    }else {
-        View.GONE
-    }
+    setBackgroundResource(
+        if(emotion == Emotion.NORMAL){
+            R.drawable.background_emotion
+        }else {
+            R.drawable.background_emotion_unselected
+        }
+    )
 }
 
 @BindingAdapter("visiblePanic")
 fun View.visiblePanic(emotion: Emotion){
-    visibility = if(emotion == Emotion.PANIC) {
-        View.VISIBLE
-    }else {
-        View.GONE
-    }
+    setBackgroundResource(
+        if(emotion == Emotion.PANIC){
+            R.drawable.background_emotion
+        }else {
+            R.drawable.background_emotion_unselected
+        }
+    )
 }
 
 @BindingAdapter("visibleSad")
 fun View.visibleSad(emotion: Emotion){
-    visibility = if(emotion == Emotion.SAD) {
-        View.VISIBLE
-    }else {
-        View.GONE
-    }
+    setBackgroundResource(
+        if(emotion == Emotion.SAD){
+            R.drawable.background_emotion
+        }else {
+            R.drawable.background_emotion_unselected
+        }
+    )
 }
 
 @BindingAdapter("enabledButton")
