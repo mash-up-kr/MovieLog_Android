@@ -21,7 +21,7 @@ class WritingEmotionViewModel @Inject constructor(): ViewModel() {
             false
         )
 
-    private val _nextEvent = MutableSharedFlow<Unit>()
+    private val _nextEvent = MutableSharedFlow<Constant.Emotion>()
     val nextEvent = _nextEvent.asSharedFlow()
 
     fun onSelectedMad() {
@@ -56,7 +56,7 @@ class WritingEmotionViewModel @Inject constructor(): ViewModel() {
 
     fun onClickedNext(){
         viewModelScope.launch {
-            _nextEvent.emit(Unit)
+            _nextEvent.emit(_emotion.value)
         }
     }
 }
