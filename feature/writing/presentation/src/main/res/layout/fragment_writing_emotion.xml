@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_background">
+        android:background="@drawable/ic_writing_background">
         
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_top"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            app:srcCompat="@drawable/ic_emotion_normal"
+            android:src="@drawable/ic_emotion_normal"
             app:layout_constraintTop_toBottomOf="@id/textview_emotion_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/emotion_image_margin"
-            app:srcCompat="@drawable/ic_emotion_happy"
+            android:src="@drawable/ic_emotion_happy"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_normal"
             app:layout_constraintBottom_toBottomOf="@id/imageview_emotion_normal"
             app:layout_constraintEnd_toStartOf="@id/imageview_emotion_normal"/>
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/emotion_image_margin"
-            app:srcCompat="@drawable/ic_emotion_mad"
+            android:src="@drawable/ic_emotion_mad"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_happy"
             app:layout_constraintBottom_toBottomOf="@id/imageview_emotion_happy"
             app:layout_constraintEnd_toStartOf="@id/imageview_emotion_happy"/>
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/emotion_image_margin"
-            app:srcCompat="@drawable/ic_emotion_panic"
+            android:src="@drawable/ic_emotion_panic"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_normal"
             app:layout_constraintBottom_toBottomOf="@id/imageview_emotion_normal"
             app:layout_constraintStart_toEndOf="@id/imageview_emotion_normal"/>
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/emotion_image_margin"
-            app:srcCompat="@drawable/ic_emotion_sad"
+            android:src="@drawable/ic_emotion_sad"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_normal"
             app:layout_constraintBottom_toBottomOf="@id/imageview_emotion_normal"
             app:layout_constraintStart_toEndOf="@id/imageview_emotion_panic"/>
@@ -165,7 +165,7 @@
             android:layout_width="60dp"
             android:layout_height="100dp"
             android:background="@drawable/background_emotion"
-            app:onThrottleClick="@{() -> emotionViewModel.onSelectedNormal()}"
+            android:onClick="@{() -> emotionViewModel.onSelectedNormal()}"
             app:visibleNormal="@{emotionViewModel.emotion}"
             app:layout_constraintBottom_toBottomOf="@id/textview_emotion_normal"
             app:layout_constraintEnd_toEndOf="@id/imageview_emotion_normal"
