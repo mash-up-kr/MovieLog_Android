@@ -4,7 +4,10 @@ import android.content.Context
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.mashup.kkyuni.feature.login.data.source.GoogleLoginRepositoryImpl
 import com.mashup.kkyuni.feature.login.data.source.GoogleLoginService
+import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,4 +43,12 @@ class GoogleLoginModule {
     @Provides
     fun provideGoogleLoginService(@Named("kkyuni_api") retrofit: Retrofit): GoogleLoginService =
         retrofit.create(GoogleLoginService::class.java)
+
+    @Module
+    @InstallIn(ViewModelComponent::class)
+    interface AbstractModule {
+
+        @Binds
+        fun bindsGoogleLoginRepository(repository: GoogleLoginRepositoryImpl): GoogleLoginRepository
+    }
 }

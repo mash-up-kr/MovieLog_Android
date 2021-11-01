@@ -1,5 +1,6 @@
 package com.mashup.kkyuni.feature.login.data
 
+import com.mashup.kkyuni.core.auth.UserTokens
 import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -11,4 +12,5 @@ data class GoogleLoginResponse(
     @Json(name = "token") val token: String
 )
 
-fun GoogleLoginResponse.toEntity() = GoogleLoginAuthInfo(memberId, refreshToken, token)
+fun GoogleLoginResponse.toDomainEntity() = GoogleLoginAuthInfo(memberId, refreshToken, token)
+fun GoogleLoginResponse.toUserTokens() = UserTokens(memberId, refreshToken, token)

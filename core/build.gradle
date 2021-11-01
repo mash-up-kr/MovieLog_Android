@@ -50,4 +50,7 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    implementation "com.squareup.moshi:moshi:$moshVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshVersion"
 }
