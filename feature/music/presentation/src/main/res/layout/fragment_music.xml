@@ -33,8 +33,8 @@
                 android:imeActionLabel="검색"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textCursorDrawable="@drawable/drawable_music_edittext_cursor"
-                android:textAppearance="@style/Music.SearchBar" />
+                android:textAppearance="@style/Music.SearchBar"
+                android:textCursorDrawable="@drawable/music_edittext_cursor" />
 
         </RelativeLayout>
 
@@ -56,5 +56,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horizontal_bar" />
+
+        <com.mashup.kkyuni.widget.KkyuniBottomButton
+            android:id="@+id/kkyunibottombutton_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_padding"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/background_music_select_button"
+            android:elevation="10dp"
+            android:enabled="false"
+            android:text="@string/finish_choosing"
+            android:textAppearance="@style/Music.FinishButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
