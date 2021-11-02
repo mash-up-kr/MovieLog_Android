@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Music" />
+
+    <style name="Music.Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/all_gmarketsans_bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Music.PlayTime">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/numbser_blackopsone_regular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Music.SearchBar">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/all_gmarketsans_bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

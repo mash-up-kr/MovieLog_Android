@@ -10,6 +10,7 @@ interface VideoService {
     suspend fun searchVideo(
         @Query("part") part: String = "snippet",
         @Query("q") query: String,
+        @Query("type") type: String = "video",
         @Query("key") key: String = "AIzaSyD_FgKW4mEpbNKMA09TrGhNd_QZhlqBK-M",
     ): VideosResponse
 

@@ -2,46 +2,67 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
+
         <variable
             name="video"
             type="com.mashup.kkyuni.feature.music.domain.model.Video" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
         android:paddingVertical="20dp"
-        android:paddingHorizontal="10dp">
+        tools:background="@color/black_500">
 
         <ImageView
-            android:id="@+id/thumbail"
+            android:id="@+id/imageview_thumbnail"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:scaleType="centerCrop"
             app:setMusicThumbnail="@{video.snippet.thumbnails.medium.url}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_thumbnail_music" />
 
-        <LinearLayout
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{video.snippet.title}"
-                tools:text="DPAIAN- no blueberries"/>
+            android:src="@drawable/ic_play"
+            app:layout_constraintStart_toStartOf="@id/imageview_thumbnail"
+            app:layout_constraintTop_toTopOf="@id/imageview_thumbnail"
+            app:layout_constraintEnd_toEndOf="@id/imageview_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_thumbnail" />
 
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{video.duration}"
-                tools:text="3:24" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textview_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{video.snippet.title}"
+            android:textAppearance="@style/Music.Title"
+            app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DPRIAN - no blueberries" />
+
+        <TextView
+            android:id="@+id/textview_play_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:text="@{video.duration}"
+            android:textAppearance="@style/Music.PlayTime"
+            android:background="@drawable/background_music_duration"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/textview_title"
+            tools:text="3:24" />
 
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

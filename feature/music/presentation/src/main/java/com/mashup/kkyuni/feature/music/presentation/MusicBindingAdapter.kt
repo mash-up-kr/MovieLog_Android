@@ -6,5 +6,6 @@ import coil.load
 
 @BindingAdapter("setMusicThumbnail")
 fun ImageView.setMusicThumbnail(url: String) {
-    load(url)
+    load(url) {
+    }
 }

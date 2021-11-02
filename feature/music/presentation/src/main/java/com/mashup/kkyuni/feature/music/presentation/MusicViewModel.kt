@@ -62,7 +62,6 @@ class MusicViewModel @Inject constructor(
 
         if (duration.indexOf("S") > -1) {
             s = duration.substring(0, duration.indexOf("S"))
-            duration = duration.substring(duration.indexOf("S")+1)
             if (s.length == 1) {
                 s = "0$s"
             }
