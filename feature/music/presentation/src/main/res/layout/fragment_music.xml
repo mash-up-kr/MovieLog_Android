@@ -33,6 +33,7 @@
                 android:imeActionLabel="검색"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
+                android:textCursorDrawable="@drawable/drawable_music_edittext_cursor"
                 android:textAppearance="@style/Music.SearchBar" />
 
         </RelativeLayout>
