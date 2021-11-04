@@ -7,9 +7,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.music.presentation.databinding.FragmentMusicBinding
+import com.mashup.kkyuni.feature.writing.domain.model.Music
+import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,9 +21,9 @@ import kotlinx.coroutines.launch
 class MusicFragment : BindingFragment<FragmentMusicBinding>(
     R.layout.fragment_music
 ) {
-
+    private val writingViewModel: WritingViewModel by viewModels ({ requireParentFragment() })
     private val musicViewModel: MusicViewModel by viewModels()
-    private val musicAdapter by lazy { MusicAdapter() }
+    private val musicAdapter by lazy { MusicAdapter(musicViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,8 +31,27 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                musicViewModel.videoList.collect {
-                    musicAdapter.submitList(it)
+                musicViewModel.run {
+                    launch {
+                        videoList.collect {
+                            musicAdapter.submitList(it)
+                        }
+                    }
+
+                    launch {
+                        selectedVideo.collect {
+                            writingViewModel.updateMusic(
+                                Music(
+                                    thumbnailUrl = it.snippet.thumbnails.medium.url,
+                                    title = it.snippet.title,
+                                    linkUrl = "www.youtube.com/watch?v=${it.id}",
+                                    releaseDate = null,
+                                    playTime = null
+                                )
+                            )
+                            findNavController().popBackStack()
+                        }
+                    }
                 }
             }
         }

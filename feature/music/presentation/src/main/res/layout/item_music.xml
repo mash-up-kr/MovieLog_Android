@@ -7,13 +7,18 @@
         <variable
             name="video"
             type="com.mashup.kkyuni.feature.music.domain.model.Video" />
+
+        <variable
+            name="viewModel"
+            type="com.mashup.kkyuni.feature.music.presentation.MusicViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="20dp"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        app:onThrottleClick="@{() -> viewModel.onVideoClicked(video)}">
 
         <ImageView
             android:id="@+id/thumbail"

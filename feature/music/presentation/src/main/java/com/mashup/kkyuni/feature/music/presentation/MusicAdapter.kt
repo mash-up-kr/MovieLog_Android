@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.feature.music.domain.model.Video
 import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
-class MusicAdapter() :
+class MusicAdapter(val musicViewModel: MusicViewModel) :
     ListAdapter<Video, MusicViewHolder>(DiffUtilCallback) {
 
     private object DiffUtilCallback : DiffUtil.ItemCallback<Video>() {
@@ -29,6 +29,7 @@ class MusicAdapter() :
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         with(holder.binding) {
+            this.viewModel = musicViewModel
             video = getItem(position)
             executePendingBindings()
         }

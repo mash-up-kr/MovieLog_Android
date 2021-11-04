@@ -47,5 +47,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
                 IntentSenderRequest.Builder(it).build()
             )
         }
+
+        findNavController().navigate(R.id.navigation_writing)
     }
 }

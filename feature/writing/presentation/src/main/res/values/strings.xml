@@ -9,5 +9,6 @@
 
     <string name="writing_music_today">오늘의 띵곡은 무엇인가요?</string>
     <string name="writing_music_search">띵곡 검색하기</string>
+    <string name="writing_music_search_again">다시 검색하기</string>
 
 </resources>

@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.writing.presentation.R
 import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
@@ -32,6 +33,8 @@ class WritingEmotionFragment: BindingFragment<FragmentWritingEmotionBinding>(R.l
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 emotionViewModel.nextEvent.collect {
                     writingViewModel.updateEmotion(it)
+
+                    findNavController().navigate(R.id.writingMusicFragment)
                 }
             }
         }

@@ -20,6 +20,11 @@
         android:label="WritingEmotionFragment" />
 
     <fragment
+        android:id="@+id/writingMusicFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.music.WritingMusicFragment"
+        android:label="WritingMusicFragment"/>
+
+    <fragment
         android:id="@+id/musicFragment"
         android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment"
         android:label="MusicFragment"/>
