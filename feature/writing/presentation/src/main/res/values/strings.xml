@@ -11,4 +11,8 @@
     <string name="writing_music_search">띵곡 검색하기</string>
     <string name="writing_music_search_again">다시 검색하기</string>
 
+    <string name="writing_title">영화처럼 오늘을 제목붙인다면?</string>
+    <string name="writing_title_hint">여기에 일기 제목을 작성해주세요(14자)</string>
+    <string name="writing_title_count">%d/14</string>
+
 </resources>
