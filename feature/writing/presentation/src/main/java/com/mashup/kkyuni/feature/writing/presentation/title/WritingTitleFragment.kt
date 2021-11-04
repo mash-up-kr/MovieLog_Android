@@ -31,8 +31,16 @@ class WritingTitleFragment: BindingFragment<FragmentWritingTitleBinding>(R.layou
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 writingTitleViewModel.run {
-                    backEvent.collect {
-                        findNavController().popBackStack()
+                    launch {
+                        backEvent.collect {
+                            findNavController().popBackStack()
+                        }
+                    }
+
+                    launch {
+                        nextEvent.collect {
+                            findNavController().navigate(R.id.contentFragment)
+                        }
                     }
                 }
             }

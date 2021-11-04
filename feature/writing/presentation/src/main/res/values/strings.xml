@@ -15,4 +15,9 @@
     <string name="writing_title_hint">여기에 일기 제목을 작성해주세요(14자)</string>
     <string name="writing_title_count">%d/14</string>
 
+    <string name="writing_content_title">영화같은 오늘을 기록한다면?</string>
+    <string name="writing_content_hint">여기에 일기 내용을 작성해주세요(60자)</string>
+    <string name="writing_content_count">%d/60</string>
+    <string name="writing_complete">작성 완료하기</string>
+
 </resources>

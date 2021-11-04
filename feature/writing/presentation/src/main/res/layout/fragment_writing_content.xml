@@ -5,9 +5,8 @@
 
     <data>
         <variable
-            name="titleViewModel"
-            type="com.mashup.kkyuni.feature.writing.presentation.title.WritingTitleViewModel" />
-
+            name="contentViewModel"
+            type="com.mashup.kkyuni.feature.writing.presentation.content.WritingContentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +20,7 @@
             android:background="@drawable/ic_back"
             android:layout_marginTop="16dp"
             android:layout_marginStart="20dp"
-            app:onThrottleClick="@{() -> titleViewModel.onClickedBack()}"
+            app:onThrottleClick="@{() -> contentViewModel.onClickedBack()}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -39,7 +38,7 @@
             android:id="@+id/textview_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/writing_title"
+            android:text="@string/writing_content_title"
             android:layout_marginTop="36dp"
             android:textAppearance="@style/WritingTitle.title"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@id/imageview_emotion"/>
 
         <EditText
-            android:id="@+id/edittext_title"
+            android:id="@+id/edittext_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -56,7 +55,7 @@
             android:textAppearance="@style/WritingTitle.hint"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:hint="@string/writing_title_hint"
+            android:hint="@string/writing_content_hint"
             app:layout_constraintTop_toBottomOf="@id/textview_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -67,22 +66,21 @@
             android:gravity="center"
             android:textAppearance="@style/WritingTitle.count"
             android:layout_marginTop="8dp"
-            android:text="@{@string/writing_title_count(titleViewModel.titleLength)}"
-            app:visible="@{titleViewModel.isSetTitle()}"
-            app:layout_constraintTop_toBottomOf="@id/edittext_title"
+            android:text="@{@string/writing_content_count(contentViewModel.contentLength)}"
+            app:visible="@{contentViewModel.isSetContent()}"
+            app:layout_constraintTop_toBottomOf="@id/edittext_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="2/14"/>
+            tools:text="2/60"/>
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginBottom="24dp"
-            android:text="@string/bottom_button_next"
+            android:text="@string/writing_complete"
             android:layout_marginHorizontal="@dimen/bottom_button_margin_horizental"
             style="@style/KkyuniBottomButtonStyle"
-            app:enabledButton="@{titleViewModel.isSetTitle()}"
-            app:onThrottleClick="@{() -> titleViewModel.onClickedNext()}"
+            app:enabledButton="@{contentViewModel.isSetContent()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
