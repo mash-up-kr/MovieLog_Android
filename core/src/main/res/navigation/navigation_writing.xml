@@ -33,4 +33,9 @@
         android:id="@+id/titleFragment"
         android:name="com.mashup.kkyuni.feature.writing.presentation.title.WritingTitleFragment"
         android:label="WritingTitleFragment"/>
+
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.content.WritingContentFragment"
+        android:label="WritingContentFragment"/>
 </navigation>
