@@ -137,8 +137,8 @@
 
         <View
             android:id="@+id/view_selected_mad"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
+            android:layout_width="64dp"
+            android:layout_height="104dp"
             android:background="@drawable/background_emotion"
             app:onThrottleClick="@{() -> emotionViewModel.onSelectedMad()}"
             app:visibleMad="@{emotionViewModel.emotion}"
@@ -149,8 +149,8 @@
 
         <View
             android:id="@+id/view_selected_happy"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
+            android:layout_width="64dp"
+            android:layout_height="104dp"
             android:background="@drawable/background_emotion"
             app:onThrottleClick="@{() -> emotionViewModel.onSelectedHappy()}"
             app:visibleHappy="@{emotionViewModel.emotion}"
@@ -161,8 +161,8 @@
 
         <View
             android:id="@+id/view_selected_normal"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
+            android:layout_width="64dp"
+            android:layout_height="104dp"
             android:background="@drawable/background_emotion"
             android:onClick="@{() -> emotionViewModel.onSelectedNormal()}"
             app:visibleNormal="@{emotionViewModel.emotion}"
@@ -173,8 +173,8 @@
 
         <View
             android:id="@+id/view_selected_panic"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
+            android:layout_width="64dp"
+            android:layout_height="104dp"
             android:background="@drawable/background_emotion"
             app:onThrottleClick="@{() -> emotionViewModel.onSelectedPanic()}"
             app:visiblePanic="@{emotionViewModel.emotion}"
@@ -185,8 +185,8 @@
 
         <View
             android:id="@+id/view_selected_sad"
-            android:layout_width="60dp"
-            android:layout_height="100dp"
+            android:layout_width="64dp"
+            android:layout_height="104dp"
             android:background="@drawable/background_emotion"
             app:onThrottleClick="@{() -> emotionViewModel.onSelectedSad()}"
             app:visibleSad="@{emotionViewModel.emotion}"
