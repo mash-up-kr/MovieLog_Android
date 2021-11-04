@@ -34,9 +34,13 @@ class WritingEmotionFragment: BindingFragment<FragmentWritingEmotionBinding>(R.l
                 emotionViewModel.nextEvent.collect {
                     writingViewModel.updateEmotion(it)
 
-                    findNavController().navigate(R.id.writingMusicFragment)
+                    navigateToWritingMusic()
                 }
             }
         }
+    }
+
+    private fun navigateToWritingMusic(){
+        findNavController().navigate(R.id.writingMusicFragment)
     }
 }
