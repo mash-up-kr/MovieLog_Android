@@ -50,6 +50,12 @@ class WritingMusicFragment: BindingFragment<FragmentWritingMusicBinding>(R.layou
                             navigateToMusic()
                         }
                     }
+
+                    launch {
+                        nextEvent.collect {
+                            navigateToTitle()
+                        }
+                    }
                 }
             }
         }
@@ -61,5 +67,9 @@ class WritingMusicFragment: BindingFragment<FragmentWritingMusicBinding>(R.layou
 
     private fun navigateToMusic() {
         findNavController().navigate(R.id.musicFragment)
+    }
+
+    private fun navigateToTitle() {
+        findNavController().navigate(R.id.titleFragment)
     }
 }
