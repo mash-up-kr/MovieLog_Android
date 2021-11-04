@@ -13,8 +13,8 @@ data class Writing (
 data class Music(
     val thumbnailUrl: String,
     val title: String,
-    val playTime: String,
-    val releaseDate: String,
-    val linkUrl: String
+    val linkUrl: String,
+    val playTime: String?,
+    val releaseDate: String?
 )
 

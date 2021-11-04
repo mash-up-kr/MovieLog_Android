@@ -26,4 +26,9 @@
         <item name="fontFamily">@font/all_gmarketsans_medium</item>
         <item name="android:textColor">@color/green_ddf880</item>
     </style>
+    <style name="WritingMusic.MusicTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/white_alpha80</item>
+    </style>
 </resources>

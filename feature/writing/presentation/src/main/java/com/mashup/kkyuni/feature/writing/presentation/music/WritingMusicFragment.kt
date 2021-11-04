@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class WritingMusicFragment: BindingFragment<FragmentWritingMusicBinding>(R.layout.fragment_writing_music) {
     private val musicViewModel by viewModels<WritingMusicViewModel>()
-    private val writingViewModel by viewModels<WritingViewModel>()
+    private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,29 +29,37 @@ class WritingMusicFragment: BindingFragment<FragmentWritingMusicBinding>(R.layou
     }
 
     private fun initView() {
-
+        binding.apply {
+            musicViewModel = this@WritingMusicFragment.musicViewModel
+            writingViewModel = this@WritingMusicFragment.writingViewModel
+        }
     }
 
     private fun collectFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 musicViewModel.run {
-                    backEvent.collect {
-                        onBackPressed()
+                    launch {
+                        backEvent.collect {
+                            onBackPressed()
+                        }
                     }
 
-                    searchEvent.collect {
-                        findNavController().navigate(R.id.musicFragment)
+                    launch {
+                        searchEvent.collect {
+                            navigateToMusic()
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun onBackPressed(){
+    private fun onBackPressed() {
         findNavController().popBackStack()
     }
 
-
-
+    private fun navigateToMusic() {
+        findNavController().navigate(R.id.musicFragment)
+    }
 }

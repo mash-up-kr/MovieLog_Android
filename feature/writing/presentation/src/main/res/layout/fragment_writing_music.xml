@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -48,18 +49,34 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+            android:id="@+id/textview_music_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/writing_music_search"
+            android:textAppearance="@style/WritingMusic.MusicTitle"
+            android:layout_marginTop="16dp"
+            android:text="@{writingViewModel.writing.music.title}"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/textview_today"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Forza Horizon 5 TEST : la claque confirmée ? XBOX SERIES Xs"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="@style/WritingMusic.Search"
             android:layout_marginTop="24dp"
             android:paddingHorizontal="24dp"
             android:paddingVertical="10dp"
             android:background="@drawable/background_music_search"
+            android:text="@{writingViewModel.isSetMusic() ? @string/writing_music_search_again : @string/writing_music_search}"
+            app:layout_goneMarginTop="0dp"
             app:onThrottleClick="@{() -> musicViewModel.onClickedSearch()}"
-            app:layout_constraintTop_toBottomOf="@id/textview_today"
+            app:layout_constraintTop_toBottomOf="@id/textview_music_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="음악 검색하기"/>
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:layout_width="0dp"
@@ -68,6 +85,7 @@
             android:text="@string/bottom_button_next"
             android:layout_marginHorizontal="@dimen/bottom_button_margin_horizental"
             style="@style/KkyuniBottomButtonStyle"
+            app:enabledButton="@{writingViewModel.isSetMusic()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
