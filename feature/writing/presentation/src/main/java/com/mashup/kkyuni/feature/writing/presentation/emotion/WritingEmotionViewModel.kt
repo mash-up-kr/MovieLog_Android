@@ -1,10 +1,10 @@
 package com.mashup.kkyuni.feature.writing.presentation.emotion
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mashup.kkyuni.core.constant.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,39 +24,74 @@ class WritingEmotionViewModel @Inject constructor(): ViewModel() {
     private val _nextEvent = MutableSharedFlow<Constant.Emotion>()
     val nextEvent = _nextEvent.asSharedFlow()
 
-    fun onSelectedMad() {
+    private val _backEvent = MutableSharedFlow<Unit>()
+    val backEvent = _backEvent.asSharedFlow()
+
+    fun setEmotion(emotion: Constant.Emotion){
         viewModelScope.launch {
-            _emotion.emit(Constant.Emotion.MAD)
+            _emotion.emit(emotion)
         }
+    }
+
+    fun onSelectedMad() {
+        setEmotion(
+            if(_emotion.value == Constant.Emotion.MAD){
+                Constant.Emotion.UNKNOWN
+            }else {
+                Constant.Emotion.MAD
+            }
+        )
     }
 
     fun onSelectedHappy(){
-        viewModelScope.launch {
-            _emotion.emit(Constant.Emotion.HAPPY)
-        }
+        setEmotion(
+            if(_emotion.value == Constant.Emotion.HAPPY){
+                Constant.Emotion.UNKNOWN
+            }else {
+                Constant.Emotion.HAPPY
+            }
+        )
     }
 
     fun onSelectedNormal(){
-        viewModelScope.launch {
-            _emotion.emit(Constant.Emotion.NORMAL)
-        }
+        setEmotion(
+            if(_emotion.value == Constant.Emotion.NORMAL){
+                Constant.Emotion.UNKNOWN
+            }else {
+                Constant.Emotion.NORMAL
+            }
+        )
     }
 
     fun onSelectedPanic(){
-        viewModelScope.launch {
-            _emotion.emit(Constant.Emotion.PANIC)
-        }
+        setEmotion(
+            if(_emotion.value == Constant.Emotion.PANIC){
+                Constant.Emotion.UNKNOWN
+            }else {
+                Constant.Emotion.PANIC
+            }
+        )
     }
 
     fun onSelectedSad(){
-        viewModelScope.launch {
-            _emotion.emit(Constant.Emotion.SAD)
-        }
+        setEmotion(
+            if(_emotion.value == Constant.Emotion.SAD){
+                Constant.Emotion.UNKNOWN
+            }else {
+                Constant.Emotion.SAD
+            }
+        )
     }
 
     fun onClickedNext(){
         viewModelScope.launch {
             _nextEvent.emit(_emotion.value)
+        }
+    }
+
+    fun onClickedBack(){
+        viewModelScope.launch {
+            _backEvent.emit(Unit)
         }
     }
 }

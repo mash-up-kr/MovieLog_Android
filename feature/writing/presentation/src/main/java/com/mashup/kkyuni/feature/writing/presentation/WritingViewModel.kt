@@ -25,6 +25,7 @@ class WritingViewModel @Inject constructor(): ViewModel() {
     }
     val isSetMusic get() = _isSetMusic
 
+    fun getCurrentWriting() = _writing.value ?: Writing()
 
     fun updateEmotion(emotion: Constant.Emotion) {
         _writing.value = _writing.value?.copy(
@@ -35,6 +36,18 @@ class WritingViewModel @Inject constructor(): ViewModel() {
     fun updateMusic(music: Music) {
         _writing.value = _writing.value?.copy(
             music = music
+        )
+    }
+
+    fun updateTitle(title: String) {
+        _writing.value = _writing.value?.copy(
+            title = title
+        )
+    }
+
+    fun updateContent(content: String) {
+        _writing.value = _writing.value?.copy(
+            content = content
         )
     }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.writing.presentation.R
+import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
 import com.mashup.kkyuni.feature.writing.presentation.databinding.FragmentWritingTitleBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WritingTitleFragment: BindingFragment<FragmentWritingTitleBinding>(R.layout.fragment_writing_title) {
+    private val writingViewModel by viewModels<WritingViewModel> ({ requireParentFragment() })
     private val writingTitleViewModel by viewModels<WritingTitleViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,19 +29,49 @@ class WritingTitleFragment: BindingFragment<FragmentWritingTitleBinding>(R.layou
         collectFlows()
     }
 
+    private fun initView() {
+        setTitle(writingViewModel.getCurrentWriting().title ?: "")
+
+        binding.run {
+            titleViewModel = writingTitleViewModel
+
+            edittextTitle.addTextChangedListener(object : TextWatcher{
+                var inputStartIndex: Int = 0
+                var inputCount: Int = 0
+                override fun beforeTextChanged(charSequence: CharSequence, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
+                    inputStartIndex = start
+                    inputCount = count
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+                    if(editable.length > LIMIT_TITLE_LENGTH){
+                        editable.delete(inputStartIndex, inputStartIndex + inputCount)
+                    }
+
+                    setTitle(editable.toString())
+                }
+            })
+        }
+    }
+
     private fun collectFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 writingTitleViewModel.run {
                     launch {
                         backEvent.collect {
-                            findNavController().popBackStack()
+                            onBackPressed()
                         }
                     }
 
                     launch {
                         nextEvent.collect {
-                            findNavController().navigate(R.id.contentFragment)
+                            updateTitle(it)
+
+                            navigateToWritingContent()
                         }
                     }
                 }
@@ -47,26 +79,25 @@ class WritingTitleFragment: BindingFragment<FragmentWritingTitleBinding>(R.layou
         }
     }
 
-    private fun initView() {
-        binding.titleViewModel = writingTitleViewModel
+    // 작성 완료시 타이틀 업데이트
+    private fun updateTitle(title: String){
+        writingViewModel.updateTitle(title)
+    }
 
-        binding.edittextTitle.addTextChangedListener(object : TextWatcher{
-            var inputStartIndex: Int = 0
-            var inputCount: Int = 0
-            override fun beforeTextChanged(charSequence: CharSequence, start: Int, count: Int, after: Int) {
-            }
+    // 이미 타이틀 작성이 되어 있다면 뷰 업데이트
+    private fun setTitle(title: String){
+        writingTitleViewModel.setTitle(title)
+    }
 
-            override fun onTextChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
-                inputStartIndex = start
-                inputCount = count
-            }
+    private fun onBackPressed() {
+        findNavController().popBackStack()
+    }
 
-            override fun afterTextChanged(editable: Editable) {
-                if(editable.length > 14){
-                    editable.delete(inputStartIndex, inputStartIndex + inputCount)
-                }
-                writingTitleViewModel.updateTitle(editable.toString())
-            }
-        })
+    private fun navigateToWritingContent() {
+        findNavController().navigate(R.id.contentFragment)
+    }
+
+    companion object {
+        const val LIMIT_TITLE_LENGTH = 14
     }
 }
