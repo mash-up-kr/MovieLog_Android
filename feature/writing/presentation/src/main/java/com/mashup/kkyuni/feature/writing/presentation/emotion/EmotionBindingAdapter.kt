@@ -1,15 +1,12 @@
 package com.mashup.kkyuni.feature.writing.presentation.emotion
 
 import android.view.View
-import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.mashup.kkyuni.core.constant.Constant.Emotion
-import com.mashup.kkyuni.feature.writing.domain.model.Writing
 import com.mashup.kkyuni.feature.writing.presentation.R
 
 @BindingAdapter("visibleMad")
-fun View.visibleMad(emotion: Emotion){
+fun View.visibleMad(emotion: Emotion?){
     setBackgroundResource(
         if(emotion == Emotion.MAD){
             R.drawable.background_emotion

@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.writing.presentation.R
+import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
 import com.mashup.kkyuni.feature.writing.presentation.databinding.FragmentWritingContentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.layout.fragment_writing_content) {
+    private val writingViewModel by viewModels<WritingViewModel> ({ requireParentFragment() })
     private val writingContentViewModel by viewModels<WritingContentViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,7 +30,9 @@ class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.l
     }
 
     private fun initView() {
-        with(binding){
+        setContent(writingViewModel.getCurrentWriting().content ?: "")
+
+        binding.run{
             contentViewModel = writingContentViewModel
 
             edittextContent.addTextChangedListener(object : TextWatcher {
@@ -46,7 +50,7 @@ class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.l
                     if(editable.length > LIMIT_CONTENT_LENGTH){
                         editable.delete(inputStartIndex, inputStartIndex + inputCount)
                     }
-                    writingContentViewModel.updateContent(editable.toString())
+                    setContent(editable.toString())
                 }
             })
         }
@@ -56,12 +60,22 @@ class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.l
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 writingContentViewModel.run {
-                    backEvent.collect {
-                        findNavController().popBackStack()
+                    launch {
+                        backEvent.collect {
+                            findNavController().popBackStack()
+                        }
+                    }
+
+                    launch {
+                        nextEvent.collect {  }
                     }
                 }
             }
         }
+    }
+
+    private fun setContent(content: String){
+        writingContentViewModel.setContent(content)
     }
 
     companion object {

@@ -19,15 +19,21 @@ class WritingMusicViewModel @Inject constructor(): ViewModel() {
     private val _nextEvent = MutableSharedFlow<Unit>()
     val nextEvent = _nextEvent.asSharedFlow()
 
-    fun onClickedBack() = viewModelScope.launch {
-        _backEvent.emit(Unit)
+    fun onClickedBack() {
+        viewModelScope.launch {
+            _backEvent.emit(Unit)
+        }
     }
 
-    fun onClickedSearch() = viewModelScope.launch {
-        _searchEvent.emit(Unit)
+    fun onClickedSearch() {
+        viewModelScope.launch {
+            _searchEvent.emit(Unit)
+        }
     }
 
-    fun onClickedNext() = viewModelScope.launch {
-        _nextEvent.emit(Unit)
+    fun onClickedNext() {
+        viewModelScope.launch {
+            _nextEvent.emit(Unit)
+        }
     }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
+import com.mashup.kkyuni.core.constant.Constant
 import com.mashup.kkyuni.feature.writing.presentation.R
 import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
 import com.mashup.kkyuni.feature.writing.presentation.databinding.FragmentWritingEmotionBinding
@@ -23,24 +24,55 @@ class WritingEmotionFragment: BindingFragment<FragmentWritingEmotionBinding>(R.l
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.emotionViewModel = emotionViewModel
-
+        initView()
         collectFlows()
+    }
+
+    private fun initView() {
+        binding.run {
+            emotionViewModel = this@WritingEmotionFragment.emotionViewModel
+
+            setEmotion(writingViewModel.getCurrentWriting().emotion ?: Constant.Emotion.UNKNOWN)
+        }
     }
 
     private fun collectFlows() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                emotionViewModel.nextEvent.collect {
-                    writingViewModel.updateEmotion(it)
+                emotionViewModel.run {
+                    launch {
+                        nextEvent.collect {
+                            updateEmotion(it)
 
-                    navigateToWritingMusic()
+                            navigateToWritingMusic()
+                        }
+                    }
+
+                    launch {
+                        backEvent.collect {
+                            onBackPressed()
+                        }
+                    }
                 }
             }
         }
     }
 
+    // 감정 선택 완료 후 업로드할 감정 update
+    private fun updateEmotion(emotion: Constant.Emotion){
+        writingViewModel.updateEmotion(emotion)
+    }
+
+    // 선택했었던 감정이 있다면 세팅
+    private fun setEmotion(emotion: Constant.Emotion){
+        emotionViewModel.setEmotion(emotion)
+    }
+
     private fun navigateToWritingMusic(){
         findNavController().navigate(R.id.writingMusicFragment)
+    }
+
+    private fun onBackPressed(){
+        findNavController().popBackStack()
     }
 }

@@ -28,7 +28,7 @@ class WritingContentViewModel @Inject constructor(): ViewModel() {
     private val _backEvent = MutableSharedFlow<Unit>()
     val backEvent = _backEvent.asSharedFlow()
 
-    fun updateContent(content: String){
+    fun setContent(content: String){
         _content.value = content
     }
 

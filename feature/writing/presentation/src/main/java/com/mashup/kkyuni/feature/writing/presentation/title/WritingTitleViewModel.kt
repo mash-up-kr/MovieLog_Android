@@ -22,20 +22,20 @@ class WritingTitleViewModel @Inject constructor(): ViewModel() {
     }
     val titleLength: LiveData<Int> get() = _titleLength
 
-    private val _nextEvent = MutableSharedFlow<Unit>()
+    private val _nextEvent = MutableSharedFlow<String>()
     val nextEvent = _nextEvent
 
     private val _backEvent = MutableSharedFlow<Unit>()
     val backEvent = _backEvent.asSharedFlow()
 
 
-    fun updateTitle(title: String){
+    fun setTitle(title: String){
         _title.value = title
     }
 
     fun onClickedNext(){
         viewModelScope.launch {
-            _nextEvent.emit(Unit)
+            _nextEvent.emit(_title.value ?: "")
         }
     }
 
