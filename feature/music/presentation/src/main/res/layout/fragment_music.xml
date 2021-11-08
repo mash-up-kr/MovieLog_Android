@@ -4,7 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black_500">
 
         <RelativeLayout
             android:id="@+id/toolbar"
@@ -57,6 +58,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horizontal_bar" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:background="@drawable/background_dim"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:id="@+id/kkyunibottombutton_login"
             android:layout_width="match_parent"
@@ -64,12 +74,14 @@
             android:layout_marginHorizontal="@dimen/common_padding"
             android:layout_marginBottom="30dp"
             android:background="@drawable/background_music_select_button"
-            android:elevation="10dp"
+            android:elevation="20dp"
             android:enabled="false"
             android:text="@string/finish_choosing"
             android:textAppearance="@style/Music.FinishButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
