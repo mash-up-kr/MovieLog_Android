@@ -17,16 +17,6 @@
         android:paddingVertical="20dp"
         android:background="@drawable/overlay_recycler">
 
-<!--        <View-->
-<!--            android:id="@+id/overlay"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:elevation="10dp"-->
-<!--            app:layout_constraintTop_toTopOf="@id/recycler_item"-->
-<!--            app:layout_constraintStart_toStartOf="@id/recycler_item"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/recycler_item"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/recycler_item"/>-->
-
         <ImageView
             android:id="@+id/imageview_thumbnail"
             android:layout_width="80dp"
@@ -51,8 +41,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="@{@string/title(video.snippet.title)}"
             android:textAppearance="@style/Music.Title"
+            app:setHtmlString="@{@string/title(video.snippet.title)}"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -72,8 +62,5 @@
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintTop_toBottomOf="@id/textview_title"
             tools:text="3:24" />
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

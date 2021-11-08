@@ -1,5 +1,7 @@
 package com.mashup.kkyuni.feature.music.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.feature.music.domain.GetMusicDurationUseCase
@@ -20,6 +22,12 @@ class MusicViewModel @Inject constructor(
 
     private val _videoList = MutableSharedFlow<List<Video>>()
     val videoList: SharedFlow<List<Video>> get() = _videoList
+
+    private val _isSelected = MutableLiveData<Boolean>()
+    val isSelected: LiveData<Boolean> get() = _isSelected
+
+    private val _selectedVideo = MutableLiveData<Video>()
+    val selectedVideo: LiveData<Video> get() = _selectedVideo
 
     fun search(query: String) {
         viewModelScope.launch {
