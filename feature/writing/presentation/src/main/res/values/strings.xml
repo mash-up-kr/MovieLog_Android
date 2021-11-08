@@ -20,4 +20,6 @@
     <string name="writing_content_count">%d/60</string>
     <string name="writing_complete">작성 완료하기</string>
 
+    <string name="writing_uploading">영화같은 오늘\n티켓 발권 중...</string>
+
 </resources>

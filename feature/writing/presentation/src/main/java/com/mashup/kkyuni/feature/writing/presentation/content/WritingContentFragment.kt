@@ -67,7 +67,11 @@ class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.l
                     }
 
                     launch {
-                        nextEvent.collect {  }
+                        nextEvent.collect {
+                            updateContent(it)
+
+                            navigateToUpload()
+                        }
                     }
                 }
             }
@@ -76,6 +80,14 @@ class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.l
 
     private fun setContent(content: String){
         writingContentViewModel.setContent(content)
+    }
+
+    private fun updateContent(content: String){
+        writingViewModel.updateContent(content)
+    }
+
+    private fun navigateToUpload(){
+
     }
 
     companion object {
