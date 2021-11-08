@@ -9,7 +9,8 @@ import com.mashup.kkyuni.feature.music.domain.model.Video
 import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
 class MusicAdapter() :
-    ListAdapter<Video, MusicViewHolder>(DiffUtilCallback) {
+    ListAdapter<Video, MusicAdapter.MusicViewHolder>(DiffUtilCallback) {
+    var selectedItemPos = -1
 
     private object DiffUtilCallback : DiffUtil.ItemCallback<Video>() {
         override fun areItemsTheSame(oldItem: Video, newItem: Video) = oldItem.id == newItem.id
@@ -28,11 +29,39 @@ class MusicAdapter() :
     }
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        with(holder.binding) {
-            video = getItem(position)
-            executePendingBindings()
+        if (position == selectedItemPos)
+            holder.selectedBg()
+        else
+            holder.defaultBg()
+        holder.bind(getItem(position))
+    }
+
+    inner class MusicViewHolder(val binding: ItemMusicBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    selectedItemPos = adapterPosition
+                    notifyDataSetChanged()
+                }
+            }
         }
+
+        fun bind(video: Video) {
+            binding.apply {
+                this.video = video
+                executePendingBindings()
+            }
+        }
+
+        fun defaultBg() {
+            binding.recyclerItem.isSelected = false
+        }
+
+        fun selectedBg() {
+            binding.recyclerItem.isSelected = true
+        }
+
     }
 }
 
-class MusicViewHolder(val binding: ItemMusicBinding) : RecyclerView.ViewHolder(binding.root)
