@@ -22,7 +22,7 @@ class WritingContentViewModel @Inject constructor(): ViewModel() {
     }
     val contentLength: LiveData<Int> get() = _contentLength
 
-    private val _nextEvent = MutableSharedFlow<Unit>()
+    private val _nextEvent = MutableSharedFlow<String>()
     val nextEvent = _nextEvent
 
     private val _backEvent = MutableSharedFlow<Unit>()
@@ -34,7 +34,7 @@ class WritingContentViewModel @Inject constructor(): ViewModel() {
 
     fun onClickedNext(){
         viewModelScope.launch {
-            _nextEvent.emit(Unit)
+            _nextEvent.emit(_content.value ?: "")
         }
     }
 

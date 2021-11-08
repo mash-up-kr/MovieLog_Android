@@ -7,7 +7,8 @@ data class Writing (
     val emotion: Emotion? = null,
     val music: Music? = null,
     val title: String? = null,
-    val content: String? = null
+    val content: String? = null,
+    val type: String? = null
 )
 
 data class Music(
