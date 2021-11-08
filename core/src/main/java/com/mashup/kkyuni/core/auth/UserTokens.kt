@@ -18,7 +18,7 @@ data class UserTokens(
         }
     }
 
-    fun toJason(): String {
+    fun toJson(): String {
         return jsonAdapter.toJson(this)
     }
 }

@@ -14,17 +14,18 @@ class AuthPreferenceImpl @Inject constructor(
     private var cachedUserTokens: UserTokens? = null
     private var cacheIsDirty = true
 
-    override suspend fun setToken(userTokens: UserTokens) {
-        sharedPreferenceManager.setString(PREF_TOKEN_KEY, userTokens.toJason())
+    override fun setToken(userTokens: UserTokens?) {
+        val json = userTokens?.toJson()
+        sharedPreferenceManager.setString(PREF_TOKEN_KEY, json)
         cachedUserTokens = userTokens
         cacheIsDirty = false
     }
 
-    override suspend fun getAccessToken(): String? {
+    override fun getAccessToken(): String? {
         return getCachedUserTokens()?.accessToken
     }
 
-    override suspend fun getRefreshToken(): String? {
+    override fun getRefreshToken(): String? {
         return getCachedUserTokens()?.refreshToken
     }
 

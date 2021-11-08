@@ -33,11 +33,11 @@ android {
 dependencies {
     implementation(project(":data:network"))
     implementation(project(":feature:login:domain"))
+    implementation(project(":core"))
 
     implementation "com.google.android.gms:play-services-auth:$playServiceAuthVersion"
 
     implementation "com.google.dagger:hilt-android:$hiltVersion"
-    implementation project(path: ':core')
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
     implementation "com.squareup.moshi:moshi:$moshVersion"

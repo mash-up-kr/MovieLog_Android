@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.login.presentation.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     private val viewModel: LoginViewModel by viewModels()
-
+    
     private val googleLoginActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
             result.data?.let { viewModel.tryGoogleLogin(it) }
@@ -33,8 +34,9 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginSuccess.collect { isSuccess ->
                     if (isSuccess) {
-                        Log.d(javaClass.simpleName, "go to MainFragment")
-                        //Todo: 메인 프래그먼트로 이동
+                        LoginFragmentDirections.actionToCalendar().run {
+                            findNavController().navigate(this)
+                        }
                     }
                 }
             }
