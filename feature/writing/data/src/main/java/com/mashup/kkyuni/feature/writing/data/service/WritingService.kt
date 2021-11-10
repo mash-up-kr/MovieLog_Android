@@ -7,8 +7,8 @@ import retrofit2.http.POST
 
 interface WritingService {
     @FormUrlEncoded
-    @POST("api/v1/diary")
-    fun createDiary(
+    @POST("diary")
+    suspend fun createDiary(
         @Field("content")
         content: String,
         @Field("diaryType")
@@ -24,6 +24,10 @@ interface WritingService {
         @Field("title")
         title: String,
         @Field("youtubeLink")
-        youtubeLink: String
+        youtubeLink: String,
+        @Field("latitude")
+        latitude: String,
+        @Field("longitude")
+        longitude: String
     ): UploadResponseDto
 }

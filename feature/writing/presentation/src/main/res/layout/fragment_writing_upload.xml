@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/WritingUpload.date"
             android:layout_marginTop="40dp"
-            android:text="@{viewModel.dateString}"
+            android:text="@{viewModel.date}"
             app:layout_constraintTop_toBottomOf="@id/textview_uploading"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

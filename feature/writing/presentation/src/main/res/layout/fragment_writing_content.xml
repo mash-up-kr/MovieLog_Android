@@ -80,6 +80,7 @@
             android:text="@string/writing_complete"
             android:layout_marginHorizontal="@dimen/bottom_button_margin_horizental"
             style="@style/KkyuniBottomButtonStyle"
+            app:onThrottleClick="@{() -> contentViewModel.onClickedNext()}"
             app:enabledButton="@{contentViewModel.isSetContent()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

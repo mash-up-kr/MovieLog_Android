@@ -17,7 +17,9 @@ class WritingRepositoryImpl @Inject constructor(
         musicThumbnailImage: String,
         musicTitle: String,
         title: String,
-        youtubeLink: String
+        youtubeLink: String,
+        latitude: String,
+        longitude: String
     ) = flow {
         emit(
             service.createDiary(
@@ -28,7 +30,9 @@ class WritingRepositoryImpl @Inject constructor(
                 musicThumbnailImage,
                 musicTitle,
                 title,
-                youtubeLink
+                youtubeLink,
+                latitude,
+                longitude
             )
         )
     }

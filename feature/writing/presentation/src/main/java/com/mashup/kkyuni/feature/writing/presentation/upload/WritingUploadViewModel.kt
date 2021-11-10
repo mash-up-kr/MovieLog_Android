@@ -43,7 +43,9 @@ class WritingUploadViewModel @Inject constructor(
                         musicThumbnailImage = writing.music?.thumbnailUrl ?: "",
                         musicTitle = writing.music?.title ?: "",
                         title = writing.title ?: "",
-                        youtubeLink = writing.music?.linkUrl ?: ""
+                        youtubeLink = writing.music?.linkUrl ?: "",
+                        "",
+                        ""
                     )
                 ).onStart { _uplaodingState.update { UploadState.Uploading } }
                  .onCompletion { _uplaodingState.update { UploadState.Complete } }

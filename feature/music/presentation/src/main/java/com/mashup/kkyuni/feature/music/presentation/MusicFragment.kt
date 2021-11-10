@@ -46,7 +46,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
                                 Music(
                                     thumbnailUrl = it.snippet.thumbnails.medium.url,
                                     title = it.snippet.title,
-                                    linkUrl = "www.youtube.com/watch?v=${it.id}",
+                                    linkUrl = "www.youtube.com/watch?v=${it.id.videoId}",
                                     releaseDate = null,
                                     playTime = null
                                 )
