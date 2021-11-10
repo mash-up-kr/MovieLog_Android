@@ -87,7 +87,7 @@ class WritingContentFragment: BindingFragment<FragmentWritingContentBinding>(R.l
     }
 
     private fun navigateToUpload(){
-
+        findNavController().navigate(R.id.uploadFragment)
     }
 
     companion object {

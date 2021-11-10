@@ -38,4 +38,9 @@
         android:id="@+id/contentFragment"
         android:name="com.mashup.kkyuni.feature.writing.presentation.content.WritingContentFragment"
         android:label="WritingContentFragment"/>
+
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.upload.WritingUploadFragment"
+        android:label="WritingUploadFragment"/>
 </navigation>

@@ -26,7 +26,6 @@ class WritingUploadFragment: BindingFragment<FragmentWritingUploadBinding>(R.lay
             viewModel = writingUploadViewModel
         }
 
-
         with(writingViewModel.getCurrentWriting()){
             date?.split("-")?.let { (year, month, day) ->
                 writingUploadViewModel.setDateString(year, month, day)

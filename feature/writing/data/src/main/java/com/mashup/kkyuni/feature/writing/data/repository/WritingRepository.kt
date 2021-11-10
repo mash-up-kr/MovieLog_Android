@@ -12,6 +12,8 @@ interface WritingRepository {
         musicThumbnailImage: String,
         musicTitle: String,
         title: String,
-        youtubeLink: String
+        youtubeLink: String,
+        latitude: String,
+        longitude: String
     ): Flow<UploadResponseDto>
 }

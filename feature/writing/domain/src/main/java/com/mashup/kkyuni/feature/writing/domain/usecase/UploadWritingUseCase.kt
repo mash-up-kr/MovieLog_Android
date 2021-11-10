@@ -17,7 +17,9 @@ class UploadWritingUseCase @Inject constructor(
         val musicThumbnailImage: String,
         val musicTitle: String,
         val title: String,
-        val youtubeLink: String
+        val youtubeLink: String,
+        val latitude: String,
+        val longitude: String
     )
 
     suspend operator fun invoke(params: Params) =
@@ -29,7 +31,9 @@ class UploadWritingUseCase @Inject constructor(
             params.musicThumbnailImage,
             params.musicTitle,
             params.title,
-            params.youtubeLink
+            params.youtubeLink,
+            params.latitude,
+            params.longitude
         ).map {
             it.toDiary()
         }
