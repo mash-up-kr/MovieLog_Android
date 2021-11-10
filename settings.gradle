@@ -27,3 +27,4 @@ include ':app',
         ':feature:music',
         ':feature:writing:presentation',
         ':feature:writing:domain'
+include ':feature:writing:data'
