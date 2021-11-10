@@ -27,5 +27,6 @@ include ':app',
         ':feature:splash:domain',
         ':feature:splash:data',
         ':feature:splash:presentation',
-        ':feature:writing:presentation'
-
+        ':feature:writing:presentation',
+        ':feature:writing:domain',
+        ':feature:writing:data'

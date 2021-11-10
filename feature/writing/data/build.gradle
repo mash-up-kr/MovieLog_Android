@@ -32,12 +32,18 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:writing:data"))
-    implementation(project(":core"))
+    implementation(project(":data:network"))
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
 
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    implementation "com.squareup.moshi:moshi:$moshVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshVersion"
+
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidJunitVersion"

@@ -1,11 +1,12 @@
 package com.mashup.kkyuni.feature.writing.domain.usecase
 
-import com.mashup.kkyuni.feature.writing.domain.model.Diary
-import kotlinx.coroutines.flow.flow
+import com.mashup.kkyuni.feature.writing.data.repository.WritingRepository
+import com.mashup.kkyuni.feature.writing.domain.toDiary
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class UploadWritingUseCase @Inject constructor(
-
+    private val repository: WritingRepository
 ) {
 
     data class Params(
@@ -19,7 +20,17 @@ class UploadWritingUseCase @Inject constructor(
         val youtubeLink: String
     )
 
-    suspend operator fun invoke(params: Params) = flow {
-        emit(Diary())
-    }
+    suspend operator fun invoke(params: Params) =
+        repository.createDiary(
+            params.content,
+            params.diaryType,
+            params.emotion,
+            params.musicPlayTime,
+            params.musicThumbnailImage,
+            params.musicTitle,
+            params.title,
+            params.youtubeLink
+        ).map {
+            it.toDiary()
+        }
 }
