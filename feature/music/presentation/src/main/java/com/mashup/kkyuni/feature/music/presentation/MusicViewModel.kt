@@ -30,6 +30,8 @@ class MusicViewModel @Inject constructor(
     private val _selectedVideo = MutableLiveData<Video>()
     val selectedVideo: LiveData<Video> get() = _selectedVideo
 
+    var selectedItemPos = -1
+
 //    private val _goBack = MutableLiveData<Boolean>()
 //    val goBack: LiveData<Boolean> get() = _goBack
 
@@ -51,6 +53,11 @@ class MusicViewModel @Inject constructor(
     fun setSelectedItem(video: Video) {
         _selectedVideo.value = video
         _isSelected.value = true
+    }
+
+    fun clearSelectedData() {
+        selectedItemPos = -1
+        _isSelected.postValue(false)
     }
 
     private fun timeConvertor(time: String): String {

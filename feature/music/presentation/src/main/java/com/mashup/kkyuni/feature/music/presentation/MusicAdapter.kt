@@ -10,7 +10,6 @@ import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
 class MusicAdapter constructor(private val viewModel: MusicViewModel):
     ListAdapter<Video, MusicAdapter.MusicViewHolder>(DiffUtilCallback) {
-    var selectedItemPos = -1
 
     private object DiffUtilCallback : DiffUtil.ItemCallback<Video>() {
         override fun areItemsTheSame(oldItem: Video, newItem: Video) = oldItem.id == newItem.id
@@ -29,7 +28,7 @@ class MusicAdapter constructor(private val viewModel: MusicViewModel):
     }
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        if (position == selectedItemPos)
+        if (position == viewModel.selectedItemPos)
             holder.selectedBg()
         else
             holder.defaultBg()
@@ -41,9 +40,9 @@ class MusicAdapter constructor(private val viewModel: MusicViewModel):
         init {
             binding.root.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    selectedItemPos = adapterPosition
+                    viewModel.selectedItemPos = adapterPosition
                     notifyDataSetChanged()
-                    viewModel.setSelectedItem(getItem(selectedItemPos))
+                    viewModel.setSelectedItem(getItem(viewModel.selectedItemPos))
                 }
             }
         }

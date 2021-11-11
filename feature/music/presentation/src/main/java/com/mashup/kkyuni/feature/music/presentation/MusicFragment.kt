@@ -51,6 +51,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 musicViewModel.search(textView.text.toString())
                 softKeyboardHide()
+                musicViewModel.clearSelectedData()
             }
             true
         }
