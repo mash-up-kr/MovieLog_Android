@@ -1,6 +1,5 @@
 package com.mashup.kkyuni.feature.music.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,18 +21,18 @@ class MusicViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _videoList = MutableSharedFlow<List<Video>>()
-    val videoList: SharedFlow<List<Video>> get() = _videoList
+    val videoList: SharedFlow<List<Video>> = _videoList
 
     private val _isSelected = MutableLiveData<Boolean>(false)
-    val isSelected: LiveData<Boolean> get() = _isSelected
+    val isSelected: LiveData<Boolean> = _isSelected
 
     private val _selectedVideo = MutableLiveData<Video>()
-    val selectedVideo: LiveData<Video> get() = _selectedVideo
+    val selectedVideo: LiveData<Video> = _selectedVideo
 
     var selectedItemPos = -1
 
-//    private val _goBack = MutableLiveData<Boolean>()
-//    val goBack: LiveData<Boolean> get() = _goBack
+    private val _back = MutableLiveData<Unit>()
+    val back: LiveData<Unit> = _back
 
     fun search(query: String) {
         viewModelScope.launch {
@@ -68,14 +67,14 @@ class MusicViewModel @Inject constructor(
 
         if (duration.indexOf("H") > -1) {
             h = duration.substring(0, duration.indexOf("H"))
-            duration = duration.substring(duration.indexOf("H")+1)
+            duration = duration.substring(duration.indexOf("H") + 1)
         } else {
             h = ""
         }
 
         if (duration.indexOf("M") > -1) {
             m = duration.substring(0, duration.indexOf("M"))
-            duration = duration.substring(duration.indexOf("M")+1)
+            duration = duration.substring(duration.indexOf("M") + 1)
             if (m.length == 1) {
                 m = "0$m"
             }

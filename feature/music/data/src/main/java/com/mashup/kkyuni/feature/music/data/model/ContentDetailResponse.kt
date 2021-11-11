@@ -5,5 +5,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ContentDetailResponse(
-    @Json(name="duration") val duration: String
+    @Json(name = "duration") val duration: String
 )

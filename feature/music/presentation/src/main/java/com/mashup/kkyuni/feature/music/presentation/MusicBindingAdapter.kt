@@ -13,6 +13,6 @@ fun ImageView.setMusicThumbnail(url: String) {
 }
 
 @BindingAdapter("setHtmlString")
-fun TextView.setHtmlString(htmlString: String){
+fun TextView.setHtmlString(htmlString: String) {
     text = HtmlCompat.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_COMPACT)
 }
