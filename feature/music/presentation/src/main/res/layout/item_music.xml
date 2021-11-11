@@ -5,6 +5,9 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.mashup.kkyuni.feature.music.presentation.MusicViewModel" />
+        <variable
             name="video"
             type="com.mashup.kkyuni.feature.music.domain.model.Video" />
     </data>
@@ -42,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:textAppearance="@style/Music.Title"
-            app:setHtmlString="@{@string/title(video.snippet.title)}"
+            app:setHtmlString="@{video.snippet.title}"
             app:layout_constraintStart_toEndOf="@id/imageview_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

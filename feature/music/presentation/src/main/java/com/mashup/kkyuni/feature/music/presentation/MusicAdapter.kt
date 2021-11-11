@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.feature.music.domain.model.Video
 import com.mashup.kkyuni.feature.music.presentation.databinding.ItemMusicBinding
 
-class MusicAdapter() :
+class MusicAdapter constructor(private val viewModel: MusicViewModel):
     ListAdapter<Video, MusicAdapter.MusicViewHolder>(DiffUtilCallback) {
     var selectedItemPos = -1
 
@@ -43,6 +43,7 @@ class MusicAdapter() :
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     selectedItemPos = adapterPosition
                     notifyDataSetChanged()
+                    viewModel.setSelectedItem(getItem(selectedItemPos))
                 }
             }
         }
@@ -61,7 +62,6 @@ class MusicAdapter() :
         fun selectedBg() {
             binding.recyclerItem.isSelected = true
         }
-
     }
 }
 

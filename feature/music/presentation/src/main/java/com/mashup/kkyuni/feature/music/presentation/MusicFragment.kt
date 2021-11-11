@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +23,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
 ) {
 
     private val musicViewModel: MusicViewModel by viewModels()
-    private val musicAdapter by lazy { MusicAdapter() }
+    private val musicAdapter by lazy { MusicAdapter(musicViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +35,10 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
                     musicAdapter.submitList(it)
                 }
             }
+        }
+
+        musicViewModel.isSelected.observe(viewLifecycleOwner) {
+            binding.kkyunibottombuttonMusic.isEnabled = it
         }
     }
 

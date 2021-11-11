@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.mashup.kkyuni.feature.music.presentation.MusicViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="10dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="90dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +73,7 @@
             />
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
-            android:id="@+id/kkyunibottombutton_login"
+            android:id="@+id/kkyunibottombutton_music"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_padding"
