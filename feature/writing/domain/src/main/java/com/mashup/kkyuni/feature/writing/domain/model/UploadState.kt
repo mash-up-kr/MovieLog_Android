@@ -4,6 +4,4 @@ sealed class UploadState {
     object Uploading: UploadState()
 
     object Complete: UploadState()
-
-    data class RequestUpload(val writing: Writing): UploadState()
 }
