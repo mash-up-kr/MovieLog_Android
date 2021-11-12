@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WritingUploadViewModel @Inject constructor(
     private val uploadWritingUseCase: UploadWritingUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _uplaodingState = MutableStateFlow<UploadState>(UploadState.Uploading)
     val uploading = _uplaodingState.asStateFlow()
 
@@ -27,11 +27,11 @@ class WritingUploadViewModel @Inject constructor(
     private val _completedEvent = MutableSharedFlow<Diary>()
     val completedEvent = _completedEvent.asSharedFlow()
 
-     fun setDateString(year: String, month: String, day: String){
+    fun setDateString(year: String, month: String, day: String) {
         _date.value = "$year.$month.$day"
     }
 
-    fun requestUpload(writing: Writing){
+    fun requestUpload(writing: Writing) {
         viewModelScope.launch {
             uploadWritingUseCase(
                 UploadWritingUseCase.Params(

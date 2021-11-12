@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 
 @Keep
 @JsonClass(generateAdapter = true)
-data class UploadResponseDto (
+data class UploadResponseDto(
     @Json(name = "content")
     val content: String,
     @Json(name = "diaryId")

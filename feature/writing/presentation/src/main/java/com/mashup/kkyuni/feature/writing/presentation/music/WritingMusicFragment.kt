@@ -16,7 +16,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WritingMusicFragment: BindingFragment<FragmentWritingMusicBinding>(R.layout.fragment_writing_music) {
+class WritingMusicFragment :
+    BindingFragment<FragmentWritingMusicBinding>(R.layout.fragment_writing_music) {
     private val musicViewModel by viewModels<WritingMusicViewModel>()
     private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
 

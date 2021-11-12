@@ -2,7 +2,7 @@ package com.mashup.kkyuni.feature.writing.domain.model
 
 import com.mashup.kkyuni.core.constant.Constant.Emotion
 
-data class Writing (
+data class Writing(
     val date: String? = null,
     val emotion: Emotion? = null,
     val music: Music? = null,

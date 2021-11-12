@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WritingMusicViewModel @Inject constructor(): ViewModel() {
+class WritingMusicViewModel @Inject constructor() : ViewModel() {
     private val _backEvent = MutableSharedFlow<Unit>()
     val backEvent = _backEvent.asSharedFlow()
 
