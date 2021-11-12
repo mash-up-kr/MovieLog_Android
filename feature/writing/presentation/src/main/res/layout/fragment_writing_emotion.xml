@@ -42,8 +42,8 @@
 
         <ImageView
             android:id="@+id/imageview_emotion_normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/emotion_image_size"
+            android:layout_height="@dimen/emotion_image_size"
             android:layout_marginTop="32dp"
             android:src="@drawable/ic_emotion_normal"
             app:layout_constraintTop_toBottomOf="@id/textview_emotion_title"
@@ -52,8 +52,8 @@
 
         <ImageView
             android:id="@+id/imageview_emotion_happy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/emotion_image_size"
+            android:layout_height="@dimen/emotion_image_size"
             android:layout_marginEnd="@dimen/emotion_image_margin"
             android:src="@drawable/ic_emotion_happy"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_normal"
@@ -62,8 +62,8 @@
 
         <ImageView
             android:id="@+id/imageview_emotion_mad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/emotion_image_size"
+            android:layout_height="@dimen/emotion_image_size"
             android:layout_marginEnd="@dimen/emotion_image_margin"
             android:src="@drawable/ic_emotion_mad"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_happy"
@@ -72,8 +72,8 @@
 
         <ImageView
             android:id="@+id/imageview_emotion_panic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/emotion_image_size"
+            android:layout_height="@dimen/emotion_image_size"
             android:layout_marginStart="@dimen/emotion_image_margin"
             android:src="@drawable/ic_emotion_panic"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_normal"
@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/imageview_emotion_sad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/emotion_image_size"
+            android:layout_height="@dimen/emotion_image_size"
             android:layout_marginStart="@dimen/emotion_image_margin"
             android:src="@drawable/ic_emotion_sad"
             app:layout_constraintTop_toTopOf="@id/imageview_emotion_normal"
