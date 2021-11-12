@@ -2,5 +2,4 @@
 <resources>
     <color name="bordor_select_emotion">#DDF880</color>
     <color name="background_select_emotion">#26DDF880</color>
-    <color name="background_upload">#373737</color>
 </resources>
