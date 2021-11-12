@@ -37,15 +37,15 @@ class WritingUploadViewModel @Inject constructor(
                 uploadWritingUseCase(
                     UploadWritingUseCase.Params(
                         content = writing.content ?: "",
-                        diaryType = writing.type ?: "",
+                        diaryType = writing.type ?: "BLUE1",
                         emotion = writing.emotion?.name ?: "",
                         musicPlayTime = writing.music?.playTime?.toIntOrNull() ?: 0,
                         musicThumbnailImage = writing.music?.thumbnailUrl ?: "",
                         musicTitle = writing.music?.title ?: "",
                         title = writing.title ?: "",
                         youtubeLink = writing.music?.linkUrl ?: "",
-                        "",
-                        ""
+                        "1",
+                        "1"
                     )
                 ).onStart { _uplaodingState.update { UploadState.Uploading } }
                  .onCompletion { _uplaodingState.update { UploadState.Complete } }
