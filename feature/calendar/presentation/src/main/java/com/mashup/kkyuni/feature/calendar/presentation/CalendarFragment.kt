@@ -56,6 +56,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     }
 
                     onPlayList.collect {
+                        // 여기로 year, month 넘겨주세요
                         // navigateToPlayListFragment()
                     }
                 }
