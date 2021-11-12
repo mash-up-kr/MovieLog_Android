@@ -10,7 +10,7 @@ import com.mashup.kkyuni.feature.writing.presentation.databinding.FragmentWritin
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WritingFragment: BindingFragment<FragmentWritingBinding>(R.layout.fragment_writing) {
+class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragment_writing) {
     private val writingViewModel by viewModels<WritingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +32,11 @@ class WritingFragment: BindingFragment<FragmentWritingBinding>(R.layout.fragment
         clearInputAdjust()
     }
 
-    private fun applyInputAdjustResize(){
+    private fun applyInputAdjustResize() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
-    private fun clearInputAdjust(){
+    private fun clearInputAdjust() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED)
     }
 }

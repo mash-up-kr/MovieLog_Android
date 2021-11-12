@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="titleViewModel"
             type="com.mashup.kkyuni.feature.writing.presentation.title.WritingTitleViewModel" />
@@ -23,7 +24,7 @@
             android:layout_marginStart="20dp"
             app:onThrottleClick="@{() -> titleViewModel.onClickedBack()}"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/imageview_emotion"
@@ -33,7 +34,7 @@
             android:layout_marginTop="152dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/textview_title"
@@ -44,7 +45,7 @@
             android:textAppearance="@style/WritingTitle.title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageview_emotion"/>
+            app:layout_constraintTop_toBottomOf="@id/imageview_emotion" />
 
         <EditText
             android:id="@+id/edittext_title"
@@ -59,7 +60,7 @@
             android:hint="@string/writing_title_hint"
             app:layout_constraintTop_toBottomOf="@id/textview_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@id/edittext_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="2/14"/>
+            tools:text="2/14" />
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:layout_width="0dp"
@@ -85,6 +86,6 @@
             app:onThrottleClick="@{() -> titleViewModel.onClickedNext()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

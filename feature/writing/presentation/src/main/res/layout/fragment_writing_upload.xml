@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.mashup.kkyuni.feature.writing.presentation.upload.WritingUploadViewModel" />
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4"/>
+            app:layout_constraintGuide_percent="0.4" />
 
         <TextView
             android:id="@+id/textview_uploading"
@@ -31,7 +32,7 @@
             android:textAppearance="@style/WritingUpload.uploading"
             app:layout_constraintTop_toBottomOf="@id/guideline_top"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@id/textview_uploading"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="2021.10.31"/>
+            tools:text="2021.10.31" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

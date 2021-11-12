@@ -10,7 +10,8 @@ import com.mashup.kkyuni.feature.writing.presentation.databinding.FragmentWritin
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WritingUploadFragment: BindingFragment<FragmentWritingUploadBinding>(R.layout.fragment_writing_upload) {
+class WritingUploadFragment :
+    BindingFragment<FragmentWritingUploadBinding>(R.layout.fragment_writing_upload) {
 
     private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
     private val writingUploadViewModel by viewModels<WritingUploadViewModel>()
@@ -21,12 +22,12 @@ class WritingUploadFragment: BindingFragment<FragmentWritingUploadBinding>(R.lay
         initView()
     }
 
-    private fun initView(){
+    private fun initView() {
         binding.run {
             viewModel = writingUploadViewModel
         }
 
-        with(writingViewModel.getCurrentWriting()){
+        with(writingViewModel.getCurrentWriting()) {
             date?.split("-")?.let { (year, month, day) ->
                 writingUploadViewModel.setDateString(year, month, day)
             }
