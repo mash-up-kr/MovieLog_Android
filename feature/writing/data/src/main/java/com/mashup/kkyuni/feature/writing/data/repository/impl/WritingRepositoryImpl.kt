@@ -1,5 +1,6 @@
 package com.mashup.kkyuni.feature.writing.data.repository.impl
 
+import com.mashup.kkyuni.feature.writing.data.dto.UploadRequestDto
 import com.mashup.kkyuni.feature.writing.data.repository.WritingRepository
 import com.mashup.kkyuni.feature.writing.data.service.WritingService
 import kotlinx.coroutines.flow.flow
@@ -23,16 +24,18 @@ class WritingRepositoryImpl @Inject constructor(
     ) = flow {
         emit(
             service.createDiary(
-                content,
-                diaryType,
-                emotion,
-                musicPlayTime,
-                musicThumbnailImage,
-                musicTitle,
-                title,
-                youtubeLink,
-                latitude,
-                longitude
+                UploadRequestDto(
+                    content,
+                    diaryType,
+                    emotion,
+                    latitude,
+                    longitude,
+                    musicPlayTime,
+                    musicTitle,
+                    title,
+                    "unknown",
+                    youtubeLink
+                )
             )
         )
     }
