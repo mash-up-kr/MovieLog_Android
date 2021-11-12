@@ -33,29 +33,27 @@ class WritingUploadViewModel @Inject constructor(
 
     fun requestUpload(writing: Writing){
         viewModelScope.launch {
-            runCatching {
-                uploadWritingUseCase(
-                    UploadWritingUseCase.Params(
-                        content = writing.content ?: "",
-                        diaryType = writing.type ?: "BLUE1",
-                        emotion = writing.emotion?.name ?: "",
-                        musicPlayTime = writing.music?.playTime?.toIntOrNull() ?: 0,
-                        musicThumbnailImage = writing.music?.thumbnailUrl ?: "",
-                        musicTitle = writing.music?.title ?: "",
-                        title = writing.title ?: "",
-                        youtubeLink = writing.music?.linkUrl ?: "",
-                        "1",
-                        "1"
-                    )
-                ).onStart { _uplaodingState.update { UploadState.Uploading } }
-                 .onCompletion { _uplaodingState.update { UploadState.Complete } }
-            }.onSuccess {
-                it.collect { diary ->
-                    _completedEvent.emit(diary)
+            uploadWritingUseCase(
+                UploadWritingUseCase.Params(
+                    content = writing.content ?: "",
+                    diaryType = writing.type ?: "BLUE1",
+                    emotion = writing.emotion?.name ?: "",
+                    musicPlayTime = writing.music?.playTime?.toIntOrNull() ?: 0,
+                    musicThumbnailImage = writing.music?.thumbnailUrl ?: "",
+                    musicTitle = writing.music?.title ?: "",
+                    title = writing.title ?: "",
+                    youtubeLink = writing.music?.linkUrl ?: "",
+                    "1",
+                    "1"
+                )
+            ).onStart { _uplaodingState.update { UploadState.Uploading } }
+                .onCompletion { _uplaodingState.update { UploadState.Complete } }
+                .catch { e ->
+                    Log.e(TAG, e.message ?: "")
                 }
-            }.onFailure {
-                Log.e(TAG, it.message ?: "")
-            }
+                .collect {
+                    _completedEvent.emit(it)
+                }
         }
     }
 
