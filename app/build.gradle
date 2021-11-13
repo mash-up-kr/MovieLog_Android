@@ -81,6 +81,10 @@ dependencies {
     implementation(project(':feature:music:domain'))
     implementation(project(':feature:music:data'))
 
+    implementation(project(':feature:splash:presentation'))
+    implementation(project(':feature:splash:domain'))
+    implementation(project(':feature:splash:data'))
+
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "com.google.android.material:material:$materialVersion"

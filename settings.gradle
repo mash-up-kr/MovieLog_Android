@@ -23,5 +23,7 @@ include ':app',
         ':feature:login:domain',
         ':feature:music:data',
         ':feature:music:presentation',
-        ':feature:music:domain'
-
+        ':feature:music:domain',
+        ':feature:splash:domain',
+        ':feature:splash:data',
+        ':feature:splash:presentation'
