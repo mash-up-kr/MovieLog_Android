@@ -64,6 +64,7 @@
             android:background="@color/purple_700"
             android:textAppearance="@style/KkyuniBottomButtonStyle"
             android:layout_marginBottom="24dp"
+            app:onThrottleClick="@{() -> viewModel.onClickedComplete()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -4,6 +4,8 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,17 +13,21 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BottomSheetBindingDialogFragment
+import com.mashup.kkyuni.feature.playlist.domain.model.Date
+import com.mashup.kkyuni.feature.playlist.presentation.PlayListViewModel
 import com.mashup.kkyuni.feature.playlist.presentation.R
 import com.mashup.kkyuni.feature.playlist.presentation.databinding.DialogChoiceDateBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.Year
 
 @AndroidEntryPoint
 class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDateBinding>(R.layout.dialog_choice_date){
     private val choiceDateViewModel by viewModels<ChoiceDateViewModel>()
     private val choiceDateAdapter by lazy { ChoiceDateAdapter() }
     private val snapHelper by lazy { PagerSnapHelper() }
+    private val playListViewModel by viewModels<PlayListViewModel> ({ requireParentFragment() })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,13 +99,36 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
                             choiceDateAdapter.notifyItemChanged(it)
                         }
                     }
+
+                    launch {
+                        choiceDateEvent.collect {
+                            updateDate(it)
+
+                            dismiss()
+                        }
+                    }
                 }
             }
         }
     }
 
+    private fun updateDate(date: Date){
+        playListViewModel.updateDate(date.year, date.month)
+    }
+
     companion object {
+        const val TAG = "ChoiceDateDialog"
         const val KEY_YEAR = "year"
         const val KEY_MONTH = "month"
+
+        fun showDialog(fragmentManager: FragmentManager, date: Date){
+            ChoiceDateDialogFragment().also {
+                it.arguments = bundleOf(
+                    KEY_YEAR to date.year,
+                    KEY_MONTH to date.month
+                )
+                it.show(fragmentManager, TAG)
+            }
+        }
     }
 }

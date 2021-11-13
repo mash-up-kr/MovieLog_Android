@@ -1,6 +1,5 @@
 package com.mashup.kkyuni.feature.playlist.presentation.widget
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.feature.playlist.domain.model.ChoiceDate
@@ -23,6 +22,9 @@ class ChoiceDateViewModel @Inject constructor(): ViewModel() {
 
     private val _changedNotiPosition = MutableSharedFlow<Int>()
     val changedNotiPosition = _changedNotiPosition.asSharedFlow()
+
+    private val _choiceDateEvent = MutableSharedFlow<Date>()
+    val choiceDateEvent = _choiceDateEvent.asSharedFlow()
 
     init {
         viewModelScope.launch {
@@ -60,5 +62,13 @@ class ChoiceDateViewModel @Inject constructor(): ViewModel() {
             _changedNotiPosition.emit(position)
         }
         _currentSelectedPosition = position
+    }
+
+    fun onClickedComplete(){
+        viewModelScope.launch {
+            val date = _choiceDates.value[_currentSelectedPosition].date
+
+            _choiceDateEvent.emit(date)
+        }
     }
 }

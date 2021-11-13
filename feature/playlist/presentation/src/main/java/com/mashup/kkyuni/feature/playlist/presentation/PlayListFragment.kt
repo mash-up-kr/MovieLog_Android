@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
+import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.presentation.databinding.FragmentPlayListBinding
 import com.mashup.kkyuni.feature.playlist.presentation.widget.ChoiceDateDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,12 +60,9 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                     changeDateEvent.collect {
-                        findNavController().navigate(
-                            R.id.choiceDateFragment,
-                            bundleOf(
-                                ChoiceDateDialogFragment.KEY_YEAR to 2021,
-                                ChoiceDateDialogFragment.KEY_MONTH to 5
-                            )
+                        ChoiceDateDialogFragment.showDialog(
+                            childFragmentManager,
+                            Date(2021, 1)
                         )
                     }
                 }

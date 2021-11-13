@@ -89,8 +89,7 @@ class PlayListViewModel @Inject constructor(
     }
 
     fun onWriteDiary() {
-        //TODO 일기 작성
-        _toastLiveData.value = "일기 작성 하기"
+        onBack()
     }
 
     companion object {
