@@ -1,28 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mashup.kkyuni.feature.music.presentation.MusicViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/black_500">
 
-        <EditText
-            android:id="@+id/search_bar"
+        <RelativeLayout
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:imeOptions="actionSearch"
-            android:imeActionLabel="검색"
-            android:inputType="text"
+            android:layout_height="?android:actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="5dp"
+                android:padding="3dp"
+                app:srcCompat="@drawable/ic_back" />
+
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_toRightOf="@id/back"
+                android:background="@null"
+                android:imeActionLabel="검색"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textAppearance="@style/Music.SearchBar"
+                android:textCursorDrawable="@drawable/music_edittext_cursor" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/horizontal_bar"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/white_alpha50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:padding="10dp"
+            android:layout_marginBottom="90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_bar" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:background="@drawable/background_dim"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.mashup.kkyuni.widget.KkyuniBottomButton
+            android:id="@+id/kkyunibottombutton_music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/common_padding"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/background_music_select_button"
+            android:elevation="20dp"
+            android:text="@string/finish_choosing"
+            android:textAppearance="@style/Music.FinishButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
