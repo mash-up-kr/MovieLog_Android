@@ -5,6 +5,6 @@ import retrofit2.http.Path
 
 interface DiaryService {
 
-    @GET("/api/v1/diary/{date}")
-    suspend fun getDiary(@Path("date") date: String) :DiaryResponse
+    @GET("diary/{date}")
+    suspend fun getDiary(@Path("date") date: String): DiaryResponse
 }

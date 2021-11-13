@@ -1,5 +1,6 @@
 package com.mashup.kkyuni.feature.calendar.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.feature.calendar.domain.GetDiary
@@ -25,7 +26,12 @@ class CalendarViewModel @Inject constructor(
     val diary: SharedFlow<DiaryEntity> get() = _diary
 
     fun requestDiary(date: String) = viewModelScope.launch {
-        _diary.emit(getDiary(date))
+        kotlin.runCatching {
+            _diary.emit(getDiary(date))
+        }.onFailure {
+            Log.v("test", it.toString())
+        }
+
     }
 
     fun onClickSetting() = viewModelScope.launch {
