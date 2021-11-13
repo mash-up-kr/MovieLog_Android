@@ -38,6 +38,8 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":widget"))
     implementation(project(":feature:music:domain"))
+    implementation(project(":feature:writing:presentation"))
+    implementation(project(":feature:writing:domain"))
 
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"

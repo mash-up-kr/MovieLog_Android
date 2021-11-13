@@ -10,6 +10,7 @@ import com.mashup.kkyuni.feature.music.domain.model.Video
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,6 +29,9 @@ class MusicViewModel @Inject constructor(
 
     private val _selectedVideo = MutableLiveData<Video>()
     val selectedVideo: LiveData<Video> = _selectedVideo
+
+    private val _completeEvent = MutableSharedFlow<Video>()
+    val completeEvent = _completeEvent.asSharedFlow()
 
     var selectedItemPos = -1
 
@@ -58,4 +62,11 @@ class MusicViewModel @Inject constructor(
         _isSelected.postValue(false)
     }
 
+    fun onVideoClicked(){
+        viewModelScope.launch {
+            _selectedVideo.value?.let {
+                _completeEvent.emit(it)
+            }
+        }
+    }
 }

@@ -50,6 +50,7 @@ class MusicAdapter constructor(private val viewModel: MusicViewModel) :
 
         fun bind(video: Video) {
             binding.apply {
+                this.musicViewModel = viewModel
                 this.video = video
                 executePendingBindings()
             }

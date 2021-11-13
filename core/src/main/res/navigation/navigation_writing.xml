@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_writing"
+    app:startDestination="@id/writingFragment">
+
+    <fragment
+        android:id="@+id/writingFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.WritingFragment"
+        android:label="WritingFragment" >
+
+        <action
+            android:id="@+id/action_to_writingEmotionFragment"
+            app:destination="@id/writingEmotionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/writingEmotionFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.emotion.WritingEmotionFragment"
+        android:label="WritingEmotionFragment" />
+
+    <fragment
+        android:id="@+id/writingMusicFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.music.WritingMusicFragment"
+        android:label="WritingMusicFragment"/>
+
+    <fragment
+        android:id="@+id/musicFragment"
+        android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment"
+        android:label="MusicFragment"/>
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.title.WritingTitleFragment"
+        android:label="WritingTitleFragment"/>
+
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.content.WritingContentFragment"
+        android:label="WritingContentFragment"/>
+
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.upload.WritingUploadFragment"
+        android:label="WritingUploadFragment"/>
+</navigation>

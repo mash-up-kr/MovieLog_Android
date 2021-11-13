@@ -43,15 +43,8 @@
 
         <action
             android:id="@+id/action_to_play_list"
-            app:destination="@id/action_to_play_list" />
-
-        <action
-            android:id="@+id/action_to_music"
-            app:destination="@id/musicFragment" />
-
-        <action
-            android:id="@+id/action_calendarFragment_to_playListFragment"
             app:destination="@id/playListFragment" />
+
     </fragment>
 
     <fragment
@@ -68,10 +61,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/musicFragment"
-        android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment" />
-
-    <fragment
         android:id="@+id/settingFragment"
         android:name="com.mashup.kkyuni.feature.setting.presentation.SettingFragment">
 
@@ -84,4 +73,5 @@
         android:id="@+id/creatorFragment"
         android:name="com.mashup.kkyuni.feature.setting.presentation.CreatorFragment" />
 
+    <include app:graph="@navigation/navigation_writing"/>
 </navigation>

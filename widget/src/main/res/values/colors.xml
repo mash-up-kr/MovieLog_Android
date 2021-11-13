@@ -14,13 +14,15 @@
 
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha20">#33FFFFFF</color>
+    <color name="white_alpha30">#4DFFFFFF</color>
     <color name="white_alpha50">#80FFFFFF</color>
     <color name="white_alpha70">#B3FFFFFF</color>
+    <color name="white_alpha80">#CCFFFFFF</color>
 
-    <color name="green_ddf880">#ddf880</color>
     <color name="green_90ddf880">#1ADDF880</color>
 
     <color name="purple_4b13fe">#4B13FE</color>
     <color name="purple_804b13fe">#804B13FE</color>
+    <color name="green_ddf880">#DDF880</color>
 
 </resources>

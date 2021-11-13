@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="WritingEmotion" />
+
+    <style name="WritingEmotion.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WritingEmotion.Emotion">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WritingMusic" />
+
+    <style name="WritingMusic.Today">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WritingMusic.Search">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/green_ddf880</item>
+    </style>
+
+    <style name="WritingMusic.MusicTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/white_alpha80</item>
+    </style>
+
+    <style name="WritingTitle" />
+
+    <style name="WritingTitle.title">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WritingTitle.hint">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/white_alpha80</item>
+    </style>
+
+    <style name="WritingTitle.count">
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/white_alpha50</item>
+    </style>
+
+    <style name="WritingUpload" />
+
+    <style name="WritingUpload.uploading">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/all_gmarketsans_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WritingUpload.date">
+        <item name="android:textSize">27sp</item>
+        <item name="fontFamily">@font/numbser_blackopsone_regular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

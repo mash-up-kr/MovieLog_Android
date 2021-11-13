@@ -1,6 +1,5 @@
 package com.mashup.kkyuni.data.network
 
-import com.mashup.kkyuni.data.network.auth.MovieLogAuthenticator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

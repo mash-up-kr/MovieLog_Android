@@ -56,9 +56,8 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     }
 
                     onPlayList.collect {
-                        CalendarFragmentDirections.actionToPlayList().run {
-                            findNavController().navigate(this)
-                        }
+                        // 여기로 year, month 넘겨주세요
+                        // navigateToPlayListFragment()
                     }
                 }
             }
@@ -206,7 +205,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     }
 
     private fun navigateToPlayListFragment(year: Int, month: Int) {
-        CalendarFragmentDirections.actionCalendarFragmentToPlayListFragment(year, month).run {
+        CalendarFragmentDirections.actionToPlayList(year, month).run {
             findNavController().navigate(this)
         }
     }

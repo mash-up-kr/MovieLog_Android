@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_button_margin_horizental">20dp</dimen>
+    <dimen name="emotion_image_margin">20dp</dimen>
+    <dimen name="emotion_text_margin">12dp</dimen>
+    <dimen name="emotion_image_size">48dp</dimen>
+</resources>

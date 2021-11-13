@@ -1,0 +1,25 @@
+<resources>
+    <string name="bottom_button_next">다음</string>
+    <string name="writing_emotion_title">오늘의 감정은 어떠셨나요?</string>
+    <string name="writing_emotion_mad">화남</string>
+    <string name="writing_emotion_happy">즐거움</string>
+    <string name="writing_emotion_normal">적당함</string>
+    <string name="writing_emotion_panic">당황</string>
+    <string name="writing_emotion_sad">슬픔</string>
+
+    <string name="writing_music_today">오늘의 띵곡은 무엇인가요?</string>
+    <string name="writing_music_search">띵곡 검색하기</string>
+    <string name="writing_music_search_again">다시 검색하기</string>
+
+    <string name="writing_title">영화처럼 오늘을 제목붙인다면?</string>
+    <string name="writing_title_hint">여기에 일기 제목을 작성해주세요(14자)</string>
+    <string name="writing_title_count">%d/14</string>
+
+    <string name="writing_content_title">영화같은 오늘을 기록한다면?</string>
+    <string name="writing_content_hint">여기에 일기 내용을 작성해주세요(60자)</string>
+    <string name="writing_content_count">%d/60</string>
+    <string name="writing_complete">작성 완료하기</string>
+
+    <string name="writing_uploading">영화같은 오늘\n티켓 발권 중...</string>
+
+</resources>
