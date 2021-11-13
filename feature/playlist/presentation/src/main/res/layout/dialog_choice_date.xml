@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="388dp"
         android:paddingHorizontal="@dimen/common_padding"
-        android:background="@color/grey_313131">
+        android:background="@drawable/background_choice_date">
 
         <ImageView
             android:layout_width="wrap_content"

@@ -1,9 +1,16 @@
 package com.mashup.kkyuni.feature.playlist.presentation.widget
 
+import android.app.Dialog
+import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -28,6 +35,10 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
     private val choiceDateAdapter by lazy { ChoiceDateAdapter() }
     private val snapHelper by lazy { PagerSnapHelper() }
     private val playListViewModel by viewModels<PlayListViewModel> ({ requireParentFragment() })
+
+    override fun getTheme(): Int {
+        return R.style.ChoiceDateBottomSheetDialog
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
