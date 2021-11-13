@@ -19,12 +19,16 @@ class UploadRequestDto(
     val longitude: String,
     @Json(name = "musicPlayTime")
     val musicPlayTime: Int,
+    @Json(name = "musicThumbnailImageUrl")
+    val musicThumbnailImageUrl: String,
     @Json(name = "musicTitle")
     val musicTitle: String,
     @Json(name = "title")
     val title: String,
     @Json(name = "webViewURL")
     val url: String,
+    @Json(name = "writingDate")
+    val writingDate: String,
     @Json(name = "youtubeLink")
     val youtubeLink: String
 )

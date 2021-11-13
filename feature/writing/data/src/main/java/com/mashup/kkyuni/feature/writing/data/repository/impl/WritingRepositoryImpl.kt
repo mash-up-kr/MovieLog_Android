@@ -19,6 +19,7 @@ class WritingRepositoryImpl @Inject constructor(
         musicTitle: String,
         title: String,
         youtubeLink: String,
+        writingDate: String,
         latitude: String,
         longitude: String
     ) = flow {
@@ -31,9 +32,11 @@ class WritingRepositoryImpl @Inject constructor(
                     latitude,
                     longitude,
                     musicPlayTime,
+                    musicThumbnailImage,
                     musicTitle,
                     title,
                     "unknown",
+                    writingDate,
                     youtubeLink
                 )
             )

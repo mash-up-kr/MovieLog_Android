@@ -13,6 +13,7 @@ interface WritingRepository {
         musicTitle: String,
         title: String,
         youtubeLink: String,
+        writingDate: String,
         latitude: String,
         longitude: String
     ): Flow<UploadResponseDto>

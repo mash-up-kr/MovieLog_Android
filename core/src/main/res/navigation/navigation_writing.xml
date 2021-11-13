@@ -42,5 +42,18 @@
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.mashup.kkyuni.feature.writing.presentation.upload.WritingUploadFragment"
-        android:label="WritingUploadFragment"/>
+        android:label="WritingUploadFragment">
+
+        <action android:id="@+id/action_to_previewFragment"
+            app:destination="@id/previewFragment"
+            app:popUpTo="@id/uploadFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="com.mashup.kkyuni.feature.writing.presentation.preview.WritingPreviewFragment"
+        android:label="WritingPreviewFragment"/>
+
 </navigation>
