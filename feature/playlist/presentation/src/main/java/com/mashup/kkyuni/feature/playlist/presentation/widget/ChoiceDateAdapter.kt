@@ -1,36 +1,22 @@
 package com.mashup.kkyuni.feature.playlist.presentation.widget
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mashup.kkyuni.feature.playlist.domain.model.Date
+import com.mashup.kkyuni.feature.playlist.domain.model.ChoiceDate
 import com.mashup.kkyuni.feature.playlist.presentation.R
 import com.mashup.kkyuni.feature.playlist.presentation.databinding.HolderChoiceDateBinding
 
-class ChoiceDateAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val dates: List<Date> = listOf(
-        Date(2021, 1),
-        Date(2021, 2),
-        Date(2021, 3),
-        Date(2021, 4),
-        Date(2021, 6),
-        Date(2021, 7),
-        Date(2021, 8),
-        Date(2021, 9),
-        Date(2021, 10),
-        Date(2021, 11),
-        Date(2021, 12)
-    )
+class ChoiceDateAdapter: ListAdapter<ChoiceDate, RecyclerView.ViewHolder>(DiffCallback) {
+    private object DiffCallback : DiffUtil.ItemCallback<ChoiceDate>() {
+        override fun areItemsTheSame(oldItem: ChoiceDate, newItem: ChoiceDate) =
+            newItem == oldItem
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun updateDateList(list: List<Date>){
-        dates.toMutableList().run {
-            clear()
-            addAll(list)
-            notifyDataSetChanged()
-        }
+        override fun areContentsTheSame(oldItem: ChoiceDate, newItem: ChoiceDate) =
+            newItem == oldItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -45,18 +31,16 @@ class ChoiceDateAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? DateViewHolder)?.bind(dates[position])
+        (holder as? DateViewHolder)?.bind(getItem(position))
     }
-
-    override fun getItemCount() = dates.size
 
     class DateViewHolder(
         private val binding: HolderChoiceDateBinding
     ): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(date: Date){
+        fun bind(date: ChoiceDate){
             binding.run {
-                this.date = date
+                this.choiceDate = date
                 executePendingBindings()
             }
         }

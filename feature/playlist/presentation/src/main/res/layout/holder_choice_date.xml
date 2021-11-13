@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="date"
-            type="com.mashup.kkyuni.feature.playlist.domain.model.Date" />
+            name="choiceDate"
+            type="com.mashup.kkyuni.feature.playlist.domain.model.ChoiceDate" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,8 +16,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/ChoiceDate"
-            android:text="@{@string/choice_date_format(date.year, date.month)}"
+            android:textAppearance="@style/ChoiceDateUnSelected"
+            android:text="@{@string/choice_date_format(choiceDate.date.year, choiceDate.date.month)}"
+            app:bindSelectedDate="@{choiceDate.selected}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

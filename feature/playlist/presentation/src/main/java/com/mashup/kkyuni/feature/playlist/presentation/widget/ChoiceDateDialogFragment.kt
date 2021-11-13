@@ -3,13 +3,23 @@ package com.mashup.kkyuni.feature.playlist.presentation.widget
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BottomSheetBindingDialogFragment
 import com.mashup.kkyuni.feature.playlist.presentation.R
 import com.mashup.kkyuni.feature.playlist.presentation.databinding.DialogChoiceDateBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDateBinding>(R.layout.dialog_choice_date){
+    private val choiceDateViewModel by viewModels<ChoiceDateViewModel>()
     private val choiceDateAdapter by lazy { ChoiceDateAdapter() }
     private val snapHelper by lazy { PagerSnapHelper() }
 
@@ -17,10 +27,14 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+
+        collectFlows()
     }
 
     private fun initView() {
         binding.run {
+            viewModel = choiceDateViewModel
+
             recyclerViewDate.adapter = choiceDateAdapter
 
             snapHelper.attachToRecyclerView(recyclerViewDate)
@@ -36,8 +50,8 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
 
                     val position = parent.getChildAdapterPosition(view)
                     val lastPosition = state.itemCount - 1
-
                     val offset = resources.getDimensionPixelSize(R.dimen.choice_date_item_offset)
+
                     when(position){
                         0 -> outRect.bottom = offset
                         lastPosition -> outRect.top = offset
@@ -49,6 +63,38 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
                 }
             })
 
+            recyclerViewDate.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                var currentPosition = RecyclerView.NO_POSITION
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    if(newState != RecyclerView.SCROLL_STATE_IDLE) return
+
+                    val view = snapHelper.findSnapView(recyclerView.layoutManager) ?: return
+                    val position = recyclerView.layoutManager?.getPosition(view) ?: return
+
+                    if(currentPosition != position) {
+                        currentPosition = position
+                        Toast.makeText(context, "current position = $position", Toast.LENGTH_SHORT).show()
+                        choiceDateViewModel.selectByPosition(currentPosition)
+                    }
+                }
+            })
+        }
+    }
+
+    private fun collectFlows(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                choiceDateViewModel.run {
+                    launch {
+                        changedNotiPosition.collect {
+                            choiceDateAdapter.notifyItemChanged(it)
+                        }
+                    }
+                }
+            }
         }
     }
 

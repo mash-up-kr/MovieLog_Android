@@ -41,9 +41,16 @@
         <item name="android:textColor">@color/green_ddf880</item>
     </style>
 
-    <style name="ChoiceDate">
+    <style name="ChoiceDateUnSelected">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/numbser_blackopsone_regular</item>
         <item name="android:textColor">@color/white_alpha50</item>
+    </style>
+
+    <style name="ChoiceDateSelected">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/numbser_blackopsone_regular</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>
