@@ -2,6 +2,7 @@ package com.mashup.kkyuni.feature.onboading.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.onboading.presentation.databinding.FragmentOnboadingBinding
@@ -41,6 +42,11 @@ class OnboadingFragment : BindingFragment<FragmentOnboadingBinding>(
         binding.prev.setOnClickListener {
             if (binding.viewPager.currentItem > 0) {
                 binding.viewPager.setCurrentItem(binding.viewPager.currentItem-1, true)
+            }
+        }
+        binding.skip.setOnClickListener {
+            OnboadingFragmentDirections.actionOnBoadingFragmentToCalendarFragment().run {
+                findNavController().navigate(this)
             }
         }
     }

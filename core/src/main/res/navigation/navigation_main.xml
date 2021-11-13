@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/onBoadingFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -30,6 +30,9 @@
             app:destination="@id/calendarFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_onBoadingFragment"
+            app:destination="@id/onBoadingFragment" />
 
     </fragment>
 
@@ -66,7 +69,11 @@
 
     <fragment
         android:id="@+id/onBoadingFragment"
-        android:name="com.mashup.kkyuni.feature.onboading.presentation.OnboadingFragment" />
+        android:name="com.mashup.kkyuni.feature.onboading.presentation.OnboadingFragment" >
+        <action
+            android:id="@+id/action_onBoadingFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingFragment"
