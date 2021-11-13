@@ -1,19 +1,21 @@
 package com.mashup.kkyuni.feature.playlist.presentation.widget
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.kkyuni.feature.playlist.domain.model.ChoiceDate
 import com.mashup.kkyuni.feature.playlist.domain.model.Date
+import com.mashup.kkyuni.feature.playlist.domain.usecase.GetDateListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChoiceDateViewModel @Inject constructor(): ViewModel() {
+class ChoiceDateViewModel @Inject constructor(
+    private val getDateListUseCase: GetDateListUseCase,
+    private val savedStateHandle: SavedStateHandle
+): ViewModel() {
 
     private var _currentSelectedPosition = 0
 
@@ -28,20 +30,12 @@ class ChoiceDateViewModel @Inject constructor(): ViewModel() {
 
     init {
         viewModelScope.launch {
-            _choiceDates.value = listOf(
-                    ChoiceDate(Date(2021, 1)),
-                    ChoiceDate(Date(2021, 2)),
-                    ChoiceDate(Date(2021, 3)),
-                    ChoiceDate(Date(2021, 4)),
-                    ChoiceDate(Date(2021, 5)),
-                    ChoiceDate(Date(2021, 6)),
-                    ChoiceDate(Date(2021, 7)),
-                    ChoiceDate(Date(2021, 8)),
-                    ChoiceDate(Date(2021, 9)),
-                    ChoiceDate(Date(2021, 10)),
-                    ChoiceDate(Date(2021, 11)),
-                    ChoiceDate(Date(2021, 12))
-                )
+            getDateListUseCase(
+                savedStateHandle[ChoiceDateDialogFragment.KEY_YEAR] ?: 2021,
+                savedStateHandle[ChoiceDateDialogFragment.KEY_MONTH] ?: 1
+            ).collect {
+                _choiceDates.emit(it)
+            }
         }
     }
 

@@ -62,7 +62,7 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
                     changeDateEvent.collect {
                         ChoiceDateDialogFragment.showDialog(
                             childFragmentManager,
-                            Date(2021, 1)
+                            Date(2021, 10)
                         )
                     }
                 }
