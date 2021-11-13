@@ -1,11 +1,7 @@
 <resources>
-<<<<<<< HEAD
-    <string name="app_name">Kkyuni Kkyuni</string>
     <string name="title_onboading">onboading</string>
     <string name="title_data">data</string>
     <string name="title_domain">domain</string>
     <string name="title_presentation">presentation</string>
-=======
     <string name="app_name">Movie Log</string>
->>>>>>> 8de7f002e1ca691cc0a840630173bcf3095f1ada
 </resources>
