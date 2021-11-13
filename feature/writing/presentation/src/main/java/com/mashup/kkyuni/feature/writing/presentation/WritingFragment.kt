@@ -39,4 +39,8 @@ class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragmen
     private fun clearInputAdjust() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED)
     }
+
+    companion object {
+        const val KEY_DATE = "key_date"
+    }
 }

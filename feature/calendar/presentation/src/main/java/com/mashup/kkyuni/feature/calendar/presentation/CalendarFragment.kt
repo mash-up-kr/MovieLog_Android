@@ -3,6 +3,7 @@ package com.mashup.kkyuni.feature.calendar.presentation
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.calendar.presentation.SnapPageScrollListener.OnChangeListener
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentCalendarBinding
+import com.mashup.kkyuni.feature.writing.presentation.WritingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -66,6 +68,17 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     launch {
                         preview.collect {
                             binding.previewGroup.isVisible = it.not()
+                        }
+                    }
+
+                    launch {
+                        onWriting.collect {
+                            findNavController().navigate(
+                                R.id.navigation_writing,
+                                bundleOf(
+                                    "key_date" to it
+                                )
+                            )
                         }
                     }
                 }

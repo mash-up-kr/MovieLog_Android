@@ -1,6 +1,7 @@
 package com.mashup.kkyuni.feature.writing.presentation
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.mashup.kkyuni.core.constant.Constant
@@ -10,12 +11,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class WritingViewModel @Inject constructor() : ViewModel() {
+class WritingViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
     private val _writing = MutableLiveData<Writing>()
     val writing get() = _writing
 
     init {
-        _writing.value = Writing()
+        _writing.value = Writing(
+            date = savedStateHandle[WritingFragment.KEY_DATE]
+        )
     }
 
     private val _isSetMusic = Transformations.map(_writing) {

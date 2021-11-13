@@ -10,10 +10,6 @@ import com.mashup.kkyuni.feature.calendar.domain.model.DiaryEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
-
-<<<<<<< HEAD
-=======
->>>>>>> 315a7d1 ([#32] play list 진입 부분 작성 및 달 선택 중앙 정렬)
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -39,6 +35,9 @@ class CalendarViewModel @Inject constructor(
 
     private val _currentDate = MutableStateFlow("")
     val currentDate = _currentDate.asStateFlow()
+
+    private val _onWriting = MutableSharedFlow<String>()
+    val onWriting = _onWriting.asSharedFlow()
 
     init {
         viewModelScope.launch {
@@ -72,5 +71,9 @@ class CalendarViewModel @Inject constructor(
 
     fun getUserAccessToken(): String? {
         return getAccessToken()
+    }
+
+    fun onClickWriting() = viewModelScope.launch {
+        _onWriting.emit(_currentDate.value)
     }
 }

@@ -162,6 +162,7 @@
             android:text="@string/message"
             android:textColor="@color/white"
             android:textSize="18sp"
+            app:onThrottleClick="@{() -> viewModel.onClickWriting()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
