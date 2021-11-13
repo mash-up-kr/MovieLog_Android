@@ -1,7 +1,14 @@
 <resources>
-    <string name="onboading1_text">영화 같은 오늘을 \n 음악과 일기로 기록해보세요</string>
-    <string name="onboading2_text">내가 기록한 음악들을 \n 오늘의 플레이리스트로 확인하세요</string>
-    <string name="onboading3_text">다양한 영화티켓 디자인으로 오늘을 쉽고 멋지게 공유해보세요</string>
+    <string name="onboading1_text1">영화 같은 오늘을</string>
+    <string name="onboading1_text_bold">음악과 일기로 </string>
+    <string name="onboading1_text2"> 기록해보세요</string>
+    <string name="onboading2_text">내가 기록한 음악들을</string>
+    <string name="onboading2_text_bold">이 달의 플레이리스트</string>
+    <string name="onboading2_text2">로 확인하세요</string>
+    <string name="onboading3_text2_bold1">다양한 영화티켓 디자인</string>
+    <string name="onboading3_text">으로</string>
+    <string name="onboading3_text2">오늘을 쉽고 멋지게</string>
+    <string name="onboading3_text2_bold2"> 공유해주세요</string>
     <string name="skip">skip</string>
     <string name="next">next</string>
     <string name="prev">prev</string>

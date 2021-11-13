@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/onBoadingFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -59,6 +59,14 @@
             android:name="month"
             app:argType="integer"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/musicFragment"
+        android:name="com.mashup.kkyuni.feature.music.presentation.MusicFragment" />
+
+    <fragment
+        android:id="@+id/onBoadingFragment"
+        android:name="com.mashup.kkyuni.feature.onboading.presentation.OnboadingFragment" />
 
     <fragment
         android:id="@+id/settingFragment"

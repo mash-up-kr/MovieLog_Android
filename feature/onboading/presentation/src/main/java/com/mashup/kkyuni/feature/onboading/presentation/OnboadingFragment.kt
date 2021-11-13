@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.onboading.presentation.databinding.FragmentOnboadingBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnboadingFragment : BindingFragment<FragmentOnboadingBinding>(
     R.layout.fragment_onboading
 ){
