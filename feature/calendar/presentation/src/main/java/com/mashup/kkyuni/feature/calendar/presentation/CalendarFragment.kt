@@ -83,7 +83,10 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     this.time = time
                     val year = get(Calendar.YEAR)
                     val month = get(Calendar.MONTH) + 1
-                    val day = get(Calendar.DATE)
+                    var day = get(Calendar.DATE).toString()
+                    if (day.toInt() < 10) {
+                        day = "0$day"
+                    }
                     viewModel.requestDiary("$year-$month-$day")
                 }
             }
@@ -152,7 +155,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 }
             }
         })
-        
+
         formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
         startDate = Date(START_DATE)
 
