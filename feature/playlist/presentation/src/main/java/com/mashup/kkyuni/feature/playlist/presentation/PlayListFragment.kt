@@ -50,7 +50,7 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
     private fun observeLiveData() {
         playListViewModel.run {
             backLiveData.observe(viewLifecycleOwner) {
-                // TODO back
+                findNavController().popBackStack(R.id.calendarFragment, false)
             }
         }
     }

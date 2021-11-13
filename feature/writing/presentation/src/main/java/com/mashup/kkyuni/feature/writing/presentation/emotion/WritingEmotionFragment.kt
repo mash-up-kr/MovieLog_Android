@@ -74,6 +74,6 @@ class WritingEmotionFragment :
     }
 
     private fun onBackPressed() {
-        findNavController().popBackStack()
+        findNavController().popBackStack(R.id.calendarFragment, false)
     }
 }

@@ -43,7 +43,7 @@
 
         <action
             android:id="@+id/action_to_play_list"
-            app:destination="@id/playListFragment" />
+            app:destination="@id/playListFragment"/>
     </fragment>
 
     <fragment

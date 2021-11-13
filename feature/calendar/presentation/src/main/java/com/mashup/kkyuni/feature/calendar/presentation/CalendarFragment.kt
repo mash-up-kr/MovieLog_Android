@@ -251,9 +251,13 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     }
 
     private fun navigateToPlayListFragment(year: Int, month: Int) {
-        CalendarFragmentDirections.actionToPlayList(year, month).run {
-            findNavController().navigate(this)
-        }
+        findNavController().navigate(
+            R.id.playListFragment,
+            bundleOf(
+                "year" to year,
+                "month" to month
+            )
+        )
     }
 
     companion object {

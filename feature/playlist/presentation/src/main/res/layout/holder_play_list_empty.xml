@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="playListViewModel"
             type="com.mashup.kkyuni.feature.playlist.presentation.PlayListViewModel" />
     </data>
 
@@ -51,7 +51,7 @@
             android:textAppearance="@style/PlayList.AddMusic"
             android:text="@string/playlist_add_music"
             android:background="@drawable/background_playlist_addmusic"
-            app:onThrottleClick="@{() -> viewModel.onWriteDiary()}"
+            app:onThrottleClick="@{() -> playListViewModel.onBack()}"
             app:layout_constraintTop_toBottomOf="@id/textview_empty_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

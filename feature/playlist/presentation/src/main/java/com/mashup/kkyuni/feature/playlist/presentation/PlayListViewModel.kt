@@ -88,10 +88,6 @@ class PlayListViewModel @Inject constructor(
         }
     }
 
-    fun onWriteDiary() {
-        onBack()
-    }
-
     companion object {
         const val TAG = "PlayListViewModel"
 
