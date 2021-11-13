@@ -1,4 +1,9 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboading1_text">영화 같은 오늘을 \n 음악과 일기로 기록해보세요</string>
+    <string name="onboading2_text">내가 기록한 음악들을 \n 오늘의 플레이리스트로 확인하세요</string>
+    <string name="onboading3_text">다양한 영화티켓 디자인으로 오늘을 쉽고 멋지게 공유해보세요</string>
+    <string name="skip">skip</string>
+    <string name="next">next</string>
+    <string name="prev">prev</string>
+    <string name="start">start</string>
 </resources>
