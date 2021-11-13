@@ -58,5 +58,4 @@ class MusicViewModel @Inject constructor(
         _isSelected.postValue(false)
     }
 
-
 }
