@@ -3,6 +3,7 @@ package com.mashup.kkyuni.feature.playlist.presentation.widget
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BottomSheetBindingDialogFragment
 import com.mashup.kkyuni.feature.playlist.presentation.R
@@ -10,6 +11,7 @@ import com.mashup.kkyuni.feature.playlist.presentation.databinding.DialogChoiceD
 
 class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDateBinding>(R.layout.dialog_choice_date){
     private val choiceDateAdapter by lazy { ChoiceDateAdapter() }
+    private val snapHelper by lazy { PagerSnapHelper() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,6 +22,8 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
     private fun initView() {
         binding.run {
             recyclerViewDate.adapter = choiceDateAdapter
+
+            snapHelper.attachToRecyclerView(recyclerViewDate)
 
             recyclerViewDate.addItemDecoration(object : RecyclerView.ItemDecoration(){
                 override fun getItemOffsets(
@@ -44,6 +48,7 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
                     }
                 }
             })
+
         }
     }
 
