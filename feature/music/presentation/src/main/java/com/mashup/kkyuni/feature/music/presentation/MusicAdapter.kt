@@ -28,10 +28,11 @@ class MusicAdapter constructor(private val viewModel: MusicViewModel) :
     }
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        if (position == viewModel.selectedItemPos)
+        if (position == viewModel.selectedItemPos) {
             holder.selectedBg()
-        else
+        } else {
             holder.defaultBg()
+        }
         holder.bind(getItem(position))
     }
 
