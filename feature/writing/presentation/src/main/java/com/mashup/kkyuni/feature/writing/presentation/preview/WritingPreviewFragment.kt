@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
+import com.mashup.kkyuni.feature.writing.domain.model.DiaryType
 import com.mashup.kkyuni.feature.writing.domain.model.UploadState
 import com.mashup.kkyuni.feature.writing.presentation.R
 import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
@@ -50,8 +51,13 @@ class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.f
             }
 
             buttonConfirm.setOnClickListener {
-                writingViewModel.getCurrentWriting().run {
-                    writingPreviewViewModel.requestUpload(this)
+                webviewPreview.evaluateJavascript("selectType()") { type ->
+                    writingViewModel.run {
+                        updateDiaryType(DiaryType.valueOf(type))
+                        getCurrentWriting().run {
+                            writingPreviewViewModel.requestUpload(this)
+                        }
+                    }
                 }
             }
 

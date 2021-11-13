@@ -34,7 +34,7 @@ class WritingPreviewViewModel @Inject constructor(
                     musicTitle = writing.music?.title ?: "",
                     title = writing.title ?: "",
                     youtubeLink = writing.music?.linkUrl ?: "",
-                    writingDate = writing.date ?: "",
+                    writingDate = writing.date ?: "2021-10-10",
                     "1",
                     "1"
                 )
