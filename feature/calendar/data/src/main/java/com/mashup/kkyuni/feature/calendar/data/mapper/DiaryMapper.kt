@@ -9,7 +9,6 @@ fun DiaryResponse.toEntity() = DiaryEntity(
     diaryType,
     emotion,
     musicPlayTime,
-    musicThumbnailImage,
     title,
     writingDate,
     youtubeLink

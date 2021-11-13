@@ -2,6 +2,7 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -58,6 +59,10 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     onPlayList.collect {
                         // 여기로 year, month 넘겨주세요
                         // navigateToPlayListFragment()
+                    }
+
+                    preview.collect {
+                        binding.previewGroup.isVisible = it.not()
                     }
                 }
             }
@@ -147,7 +152,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 }
             }
         })
-
+        
         formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
         startDate = Date(START_DATE)
 
@@ -213,6 +218,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     companion object {
         // 2021.09.01 09:00:00
         const val START_DATE = 1630486800000L
+
         // 1주일 시간
         const val ONE_WEEK = 604800000L
     }
