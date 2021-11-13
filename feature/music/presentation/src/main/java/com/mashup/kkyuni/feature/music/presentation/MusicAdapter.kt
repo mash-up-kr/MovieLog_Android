@@ -29,9 +29,9 @@ class MusicAdapter constructor(private val viewModel: MusicViewModel) :
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         if (position == viewModel.selectedItemPos) {
-            holder.selectedBg()
+            holder.selectedBackground()
         } else {
-            holder.defaultBg()
+            holder.defaultBackground()
         }
         holder.bind(getItem(position))
     }
@@ -55,11 +55,11 @@ class MusicAdapter constructor(private val viewModel: MusicViewModel) :
             }
         }
 
-        fun defaultBg() {
+        fun defaultBackground() {
             binding.recyclerItem.isSelected = false
         }
 
-        fun selectedBg() {
+        fun selectedBackground() {
             binding.recyclerItem.isSelected = true
         }
     }
