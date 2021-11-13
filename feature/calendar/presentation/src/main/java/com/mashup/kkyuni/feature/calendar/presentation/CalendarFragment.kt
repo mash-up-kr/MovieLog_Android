@@ -2,8 +2,12 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebViewClient
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -13,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.calendar.presentation.SnapPageScrollListener.OnChangeListener
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentCalendarBinding
+import com.mashup.kkyuni.feature.writing.presentation.WritingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -39,26 +44,49 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
     private var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
 
+    var year = -1
+    var month = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = this.viewModel
         initView()
+        initWebView()
 
         viewModel.run {
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                    onSetting.collect {
-                        CalendarFragmentDirections.actionToSetting().run {
-                            findNavController().navigate(this)
+                    launch {
+                        onSetting.collect {
+                            CalendarFragmentDirections.actionToSetting().run {
+                                findNavController().navigate(this)
+                            }
                         }
                     }
 
-                    onPlayList.collect {
-                        // 여기로 year, month 넘겨주세요
-                        // navigateToPlayListFragment()
+                    launch {
+                        preview.collect {
+                            binding.previewGroup.isVisible = it.not()
+                        }
                     }
+
+                    launch {
+                        onWriting.collect {
+                            findNavController().navigate(
+                                R.id.navigation_writing,
+                                bundleOf(
+                                    "key_date" to it
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                onPlayList.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
+                    navigateToPlayListFragment(year, month)
                 }
             }
         }
@@ -76,10 +104,15 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 val time = Date(baseDateList[it].time)
                 Calendar.getInstance().run {
                     this.time = time
-                    val year = get(Calendar.YEAR)
-                    val month = get(Calendar.MONTH) + 1
-                    val day = get(Calendar.DATE)
-                    viewModel.requestDiary("$year-$month-$day")
+                    year = get(Calendar.YEAR)
+                    month = get(Calendar.MONTH) + 1
+                    var day = get(Calendar.DATE).toString()
+                    if (day.toInt() < 10) {
+                        day = "0$day"
+                    }
+                    val token = viewModel.getUserAccessToken().orEmpty()
+                    binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=$year-$month-$day")
+                    viewModel.updateCurrentDate("$year-$month-$day")
                 }
             }
         ) {}
@@ -162,6 +195,19 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         }
     }
 
+    private fun initWebView() {
+        with(binding.webView) {
+            webViewClient = object : WebViewClient() {
+
+            }
+
+            settings.run {
+                javaScriptEnabled = true
+            }
+            val token = viewModel.getUserAccessToken().orEmpty()
+        }
+    }
+
     private fun setDateList(dateList: ArrayList<Date>) {
         val calendar = Calendar.getInstance()
 
@@ -205,14 +251,19 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     }
 
     private fun navigateToPlayListFragment(year: Int, month: Int) {
-        CalendarFragmentDirections.actionToPlayList(year, month).run {
-            findNavController().navigate(this)
-        }
+        findNavController().navigate(
+            R.id.playListFragment,
+            bundleOf(
+                "year" to year,
+                "month" to month
+            )
+        )
     }
 
     companion object {
         // 2021.09.01 09:00:00
         const val START_DATE = 1630486800000L
+
         // 1주일 시간
         const val ONE_WEEK = 604800000L
     }

@@ -10,11 +10,11 @@ class PlayListEmptyViewHolderImpl(
     private val binding: HolderPlayListEmptyBinding,
     private val viewModel: PlayListViewModel
 ) : RecyclerView.ViewHolder(binding.root), PlayListViewHolder {
-    init {
-        binding.viewModel = viewModel
-    }
 
     override fun bind(item: MusicModel) {
-        binding.executePendingBindings()
+        binding.run {
+            this.playListViewModel = viewModel
+            executePendingBindings()
+        }
     }
 }

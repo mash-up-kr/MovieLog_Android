@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="choice_date_item_offset">14dp</dimen>
+</resources>

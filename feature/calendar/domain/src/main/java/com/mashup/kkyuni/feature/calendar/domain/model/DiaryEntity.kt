@@ -6,7 +6,6 @@ class DiaryEntity(
     val diaryType: String,
     val emotion: String,
     val musicPlayTime: Double,
-    val musicThumbnailImage: String,
     val title: String,
     val writingDate: String,
     val youtubeLink: String

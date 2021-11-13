@@ -18,6 +18,7 @@ class UploadWritingUseCase @Inject constructor(
         val musicTitle: String,
         val title: String,
         val youtubeLink: String,
+        val writingDate: String,
         val latitude: String,
         val longitude: String
     )
@@ -32,6 +33,7 @@ class UploadWritingUseCase @Inject constructor(
             params.musicTitle,
             params.title,
             params.youtubeLink,
+            params.writingDate,
             params.latitude,
             params.longitude
         ).map {

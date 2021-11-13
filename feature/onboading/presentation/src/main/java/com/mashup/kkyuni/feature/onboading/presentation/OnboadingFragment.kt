@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OnboadingFragment : BindingFragment<FragmentOnboadingBinding>(
     R.layout.fragment_onboading
-){
+) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,12 +36,16 @@ class OnboadingFragment : BindingFragment<FragmentOnboadingBinding>(
         })
         binding.next.setOnClickListener {
             if (binding.viewPager.currentItem < 2) {
-                binding.viewPager.setCurrentItem(binding.viewPager.currentItem+1, true)
+                binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1, true)
+            } else {
+                OnboadingFragmentDirections.actionOnBoadingFragmentToCalendarFragment().run {
+                    findNavController().navigate(this)
+                }
             }
         }
         binding.prev.setOnClickListener {
             if (binding.viewPager.currentItem > 0) {
-                binding.viewPager.setCurrentItem(binding.viewPager.currentItem-1, true)
+                binding.viewPager.setCurrentItem(binding.viewPager.currentItem - 1, true)
             }
         }
         binding.skip.setOnClickListener {
@@ -50,4 +54,4 @@ class OnboadingFragment : BindingFragment<FragmentOnboadingBinding>(
             }
         }
     }
- }
+}
