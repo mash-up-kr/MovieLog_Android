@@ -55,22 +55,24 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         viewModel.run {
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                    onSetting.collect {
-                        CalendarFragmentDirections.actionToSetting().run {
-                            findNavController().navigate(this)
+                    launch {
+                        onSetting.collect {
+                            CalendarFragmentDirections.actionToSetting().run {
+                                findNavController().navigate(this)
+                            }
                         }
                     }
 
-                    preview.collect {
-                        binding.previewGroup.isVisible = it.not()
+                    launch {
+                        preview.collect {
+                            binding.previewGroup.isVisible = it.not()
+                        }
                     }
                 }
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
                 onPlayList.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
-                    // 여기로 year, month 넘겨주세요
                     navigateToPlayListFragment(year, month)
                 }
             }
@@ -97,6 +99,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                     }
                     val token = viewModel.getUserAccessToken().orEmpty()
                     binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=$year-$month-$day")
+                    viewModel.updateCurrentDate("$year-$month-$day")
                 }
             }
         ) {}

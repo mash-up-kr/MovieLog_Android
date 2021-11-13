@@ -83,3 +83,8 @@ fun RecyclerView.updateChoiceDates(list: List<ChoiceDate>?) {
         (adapter as? ChoiceDateAdapter)?.submitList(it)
     }
 }
+
+@BindingAdapter("scrollToPosition")
+fun RecyclerView.scrollToPosition(position: Int){
+    smoothScrollToPosition(position)
+}

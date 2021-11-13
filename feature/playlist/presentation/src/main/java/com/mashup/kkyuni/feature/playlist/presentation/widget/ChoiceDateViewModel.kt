@@ -3,6 +3,7 @@ package com.mashup.kkyuni.feature.playlist.presentation.widget
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.feature.playlist.domain.model.ChoiceDate
 import com.mashup.kkyuni.feature.playlist.domain.model.Date
 import com.mashup.kkyuni.feature.playlist.domain.usecase.GetDateListUseCase
@@ -28,6 +29,9 @@ class ChoiceDateViewModel @Inject constructor(
     private val _choiceDateEvent = MutableSharedFlow<Date>()
     val choiceDateEvent = _choiceDateEvent.asSharedFlow()
 
+    private val _scrollToPosition = MutableStateFlow(RecyclerView.NO_POSITION)
+    val scrollToPosition get() = _scrollToPosition
+
     init {
         viewModelScope.launch {
             getDateListUseCase(
@@ -35,6 +39,8 @@ class ChoiceDateViewModel @Inject constructor(
                 savedStateHandle[ChoiceDateDialogFragment.KEY_MONTH] ?: 1
             ).collect {
                 _choiceDates.emit(it)
+
+                _scrollToPosition.emit((it.lastIndex / 2) + 2)
             }
         }
     }

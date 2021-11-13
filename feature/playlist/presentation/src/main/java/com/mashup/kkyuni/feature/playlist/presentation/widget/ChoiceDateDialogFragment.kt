@@ -1,16 +1,8 @@
 package com.mashup.kkyuni.feature.playlist.presentation.widget
 
-import android.app.Dialog
-import android.graphics.Color
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.Window
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -27,7 +19,6 @@ import com.mashup.kkyuni.feature.playlist.presentation.databinding.DialogChoiceD
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.time.Year
 
 @AndroidEntryPoint
 class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDateBinding>(R.layout.dialog_choice_date){
@@ -93,7 +84,6 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
 
                     if(currentPosition != position) {
                         currentPosition = position
-                        Toast.makeText(context, "current position = $position", Toast.LENGTH_SHORT).show()
                         choiceDateViewModel.selectByPosition(currentPosition)
                     }
                 }

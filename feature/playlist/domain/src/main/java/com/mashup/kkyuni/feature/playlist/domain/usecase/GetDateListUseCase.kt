@@ -18,7 +18,7 @@ class GetDateListUseCase @Inject constructor() {
             set(Calendar.YEAR, year)
             set(Calendar.MONTH, month)
 
-            add(Calendar.MONTH, -6)
+            add(Calendar.MONTH, -(ITEM_COUNT / 2))
         }
 
         repeat(ITEM_COUNT) {
@@ -32,7 +32,7 @@ class GetDateListUseCase @Inject constructor() {
                             calendar.get(Calendar.MONTH)
                         }
                     ),
-                    false
+                    it == ITEM_COUNT / 2
                 )
             )
 
@@ -43,6 +43,6 @@ class GetDateListUseCase @Inject constructor() {
     }
 
     companion object {
-        const val ITEM_COUNT = 12
+        const val ITEM_COUNT = 13
     }
 }
