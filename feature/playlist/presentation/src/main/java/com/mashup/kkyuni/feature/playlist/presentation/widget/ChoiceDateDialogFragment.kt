@@ -1,7 +1,9 @@
 package com.mashup.kkyuni.feature.playlist.presentation.widget
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
@@ -9,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BottomSheetBindingDialogFragment
@@ -56,18 +59,10 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
                 ) {
                     super.getItemOffsets(outRect, view, parent, state)
 
-                    val position = parent.getChildAdapterPosition(view)
-                    val lastPosition = state.itemCount - 1
                     val offset = resources.getDimensionPixelSize(R.dimen.choice_date_item_offset)
 
-                    when(position){
-                        0 -> outRect.bottom = offset
-                        lastPosition -> outRect.top = offset
-                        else -> {
-                            outRect.top = offset
-                            outRect.bottom = offset
-                        }
-                    }
+                    outRect.top = offset
+                    outRect.bottom = offset
                 }
             })
 
@@ -79,6 +74,7 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
 
                     if(newState != RecyclerView.SCROLL_STATE_IDLE) return
 
+                    // 중앙 부분 선택 구현
                     val view = snapHelper.findSnapView(recyclerView.layoutManager) ?: return
                     val position = recyclerView.layoutManager?.getPosition(view) ?: return
 
@@ -86,18 +82,33 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
                         currentPosition = position
                         choiceDateViewModel.selectByPosition(currentPosition)
                     }
+
+                    // 달 선택 무한 스크롤 구현
+                    (recyclerView.layoutManager as? LinearLayoutManager)?.let {
+                        val visibleItemCount = it.childCount
+                        val totalItemCount = it.itemCount
+
+                        val lastPosition = it.findLastVisibleItemPosition()
+
+                        when {
+                            lastPosition < visibleItemCount + 2 -> choiceDateViewModel.addPreviousYear()
+
+                            totalItemCount - lastPosition + 1 < visibleItemCount -> choiceDateViewModel.addAfterYear()
+                        }
+                    }
                 }
             })
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun collectFlows(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                 choiceDateViewModel.run {
                     launch {
-                        changedNotiPosition.collect {
-                            choiceDateAdapter.notifyItemChanged(it)
+                        changedNotifyEvent.collect {
+                            choiceDateAdapter.notifyDataSetChanged()
                         }
                     }
 

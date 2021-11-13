@@ -25,10 +25,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_date"
-            android:layout_width="128dp"
+            android:layout_width="0dp"
             android:layout_height="225dp"
             android:layout_marginBottom="36dp"
             android:layout_marginTop="35dp"
+            app:layout_constraintWidth_min="128dp"
             app:scrollToPosition="@{viewModel.scrollToPosition}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:updateChoiceDates="@{viewModel.choiceDates}"
@@ -42,6 +43,7 @@
             android:layout_height="1dp"
             android:background="@color/white_alpha80"
             android:layout_marginBottom="45dp"
+            app:layout_constraintWidth_max="128dp"
             app:layout_constraintStart_toStartOf="@id/recycler_view_date"
             app:layout_constraintEnd_toEndOf="@id/recycler_view_date"
             app:layout_constraintTop_toTopOf="@id/recycler_view_date"
@@ -52,6 +54,7 @@
             android:layout_height="1dp"
             android:background="@color/white_alpha80"
             android:layout_marginTop="45dp"
+            app:layout_constraintWidth_max="128dp"
             app:layout_constraintStart_toStartOf="@id/recycler_view_date"
             app:layout_constraintEnd_toEndOf="@id/recycler_view_date"
             app:layout_constraintBottom_toBottomOf="@id/recycler_view_date"
