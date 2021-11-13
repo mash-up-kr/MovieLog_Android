@@ -2,9 +2,11 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebViewClient
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -40,11 +42,15 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
     private var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
 
+    var year = -1
+    var month = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = this.viewModel
         initView()
+        initWebView()
 
         viewModel.run {
             viewLifecycleOwner.lifecycleScope.launch {
@@ -56,14 +62,16 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                         }
                     }
 
-                    onPlayList.collect {
-                        // 여기로 year, month 넘겨주세요
-                        // navigateToPlayListFragment()
-                    }
-
                     preview.collect {
                         binding.previewGroup.isVisible = it.not()
                     }
+                }
+            }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                onPlayList.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
+                    // 여기로 year, month 넘겨주세요
+                    navigateToPlayListFragment(year, month)
                 }
             }
         }
@@ -81,13 +89,14 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 val time = Date(baseDateList[it].time)
                 Calendar.getInstance().run {
                     this.time = time
-                    val year = get(Calendar.YEAR)
-                    val month = get(Calendar.MONTH) + 1
+                    year = get(Calendar.YEAR)
+                    month = get(Calendar.MONTH) + 1
                     var day = get(Calendar.DATE).toString()
                     if (day.toInt() < 10) {
                         day = "0$day"
                     }
-                    viewModel.requestDiary("$year-$month-$day")
+                    val token = viewModel.getUserAccessToken().orEmpty()
+                    binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=$year-$month-$day")
                 }
             }
         ) {}
@@ -167,6 +176,19 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
             val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
             // 현재 위치 찾아서 포지셔닝
             layoutManager.scrollToPosition(baseDateList.size - 10)
+        }
+    }
+
+    private fun initWebView() {
+        with(binding.webView) {
+            webViewClient = object : WebViewClient() {
+
+            }
+
+            settings.run {
+                javaScriptEnabled = true
+            }
+            val token = viewModel.getUserAccessToken().orEmpty()
         }
     }
 

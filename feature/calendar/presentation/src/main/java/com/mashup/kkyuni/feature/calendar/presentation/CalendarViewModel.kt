@@ -2,6 +2,7 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.kkyuni.feature.calendar.domain.GetAccessTokenUseCase
 import com.mashup.kkyuni.feature.calendar.domain.GetDiary
 import com.mashup.kkyuni.feature.calendar.domain.GetPreviewUseCase
 import com.mashup.kkyuni.feature.calendar.domain.SetPreviewUseCase
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 class CalendarViewModel @Inject constructor(
     private val getDiary: GetDiary,
     private val getPreview: GetPreviewUseCase,
-    private val setPreview: SetPreviewUseCase
+    private val setPreview: SetPreviewUseCase,
+    private val getAccessToken: GetAccessTokenUseCase
 ) : ViewModel() {
 
     private val _preview = MutableStateFlow<Boolean>(false)
@@ -54,5 +56,9 @@ class CalendarViewModel @Inject constructor(
     fun onClickPreviewBackground() = viewModelScope.launch {
         setPreview(true)
         _preview.emit(true)
+    }
+
+    fun getUserAccessToken(): String? {
+        return getAccessToken()
     }
 }
