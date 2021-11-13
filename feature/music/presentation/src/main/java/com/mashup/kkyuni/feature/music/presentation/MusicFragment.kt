@@ -48,7 +48,7 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
                                     title = it.snippet.title,
                                     linkUrl = "www.youtube.com/watch?v=${it.id.videoId}",
                                     releaseDate = null,
-                                    playTime = null
+                                    playTime = it.duration
                                 )
                             )
                             findNavController().popBackStack()
@@ -64,6 +64,8 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
     }
 
     private fun initView() {
+        binding.viewModel = musicViewModel
+
         binding.recycler.run {
             setLayoutManager(LinearLayoutManager(context))
             adapter = musicAdapter

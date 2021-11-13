@@ -62,9 +62,11 @@ class MusicViewModel @Inject constructor(
         _isSelected.postValue(false)
     }
 
-    fun onVideoClicked(video: Video){
+    fun onVideoClicked(){
         viewModelScope.launch {
-            _completeEvent.emit(video)
+            _selectedVideo.value?.let {
+                _completeEvent.emit(it)
+            }
         }
     }
 }

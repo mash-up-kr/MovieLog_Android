@@ -84,6 +84,7 @@
             android:elevation="20dp"
             android:text="@string/finish_choosing"
             android:textAppearance="@style/Music.FinishButton"
+            app:onThrottleClick="@{() -> viewModel.onVideoClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
