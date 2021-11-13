@@ -34,6 +34,4 @@ include ':app',
         ':feature:music:domain'
 
 include ':feature:onboading'
-include ':feature:onboading:data'
 include ':feature:onboading:presentation'
-include ':feature:onboading:domain'
