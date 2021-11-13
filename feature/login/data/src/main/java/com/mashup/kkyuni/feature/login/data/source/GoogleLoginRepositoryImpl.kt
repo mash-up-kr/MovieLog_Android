@@ -5,6 +5,11 @@ import android.content.IntentSender
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.mashup.kkyuni.core.CoroutineDispatcherModule.DispatcherIO
+import com.mashup.kkyuni.core.auth.AuthPreference
+import com.mashup.kkyuni.feature.login.data.GoogleLoginRequest
+import com.mashup.kkyuni.feature.login.data.toDomainEntity
+import com.mashup.kkyuni.feature.login.data.toUserTokens
+import com.mashup.kkyuni.feature.login.domain.GoogleLoginAuthInfo
 import com.mashup.kkyuni.feature.login.domain.source.GoogleLoginRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +22,8 @@ import kotlin.coroutines.suspendCoroutine
 class GoogleLoginRepositoryImpl @Inject constructor(
     private val signInClient: SignInClient,
     private val signInRequest: BeginSignInRequest,
+    private val googleLoginService: GoogleLoginService,
+    private val authPreference: AuthPreference,
     @DispatcherIO private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : GoogleLoginRepository {
 
@@ -26,11 +33,18 @@ class GoogleLoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getIdToken(data: Intent): String {
-        return withContext(ioDispatcher) {
-            signInClient.getSignInCredentialFromIntent(data).googleIdToken
-                ?: throw IllegalStateException("idToken is null")
+    override suspend fun loginRequest(data: Intent): GoogleLoginAuthInfo =
+        withContext(ioDispatcher) {
+            val idToken = getIdToken(data)
+            val result = googleLoginService.login(GoogleLoginRequest(idToken))
+            authPreference.setToken(result.toUserTokens())
+            result.toDomainEntity()
         }
+
+
+    private fun getIdToken(data: Intent): String {
+        return signInClient.getSignInCredentialFromIntent(data).googleIdToken
+            ?: throw IllegalStateException("idToken is null")
     }
 
     private suspend fun awaitGoogleLoginForIntentSender(): IntentSender = suspendCoroutine { cont ->

@@ -9,7 +9,15 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mashup.kkyuni.feature.login.presentation.LoginFragment" />
+        android:name="com.mashup.kkyuni.feature.login.presentation.LoginFragment">
+
+        <action
+            android:id="@+id/action_to_calendar"
+            app:destination="@id/calendarFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/calendarFragment"

@@ -1,9 +1,11 @@
 package com.mashup.kkyuni.data.network
 
+import com.mashup.kkyuni.data.network.auth.MovieLogAuthenticator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Authenticator
 import javax.inject.Named
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
@@ -33,20 +35,14 @@ class NetworkModule {
     @Provides
     @Singleton
     @Named("movie_log_client")
-    fun provideMovieLogOkHttpClient(): OkHttpClient {
+    fun provideMovieLogOkHttpClient(movieLogAuthenticator: Authenticator): OkHttpClient {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor {
-                it.proceed(
-                    it.request().newBuilder().addHeader(
-                        "Authorization",
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0U3ViIiwiaWF0IjoxNjM1MzQwMTA5LCJleHAiOjE2NjEyNjAxMDl9.7P_6TEytA2gtFYfXMJX-IqNbjzUCfKGYsfBkDlVnlOY"
-                    ).build()
-                )
-            }.build()
+            .authenticator(movieLogAuthenticator)
+            .build()
     }
 
     @Named("youtube_api")
@@ -66,6 +62,15 @@ class NetworkModule {
         Retrofit.Builder()
             .baseUrl(BASE_API_URL)
             .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+
+    @Named("kkyuni_other_api")
+    @Provides
+    @Singleton
+    fun provideOtherRetrofit(): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_API_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 }
