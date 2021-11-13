@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +25,9 @@ class PlayListViewModel @Inject constructor(
 
     private val _backLiveData = MutableLiveData<Unit>()
     val backLiveData get() = _backLiveData
+
+    private val _changeDateEvent = MutableSharedFlow<Date>()
+    val changeDateEvent = _changeDateEvent.asSharedFlow()
 
     private val _dateFlow = MutableStateFlow(
         Date(
@@ -79,10 +83,9 @@ class PlayListViewModel @Inject constructor(
     fun onChangeDate() {
         if (_loadingFlow.value) return
 
-        //TODO 테스트 코드 제거
-        var date = _dateFlow.value
-        if (date.month == 12) date = date.copy(month = 0)
-        updateDate(date.year, date.month + 1)
+        viewModelScope.launch {
+            _changeDateEvent.emit(_dateFlow.value)
+        }
     }
 
     fun onWriteDiary() {

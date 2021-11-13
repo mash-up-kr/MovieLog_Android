@@ -58,6 +58,10 @@
         <argument
             android:name="month"
             app:argType="integer"/>
+
+        <action
+            android:id="@+id/action_to_choice_date"
+            app:destination="@id/choiceDateFragment"/>
     </fragment>
 
     <fragment
@@ -73,5 +77,19 @@
         android:id="@+id/creatorFragment"
         android:name="com.mashup.kkyuni.feature.setting.presentation.CreatorFragment" />
 
+    <dialog
+        android:id="@+id/choiceDateFragment"
+        android:name="com.mashup.kkyuni.feature.playlist.presentation.widget.ChoiceDateDialogFragment">
+
+        <argument
+            android:name="year"
+            app:argType="integer"/>
+
+        <argument
+            android:name="month"
+            app:argType="integer"/>
+    </dialog>
+
     <include app:graph="@navigation/navigation_writing"/>
+
 </navigation>

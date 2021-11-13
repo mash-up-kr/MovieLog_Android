@@ -40,4 +40,10 @@
         <item name="android:fontFamily">@font/all_gmarketsans_medium</item>
         <item name="android:textColor">@color/green_ddf880</item>
     </style>
+
+    <style name="ChoiceDate">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/numbser_blackopsone_regular</item>
+        <item name="android:textColor">@color/white_alpha50</item>
+    </style>
 </resources>
