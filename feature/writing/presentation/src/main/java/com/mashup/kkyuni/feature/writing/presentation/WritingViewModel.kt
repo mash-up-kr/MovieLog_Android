@@ -11,17 +11,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class WritingViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
-    private val _writing = MutableLiveData<Writing>()
+class WritingViewModel @Inject constructor() : ViewModel() {
+    private val _writing = MutableLiveData(Writing())
     val writing get() = _writing
-
-    init {
-        _writing.value = Writing(
-            date = savedStateHandle[WritingFragment.KEY_DATE]
-        )
-    }
 
     private val _isSetMusic = Transformations.map(_writing) {
         it.music != null
@@ -29,6 +21,12 @@ class WritingViewModel @Inject constructor(
     val isSetMusic get() = _isSetMusic
 
     fun getCurrentWriting() = _writing.value ?: Writing()
+
+    fun updateDate(date: String){
+        _writing.value = _writing.value?.copy(
+            date = date
+        )
+    }
 
     fun updateEmotion(emotion: Constant.Emotion) {
         _writing.value = _writing.value?.copy(

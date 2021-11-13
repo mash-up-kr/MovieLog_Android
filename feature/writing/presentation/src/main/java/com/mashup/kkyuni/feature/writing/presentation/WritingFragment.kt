@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragment_writing) {
-    private val writingViewModel by viewModels<WritingViewModel>()
+    private val writingViewModel: WritingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +20,7 @@ class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        writingViewModel.updateDate(arguments?.getString(KEY_DATE) ?: "")
         navigateToEmotionFragment()
     }
 
