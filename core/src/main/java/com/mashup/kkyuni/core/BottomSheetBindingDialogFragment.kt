@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BottomSheetBindingDialogFragment<B : ViewDataBinding>(
     @LayoutRes private val contentLayoutId: Int
-    ) : BottomSheetDialogFragment() {
+) : BottomSheetDialogFragment() {
 
     private var _binding: B? = null
     protected val binding: B
@@ -23,7 +23,11 @@ abstract class BottomSheetBindingDialogFragment<B : ViewDataBinding>(
             }
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = DataBindingUtil.inflate(inflater, contentLayoutId, container, false)
         _binding?.lifecycleOwner = viewLifecycleOwner
         return binding.root
