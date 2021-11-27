@@ -1,7 +1,9 @@
 package com.mashup.kkyuni.feature.writing.presentation
 
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 
 
@@ -19,4 +21,9 @@ fun Button.enabledButton(isEnabled: Boolean) {
     setBackgroundResource(
         if (isEnabled) R.color.purple_700 else R.color.purple_700_alpha50
     )
+}
+
+@BindingAdapter("htmlText")
+fun TextView.htmlText(string: String){
+    text = HtmlCompat.fromHtml(string, HtmlCompat.FROM_HTML_MODE_COMPACT)
 }
