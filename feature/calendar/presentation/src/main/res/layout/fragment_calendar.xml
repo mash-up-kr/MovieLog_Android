@@ -141,6 +141,7 @@
             app:srcCompat="@drawable/ic_plus" />
 
         <TextView
+            android:id="@+id/textview_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -150,6 +151,15 @@
             app:layout_constraintEnd_toEndOf="@id/preview"
             app:layout_constraintStart_toStartOf="@id/preview"
             app:layout_constraintTop_toBottomOf="@id/logo" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:onThrottleClick="@{() -> viewModel.onClickWriting()}"
+            app:layout_constraintTop_toTopOf="@id/logo"
+            app:layout_constraintBottom_toBottomOf="@id/textview_preview"
+            app:layout_constraintStart_toStartOf="@id/textview_preview"
+            app:layout_constraintEnd_toEndOf="@id/textview_preview"/>
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:id="@+id/message"
