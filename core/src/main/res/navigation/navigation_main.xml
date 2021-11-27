@@ -47,6 +47,15 @@
         <action
             android:id="@+id/action_to_play_list"
             app:destination="@id/playListFragment"/>
+
+        <action
+            android:id="@+id/action_to_writing"
+            app:destination="@id/writing_graph">
+
+            <argument
+                android:name="key_date"
+                app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment

@@ -73,12 +73,9 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
                     launch {
                         onWriting.collect {
-                            findNavController().navigate(
-                                R.id.navigation_writing,
-                                bundleOf(
-                                    "key_date" to it
-                                )
-                            )
+                            CalendarFragmentDirections.actionToWriting(it).run {
+                                findNavController().navigate(this)
+                            }
                         }
                     }
                 }
