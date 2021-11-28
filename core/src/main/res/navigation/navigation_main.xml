@@ -84,7 +84,9 @@
         android:name="com.mashup.kkyuni.feature.onboading.presentation.OnboadingFragment" >
         <action
             android:id="@+id/action_onBoadingFragment_to_calendarFragment"
-            app:destination="@id/calendarFragment" />
+            app:destination="@id/calendarFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
