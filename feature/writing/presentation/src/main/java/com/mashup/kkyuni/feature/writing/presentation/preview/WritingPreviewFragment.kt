@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mashup.kkyuni.core.BindingFragment
-import com.mashup.kkyuni.feature.writing.domain.model.DiaryType
 import com.mashup.kkyuni.feature.writing.domain.model.UploadState
 import com.mashup.kkyuni.feature.writing.presentation.R
 import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
@@ -42,7 +41,7 @@ class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.f
             webviewPreview.run {
                 settings.javaScriptEnabled = true
                 lifecycleScope.launch {
-                    loadUrl("https://deploy-preview-34--compassionate-wing-0abef6.netlify.app/preview")
+                    loadUrl("https://deploy-preview-38--compassionate-wing-0abef6.netlify.app/preview")
                     delay(5000)
                     evaluateJavascript("setDiary(${writingViewModel.getCurrentWriting().toJson()})") {
                         progressBar.isVisible = false
@@ -53,7 +52,7 @@ class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.f
             buttonConfirm.setOnClickListener {
                 webviewPreview.evaluateJavascript("selectType()") { type ->
                     writingViewModel.run {
-                        updateDiaryType(DiaryType.valueOf(type))
+                        updateDiaryType(type)
                         getCurrentWriting().run {
                             writingPreviewViewModel.requestUpload(this)
                         }
