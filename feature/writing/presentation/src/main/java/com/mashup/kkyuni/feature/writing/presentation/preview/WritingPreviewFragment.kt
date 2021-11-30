@@ -41,7 +41,7 @@ class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.f
             webviewPreview.run {
                 settings.javaScriptEnabled = true
                 lifecycleScope.launch {
-                    loadUrl("https://deploy-preview-38--compassionate-wing-0abef6.netlify.app/preview")
+                    loadUrl("https://compassionate-wing-0abef6.netlify.app/preview")
                     delay(5000)
                     evaluateJavascript("setDiary(${writingViewModel.getCurrentWriting().toJson()})") {
                         progressBar.isVisible = false
