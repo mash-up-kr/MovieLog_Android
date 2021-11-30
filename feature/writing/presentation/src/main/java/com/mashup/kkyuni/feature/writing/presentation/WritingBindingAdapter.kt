@@ -24,6 +24,8 @@ fun Button.enabledButton(isEnabled: Boolean) {
 }
 
 @BindingAdapter("htmlText")
-fun TextView.htmlText(string: String){
-    text = HtmlCompat.fromHtml(string, HtmlCompat.FROM_HTML_MODE_COMPACT)
+fun TextView.htmlText(string: String?){
+    string?.let {
+        text = HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_COMPACT)
+    }
 }
