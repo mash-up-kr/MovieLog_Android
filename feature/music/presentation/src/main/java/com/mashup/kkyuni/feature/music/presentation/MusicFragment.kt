@@ -54,6 +54,12 @@ class MusicFragment : BindingFragment<FragmentMusicBinding>(
                             findNavController().popBackStack()
                         }
                     }
+
+                    launch {
+                        backEvent.collect {
+                            findNavController().popBackStack()
+                        }
+                    }
                 }
             }
         }

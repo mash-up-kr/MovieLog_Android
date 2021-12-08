@@ -35,8 +35,8 @@ class MusicViewModel @Inject constructor(
 
     var selectedItemPos = -1
 
-    private val _back = MutableLiveData<Unit>()
-    val back: LiveData<Unit> = _back
+    private val _backEvent = MutableSharedFlow<Unit>()
+    val backEvent = _backEvent.asSharedFlow()
 
     fun search(query: String) {
         viewModelScope.launch {
@@ -67,6 +67,13 @@ class MusicViewModel @Inject constructor(
             _selectedVideo.value?.let {
                 _completeEvent.emit(it)
             }
+        }
+    }
+
+
+    fun onBackClicked() {
+        viewModelScope.launch {
+            _backEvent.emit(Unit)
         }
     }
 }
