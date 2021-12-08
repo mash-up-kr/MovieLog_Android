@@ -88,6 +88,10 @@ class PlayListViewModel @Inject constructor(
         }
     }
 
+    fun getCurrentDate(): String{
+        return "${_dateFlow.value.year}-${_dateFlow.value.month}"
+    }
+
     companion object {
         const val TAG = "PlayListViewModel"
 
