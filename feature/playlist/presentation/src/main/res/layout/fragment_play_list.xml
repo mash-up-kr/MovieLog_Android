@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
             android:layout_marginStart="20dp"
+            android:padding="@dimen/toolbar_back_padding"
             app:onThrottleClick="@{() -> viewModel.onBack()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view_toolbar"

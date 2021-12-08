@@ -22,6 +22,7 @@
             android:background="@drawable/ic_back"
             android:layout_marginTop="16dp"
             android:layout_marginStart="20dp"
+            android:padding="@dimen/toolbar_back_padding"
             app:onThrottleClick="@{() -> titleViewModel.onClickedBack()}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
