@@ -14,9 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingStart="20dp"
         android:paddingEnd="20dp"
         tools:background="@color/black_500">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/common_padding"/>
 
         <FrameLayout
             android:id="@+id/toolbar"
@@ -30,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
                 android:onClick="@{() -> viewModel.onBackClick()}"
                 android:padding="@dimen/toolbar_back_padding"
                 app:srcCompat="@drawable/ic_back" />
@@ -56,7 +63,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <View
@@ -65,7 +72,7 @@
             android:layout_height="1dp"
             android:background="@color/white_alpha50"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/inquiry" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -79,7 +86,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/inquiry_view" />
 
         <View
@@ -88,7 +95,7 @@
             android:layout_height="1dp"
             android:background="@color/white_alpha50"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/creator" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -102,7 +109,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/creator_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -121,7 +128,7 @@
             android:layout_height="1dp"
             android:background="@color/white_alpha50"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/app_version" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
