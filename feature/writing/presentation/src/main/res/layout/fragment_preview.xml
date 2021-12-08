@@ -23,7 +23,7 @@
             android:layout_marginStart="5dp"
             android:padding="@dimen/toolbar_back_padding"
             app:layout_constraintBottom_toTopOf="@id/webview_preview"
-            android:background="@drawable/ic_back"
+            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
