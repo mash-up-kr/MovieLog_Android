@@ -43,6 +43,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     private lateinit var baseDateList: ArrayList<Date>
 
     private var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
+    private lateinit var snapPagerScrollListener: SnapPageScrollListener
 
     var year = -1
     var month = -1
@@ -51,7 +52,9 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = this.viewModel
-        initView()
+        if (viewModel.firstInitViewChecked.not()) {
+            initView()
+        }
         initWebView()
 
         viewModel.run {
@@ -87,13 +90,19 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 }
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
+            ?.observe(viewLifecycleOwner) { result ->
+                initView(result)
+            }
     }
 
-    private fun initView() {
+    private fun initView(previousDate: String? = null) {
+        viewModel.firstInitViewChecked = true
         binding.recyclerView.adapter = this.adapter
         snapHelper.attachToRecyclerView(binding.recyclerView)
 
-        val snapPagerScrollListener = object : SnapPageScrollListener(
+        snapPagerScrollListener = object : SnapPageScrollListener(
             snapHelper = snapHelper,
             type = ON_SETTLED,
             notifyOnInit = true,
@@ -121,7 +130,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 super.onScrolled(recyclerView, dx, dy)
 
                 val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
-                val totalItemCount = layoutManager?.itemCount
+                val totalItemCount = baseDateList.size
 
                 firstCompleteVisibleItemPosition =
                     layoutManager?.findFirstCompletelyVisibleItemPosition()!!
@@ -167,7 +176,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                             }
                         } else {
                             Calendar.getInstance().run {
-                                val date = baseDateList[lastCompleteVisibleItemPosition]
+                                val date = baseDateList[baseDateList.size - 10]
                                 time = date
                                 binding.yearOfMonth.text =
                                     "${get(Calendar.YEAR)}.${get(Calendar.MONTH) + 1}"
@@ -184,7 +193,8 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         Calendar.getInstance().run {
             time = endDate ?: Date(System.currentTimeMillis() + ONE_WEEK)
             endDate = time
-            baseDateList = getDateList(formatter.format(startDate), formatter.format(endDate))
+            baseDateList =
+                getDateList(formatter.format(startDate), formatter.format(endDate), previousDate)
             setDateList(baseDateList)
             val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
             // 현재 위치 찾아서 포지셔닝
@@ -205,13 +215,15 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         }
     }
 
-    private fun setDateList(dateList: ArrayList<Date>) {
+    private fun setDateList(
+        dateList: ArrayList<Date>
+    ) {
         val calendar = Calendar.getInstance()
 
         val list = dateList.map {
             calendar.time = it
             val dayOfWeek = calendar.get(Calendar.DATE)
-            val month = calendar.get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH) + 1
             val year = calendar.get(Calendar.YEAR)
 
             CalendarDayModel(
@@ -222,7 +234,11 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         adapter.submitList(list)
     }
 
-    private fun getDateList(startDateString: String, endDateString: String): ArrayList<Date> {
+    private fun getDateList(
+        startDateString: String,
+        endDateString: String,
+        previousDate: String? = null
+    ): ArrayList<Date> {
         val dateList = ArrayList<Date>()
         var startDate: Date? = null
 
@@ -232,7 +248,11 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
         var endDate: Date? = null
         kotlin.runCatching {
-            endDate = formatter.parse(endDateString)
+            previousDate?.let {
+                endDate = formatter.parse("15-$it")
+            } ?: run {
+                endDate = formatter.parse(endDateString)
+            }
         }
 
         val interval = (24 * 1000 * 60 * 60).toLong()

@@ -15,11 +15,12 @@ import java.util.*
 
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
-    private val getDiary: GetDiary,
     private val getPreview: GetPreviewUseCase,
     private val setPreview: SetPreviewUseCase,
     private val getAccessToken: GetAccessTokenUseCase
 ) : ViewModel() {
+
+    var firstInitViewChecked = false
 
     private val _preview = MutableStateFlow<Boolean>(false)
     val preview: StateFlow<Boolean> get() = _preview
@@ -28,10 +29,7 @@ class CalendarViewModel @Inject constructor(
     val onSetting: SharedFlow<Unit> get() = _onSetting
 
     private val _onPlayList = MutableSharedFlow<Pair<Int, Int>>()
-    val onPlayList= _onPlayList.asSharedFlow()
-
-    private val _diary = MutableSharedFlow<DiaryEntity>()
-    val diary: SharedFlow<DiaryEntity> get() = _diary
+    val onPlayList = _onPlayList.asSharedFlow()
 
     private val _currentDate = MutableStateFlow("")
     val currentDate = _currentDate.asStateFlow()
@@ -45,12 +43,8 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    fun updateCurrentDate(date: String) = viewModelScope.launch{
+    fun updateCurrentDate(date: String) = viewModelScope.launch {
         _currentDate.emit(date)
-    }
-
-    fun requestDiary(date: String) = viewModelScope.launch {
-        _diary.emit(getDiary(date))
     }
 
     fun onClickSetting() = viewModelScope.launch {
@@ -58,7 +52,7 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun onClickPlayList() = viewModelScope.launch {
-        if(_currentDate.value.isEmpty()) return@launch
+        if (_currentDate.value.isEmpty()) return@launch
 
         val (year, month) = _currentDate.value.split("-").map { it.toInt() }
         _onPlayList.emit(year to month)

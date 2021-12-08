@@ -88,8 +88,8 @@ class PlayListViewModel @Inject constructor(
         }
     }
 
-    fun getCurrentDate(): String{
-        return "${_dateFlow.value.year}-${_dateFlow.value.month}"
+    fun getCurrentDate(): String {
+        return "${_dateFlow.value.month}-${_dateFlow.value.year}"
     }
 
     companion object {
