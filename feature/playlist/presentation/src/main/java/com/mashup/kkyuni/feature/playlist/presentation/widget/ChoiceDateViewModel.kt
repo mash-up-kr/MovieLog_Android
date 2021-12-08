@@ -43,13 +43,17 @@ class ChoiceDateViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            val year = savedStateHandle[ChoiceDateDialogFragment.KEY_YEAR] ?: 2021
+            val month = savedStateHandle[ChoiceDateDialogFragment.KEY_MONTH] ?: 1
+
             getDateListUseCase(
-                savedStateHandle[ChoiceDateDialogFragment.KEY_YEAR] ?: 2021,
-                savedStateHandle[ChoiceDateDialogFragment.KEY_MONTH] ?: 1
+                year,
+                month
             ).collect {
                 _choiceDates.emit(it)
 
-                _scrollToPosition.emit((it.lastIndex / 2) + 2)
+                val position = it.findIndex(Date(year, month))
+                _scrollToPosition.emit(position + 2)
             }
         }
     }
@@ -115,6 +119,14 @@ class ChoiceDateViewModel @Inject constructor(
                     _choiceDates.emit(list)
                 }
         }
+    }
+
+    private fun List<ChoiceDate>.findIndex(item: Date): Int {
+        var result = 0
+        forEachIndexed { index, choiceDate ->
+            if(choiceDate.date == item) result = index
+        }
+        return result
     }
 
     companion object {

@@ -25,6 +25,15 @@ class GetPreviousDateListUseCase @Inject constructor() {
             ){
                 // 캘린더영역에 start date가 2021년 9월로 고정되어 있어
                 // 추가 해주지 않는다. 추후 개선시 해당 조건문 제거
+                if(calendar.get(Calendar.YEAR) == 2021
+                    && (calendar.get(Calendar.MONTH) == 7
+                        || calendar.get(Calendar.MONTH) == 8)){
+                    dates.add(
+                        ChoiceDate(
+                            Date(-1, -1)
+                        )
+                    )
+                }
             }else {
                 dates.add(
                     ChoiceDate(
