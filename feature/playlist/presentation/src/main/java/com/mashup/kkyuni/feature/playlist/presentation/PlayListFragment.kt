@@ -1,9 +1,11 @@
 package com.mashup.kkyuni.feature.playlist.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -25,6 +27,21 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
     private val playListViewModel: PlayListViewModel by viewModels()
 
     private val playListAdapter: PlayListAdapter by lazy { PlayListAdapter(playListViewModel) }
+
+    private val backPressedCallback = object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            onBackPressed()
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        addBackPressedCallback()
+    }
+
+    private fun addBackPressedCallback() {
+        activity?.onBackPressedDispatcher?.addCallback(this, backPressedCallback)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,11 +67,7 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
     private fun observeLiveData() {
         playListViewModel.run {
             backLiveData.observe(viewLifecycleOwner) {
-                findNavController().run {
-                    previousBackStackEntry?.savedStateHandle?.set("date", playListViewModel.getCurrentDate())
-
-                    popBackStack(R.id.calendarFragment, false)
-                }
+                onBackPressed()
             }
         }
     }
@@ -72,5 +85,18 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
                 }
             }
         }
+    }
+
+    private fun onBackPressed() {
+        findNavController().run {
+            previousBackStackEntry?.savedStateHandle?.set("date", playListViewModel.getCurrentDate())
+
+            popBackStack(R.id.calendarFragment, false)
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        backPressedCallback.remove()
     }
 }

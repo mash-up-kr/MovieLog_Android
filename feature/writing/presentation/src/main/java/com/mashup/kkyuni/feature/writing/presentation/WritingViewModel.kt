@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WritingViewModel @Inject constructor() : ViewModel() {
-    private val _writing = MutableLiveData<Writing>()
+    private val _writing = MutableLiveData(Writing())
     val writing get() = _writing
 
     private val _isSetMusic = Transformations.map(_writing) {

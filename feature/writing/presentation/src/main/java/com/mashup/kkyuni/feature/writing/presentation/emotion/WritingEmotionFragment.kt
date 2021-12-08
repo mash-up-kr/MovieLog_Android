@@ -1,7 +1,9 @@
 package com.mashup.kkyuni.feature.writing.presentation.emotion
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -22,11 +24,32 @@ class WritingEmotionFragment :
     private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
     private val emotionViewModel by viewModels<WritingEmotionViewModel>()
 
+    private val backPressCallBack = object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            onBackPressed()
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        addBackPressedCallBack()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        addBackPressedCallBack()
         initView()
         collectFlows()
+        initWriting()
+    }
+
+    private fun initWriting() {
+        writingViewModel.initWriting()
+    }
+
+    private fun addBackPressedCallBack() {
+        activity?.onBackPressedDispatcher?.addCallback(this, backPressCallBack)
     }
 
     private fun initView() {
@@ -75,5 +98,10 @@ class WritingEmotionFragment :
 
     private fun onBackPressed() {
         findNavController().popBackStack(R.id.calendarFragment, false)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        backPressCallBack.remove()
     }
 }
