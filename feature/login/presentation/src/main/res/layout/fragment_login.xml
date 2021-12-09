@@ -26,6 +26,7 @@
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:id="@+id/kkyunibottombutton_login"
+            style="@style/KkyuniBottomButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/common_padding"

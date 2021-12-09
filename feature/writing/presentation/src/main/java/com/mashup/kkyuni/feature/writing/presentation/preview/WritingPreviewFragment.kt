@@ -42,12 +42,8 @@ class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.
                 settings.javaScriptEnabled = true
                 lifecycleScope.launch {
                     loadUrl("https://compassionate-wing-0abef6.netlify.app/preview")
-                    delay(5000)
-                    evaluateJavascript(
-                        "setDiary(${
-                            writingViewModel.getCurrentWriting().toJson()
-                        })"
-                    ) {
+                    delay(4000)
+                    evaluateJavascript("setDiary(${writingViewModel.getCurrentWriting().toJson()})") {
                         progressBar.isVisible = false
                     }
                 }
@@ -56,7 +52,7 @@ class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.
             buttonConfirm.setOnClickListener {
                 webviewPreview.evaluateJavascript("selectType()") { type ->
                     writingViewModel.run {
-                        updateDiaryType(type)
+                        updateDiaryType(type.replace(Regex("\""), ""))
                         getCurrentWriting().run {
                             writingPreviewViewModel.requestUpload(this)
                         }
