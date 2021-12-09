@@ -20,7 +20,7 @@ class CalendarViewModel @Inject constructor(
     private val getAccessToken: GetAccessTokenUseCase
 ) : ViewModel() {
 
-    var firstInitViewChecked = false
+    var dateChecked = false
 
     private val _preview = MutableStateFlow<Boolean>(false)
     val preview: StateFlow<Boolean> get() = _preview
@@ -33,6 +33,9 @@ class CalendarViewModel @Inject constructor(
 
     private val _currentDate = MutableStateFlow("")
     val currentDate = _currentDate.asStateFlow()
+
+    private val _yearToMonth = MutableStateFlow("")
+    val yearToMonth = _yearToMonth.asStateFlow()
 
     private val _onWriting = MutableSharedFlow<String>()
     val onWriting = _onWriting.asSharedFlow()

@@ -5,6 +5,7 @@ import android.view.View
 import android.webkit.WebViewClient
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -42,6 +43,8 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
     private lateinit var baseDateList: ArrayList<Date>
 
+    var previousDate: String? = null
+
     private var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
     private lateinit var snapPagerScrollListener: SnapPageScrollListener
 
@@ -52,9 +55,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = this.viewModel
-        if (viewModel.firstInitViewChecked.not()) {
-            initView()
-        }
+        initView()
         initWebView()
 
         viewModel.run {
@@ -93,12 +94,12 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
             ?.observe(viewLifecycleOwner) { result ->
-                initView(result)
+                previousDate = result
+                initView()
             }
     }
 
-    private fun initView(previousDate: String? = null) {
-        viewModel.firstInitViewChecked = true
+    private fun initView() {
         binding.recyclerView.adapter = this.adapter
         snapHelper.attachToRecyclerView(binding.recyclerView)
 

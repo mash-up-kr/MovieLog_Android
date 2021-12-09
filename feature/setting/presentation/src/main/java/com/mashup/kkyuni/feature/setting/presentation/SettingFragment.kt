@@ -31,9 +31,11 @@ class SettingFragment : BindingFragment<FragmentSettingBinding>(R.layout.fragmen
                 viewModel.onInquiry.collect {
                 }
 
-                viewModel.onCreator.collect {
-                    val action = SettingFragmentDirections.actionToCreator()
-                    findNavController().navigate(action)
+                launch {
+                    viewModel.onCreator.collect {
+                        val action = SettingFragmentDirections.actionToCreator()
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }

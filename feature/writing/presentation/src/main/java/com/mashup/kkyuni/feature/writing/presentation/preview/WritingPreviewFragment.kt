@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.fragment_preview) {
+class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.fragment_preview) {
 
     private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
     private val writingPreviewViewModel by viewModels<WritingPreviewViewModel>()
@@ -43,7 +43,11 @@ class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.f
                 lifecycleScope.launch {
                     loadUrl("https://compassionate-wing-0abef6.netlify.app/preview")
                     delay(5000)
-                    evaluateJavascript("setDiary(${writingViewModel.getCurrentWriting().toJson()})") {
+                    evaluateJavascript(
+                        "setDiary(${
+                            writingViewModel.getCurrentWriting().toJson()
+                        })"
+                    ) {
                         progressBar.isVisible = false
                     }
                 }

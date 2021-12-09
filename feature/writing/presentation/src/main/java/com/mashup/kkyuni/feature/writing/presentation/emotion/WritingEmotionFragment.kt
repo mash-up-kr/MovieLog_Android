@@ -24,7 +24,7 @@ class WritingEmotionFragment :
     private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
     private val emotionViewModel by viewModels<WritingEmotionViewModel>()
 
-    private val backPressCallBack = object : OnBackPressedCallback(true){
+    private val backPressCallBack = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             onBackPressed()
         }
