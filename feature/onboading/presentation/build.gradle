@@ -59,4 +59,7 @@ dependencies {
     // viewPager2
     def viewPager2Version = "1.0.0"
     implementation "androidx.viewpager2:viewpager2:$viewPager2Version"
+
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
 }
