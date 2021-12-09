@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WritingPreviewFragment: BindingFragment<FragmentPreviewBinding>(R.layout.fragment_preview) {
+class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.fragment_preview) {
 
     private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
     private val writingPreviewViewModel by viewModels<WritingPreviewViewModel>()

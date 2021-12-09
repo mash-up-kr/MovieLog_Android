@@ -31,6 +31,10 @@ class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragmen
 
     override fun onDestroyView() {
         super.onDestroyView()
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+            "initView",
+            ""
+        )
         clearInputAdjust()
     }
 

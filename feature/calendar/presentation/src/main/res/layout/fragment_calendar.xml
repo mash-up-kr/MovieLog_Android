@@ -107,60 +107,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler_view_container" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/preview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_background"
-            app:layout_constraintBottom_toTopOf="@id/message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_view_container" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="197dp"
-            app:layout_constraintEnd_toEndOf="@id/preview"
-            app:layout_constraintStart_toStartOf="@id/preview"
-            app:layout_constraintTop_toTopOf="@id/preview"
-            app:srcCompat="@drawable/ic_logo" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/logo"
-            app:layout_constraintEnd_toEndOf="@id/logo"
-            app:layout_constraintStart_toStartOf="@id/logo"
-            app:layout_constraintTop_toTopOf="@id/logo"
-            app:srcCompat="@drawable/ic_plus" />
-
-        <TextView
-            android:id="@+id/textview_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:fontFamily="@font/all_gmarketsans_medium"
-            android:text="@string/preview_text"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/preview"
-            app:layout_constraintStart_toStartOf="@id/preview"
-            app:layout_constraintTop_toBottomOf="@id/logo" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/textview_preview"
-            app:layout_constraintEnd_toEndOf="@id/textview_preview"
-            app:layout_constraintStart_toStartOf="@id/textview_preview"
-            app:layout_constraintTop_toTopOf="@id/logo"
-            app:onThrottleClick="@{() -> viewModel.onClickWriting()}" />
-
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:id="@+id/message"
             style="@style/KkyuniBottomButtonStyle"
