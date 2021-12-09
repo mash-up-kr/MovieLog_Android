@@ -37,7 +37,9 @@ class WritingUploadFragment :
 
         lifecycleScope.launch {
             delay(500L)
-            findNavController().navigate(R.id.previewFragment)
+            WritingUploadFragmentDirections.actionToPreviewFragment().run {
+                findNavController().navigate(this)
+            }
         }
     }
 }

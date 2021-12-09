@@ -155,14 +155,15 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:onThrottleClick="@{() -> viewModel.onClickWriting()}"
-            app:layout_constraintTop_toTopOf="@id/logo"
             app:layout_constraintBottom_toBottomOf="@id/textview_preview"
+            app:layout_constraintEnd_toEndOf="@id/textview_preview"
             app:layout_constraintStart_toStartOf="@id/textview_preview"
-            app:layout_constraintEnd_toEndOf="@id/textview_preview"/>
+            app:layout_constraintTop_toTopOf="@id/logo"
+            app:onThrottleClick="@{() -> viewModel.onClickWriting()}" />
 
         <com.mashup.kkyuni.widget.KkyuniBottomButton
             android:id="@+id/message"
+            style="@style/KkyuniBottomButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -172,10 +173,10 @@
             android:text="@string/message"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:onThrottleClick="@{() -> viewModel.onClickWriting()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onThrottleClick="@{() -> viewModel.onClickWriting()}" />
 
         <FrameLayout
             android:id="@+id/preview_background"
