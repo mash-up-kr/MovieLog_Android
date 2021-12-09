@@ -34,7 +34,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginSuccess.collect { isSuccess ->
                     if (isSuccess) {
-                        LoginFragmentDirections.actionToCalendar().run {
+                        LoginFragmentDirections.actionLoginFragmentToOnBoadingFragment().run {
                             findNavController().navigate(this)
                         }
                     }

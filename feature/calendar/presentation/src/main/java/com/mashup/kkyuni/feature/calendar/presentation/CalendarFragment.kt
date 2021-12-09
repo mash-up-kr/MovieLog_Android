@@ -2,8 +2,12 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebViewClient
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -13,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.calendar.presentation.SnapPageScrollListener.OnChangeListener
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentCalendarBinding
+import com.mashup.kkyuni.feature.writing.presentation.WritingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -38,37 +43,66 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     private lateinit var baseDateList: ArrayList<Date>
 
     private var formatter = SimpleDateFormat("dd-MM-yyyy", Locale.KOREA)
+    private lateinit var snapPagerScrollListener: SnapPageScrollListener
+
+    var year = -1
+    var month = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = this.viewModel
-        initView()
+        if (viewModel.firstInitViewChecked.not()) {
+            initView()
+        }
+        initWebView()
 
         viewModel.run {
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                    onSetting.collect {
-                        CalendarFragmentDirections.actionToSetting().run {
-                            findNavController().navigate(this)
+                    launch {
+                        onSetting.collect {
+                            CalendarFragmentDirections.actionToSetting().run {
+                                findNavController().navigate(this)
+                            }
                         }
                     }
 
-                    onPlayList.collect {
-                        // 여기로 year, month 넘겨주세요
-                        // navigateToPlayListFragment()
+                    launch {
+                        preview.collect {
+                            binding.previewGroup.isVisible = it.not()
+                        }
+                    }
+
+                    launch {
+                        onWriting.collect {
+                            CalendarFragmentDirections.actionToWriting(it).run {
+                                findNavController().navigate(this)
+                            }
+                        }
                     }
                 }
             }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                onPlayList.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
+                    navigateToPlayListFragment(year, month)
+                }
+            }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
+            ?.observe(viewLifecycleOwner) { result ->
+                initView(result)
+            }
     }
 
-    private fun initView() {
+    private fun initView(previousDate: String? = null) {
+        viewModel.firstInitViewChecked = true
         binding.recyclerView.adapter = this.adapter
         snapHelper.attachToRecyclerView(binding.recyclerView)
 
-        val snapPagerScrollListener = object : SnapPageScrollListener(
+        snapPagerScrollListener = object : SnapPageScrollListener(
             snapHelper = snapHelper,
             type = ON_SETTLED,
             notifyOnInit = true,
@@ -76,10 +110,15 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 val time = Date(baseDateList[it].time)
                 Calendar.getInstance().run {
                     this.time = time
-                    val year = get(Calendar.YEAR)
-                    val month = get(Calendar.MONTH) + 1
-                    val day = get(Calendar.DATE)
-                    viewModel.requestDiary("$year-$month-$day")
+                    year = get(Calendar.YEAR)
+                    month = get(Calendar.MONTH) + 1
+                    var day = get(Calendar.DATE).toString()
+                    if (day.toInt() < 10) {
+                        day = "0$day"
+                    }
+                    val token = viewModel.getUserAccessToken().orEmpty()
+                    binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=$year-$month-$day")
+                    viewModel.updateCurrentDate("$year-$month-$day")
                 }
             }
         ) {}
@@ -91,7 +130,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                 super.onScrolled(recyclerView, dx, dy)
 
                 val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
-                val totalItemCount = layoutManager?.itemCount
+                val totalItemCount = baseDateList.size
 
                 firstCompleteVisibleItemPosition =
                     layoutManager?.findFirstCompletelyVisibleItemPosition()!!
@@ -137,7 +176,7 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
                             }
                         } else {
                             Calendar.getInstance().run {
-                                val date = baseDateList[lastCompleteVisibleItemPosition]
+                                val date = baseDateList[baseDateList.size - 10]
                                 time = date
                                 binding.yearOfMonth.text =
                                     "${get(Calendar.YEAR)}.${get(Calendar.MONTH) + 1}"
@@ -154,7 +193,8 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         Calendar.getInstance().run {
             time = endDate ?: Date(System.currentTimeMillis() + ONE_WEEK)
             endDate = time
-            baseDateList = getDateList(formatter.format(startDate), formatter.format(endDate))
+            baseDateList =
+                getDateList(formatter.format(startDate), formatter.format(endDate), previousDate)
             setDateList(baseDateList)
             val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
             // 현재 위치 찾아서 포지셔닝
@@ -162,13 +202,28 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         }
     }
 
-    private fun setDateList(dateList: ArrayList<Date>) {
+    private fun initWebView() {
+        with(binding.webView) {
+            webViewClient = object : WebViewClient() {
+
+            }
+
+            settings.run {
+                javaScriptEnabled = true
+            }
+            val token = viewModel.getUserAccessToken().orEmpty()
+        }
+    }
+
+    private fun setDateList(
+        dateList: ArrayList<Date>
+    ) {
         val calendar = Calendar.getInstance()
 
         val list = dateList.map {
             calendar.time = it
             val dayOfWeek = calendar.get(Calendar.DATE)
-            val month = calendar.get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH) + 1
             val year = calendar.get(Calendar.YEAR)
 
             CalendarDayModel(
@@ -179,7 +234,11 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
         adapter.submitList(list)
     }
 
-    private fun getDateList(startDateString: String, endDateString: String): ArrayList<Date> {
+    private fun getDateList(
+        startDateString: String,
+        endDateString: String,
+        previousDate: String? = null
+    ): ArrayList<Date> {
         val dateList = ArrayList<Date>()
         var startDate: Date? = null
 
@@ -189,7 +248,11 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
 
         var endDate: Date? = null
         kotlin.runCatching {
-            endDate = formatter.parse(endDateString)
+            previousDate?.let {
+                endDate = formatter.parse("15-$it")
+            } ?: run {
+                endDate = formatter.parse(endDateString)
+            }
         }
 
         val interval = (24 * 1000 * 60 * 60).toLong()
@@ -205,14 +268,19 @@ class CalendarFragment : BindingFragment<FragmentCalendarBinding>(R.layout.fragm
     }
 
     private fun navigateToPlayListFragment(year: Int, month: Int) {
-        CalendarFragmentDirections.actionToPlayList(year, month).run {
-            findNavController().navigate(this)
-        }
+        findNavController().navigate(
+            R.id.playListFragment,
+            bundleOf(
+                "year" to year,
+                "month" to month
+            )
+        )
     }
 
     companion object {
         // 2021.09.01 09:00:00
         const val START_DATE = 1630486800000L
+
         // 1주일 시간
         const val ONE_WEEK = 604800000L
     }

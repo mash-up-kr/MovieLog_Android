@@ -18,9 +18,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_back"
+            android:src="@drawable/ic_back"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
+            android:padding="@dimen/toolbar_back_padding"
             app:onThrottleClick="@{() -> contentViewModel.onClickedBack()}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

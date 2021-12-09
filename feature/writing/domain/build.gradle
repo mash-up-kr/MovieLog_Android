@@ -36,7 +36,9 @@ dependencies {
     implementation(project(":core"))
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
 
+    implementation "com.squareup.moshi:moshi:$moshVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
     testImplementation "junit:junit:$junitVersion"

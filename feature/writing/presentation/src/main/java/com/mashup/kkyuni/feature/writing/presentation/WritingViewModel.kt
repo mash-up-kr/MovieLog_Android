@@ -11,19 +11,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WritingViewModel @Inject constructor() : ViewModel() {
-    private val _writing = MutableLiveData<Writing>()
+    private val _writing = MutableLiveData(Writing())
     val writing get() = _writing
-
-    init {
-        _writing.value = Writing()
-    }
 
     private val _isSetMusic = Transformations.map(_writing) {
         it.music != null
     }
     val isSetMusic get() = _isSetMusic
 
+    fun initWriting(){
+        _writing.value = Writing()
+    }
+
     fun getCurrentWriting() = _writing.value ?: Writing()
+
+    fun updateDate(date: String){
+        _writing.value = _writing.value?.copy(
+            date = date
+        )
+    }
 
     fun updateEmotion(emotion: Constant.Emotion) {
         _writing.value = _writing.value?.copy(
@@ -46,6 +52,12 @@ class WritingViewModel @Inject constructor() : ViewModel() {
     fun updateContent(content: String) {
         _writing.value = _writing.value?.copy(
             content = content
+        )
+    }
+
+    fun updateDiaryType(type: String) {
+        _writing.value = _writing.value?.copy(
+            type = type
         )
     }
 }

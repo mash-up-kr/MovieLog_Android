@@ -7,4 +7,6 @@
     <!-- Toolbar -->
     <dimen name="textsize_toolbar">20sp</dimen>
 
+    <dimen name="toolbar_back_padding">15dp</dimen>
+
 </resources>

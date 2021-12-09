@@ -8,9 +8,7 @@ import com.mashup.kkyuni.feature.music.domain.GetMusicDurationUseCase
 import com.mashup.kkyuni.feature.music.domain.GetMusicUseCase
 import com.mashup.kkyuni.feature.music.domain.model.Video
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,11 +33,16 @@ class MusicViewModel @Inject constructor(
 
     var selectedItemPos = -1
 
-    private val _back = MutableLiveData<Unit>()
-    val back: LiveData<Unit> = _back
+    private val _backEvent = MutableSharedFlow<Unit>()
+    val backEvent = _backEvent.asSharedFlow()
+
+    private val _isShowProgress = MutableStateFlow(false)
+    val isShowProgress = _isShowProgress.asStateFlow()
 
     fun search(query: String) {
         viewModelScope.launch {
+            _isShowProgress.emit(true)
+
             try {
                 val videos = getMusic(query).items
                 videos.forEach {
@@ -48,6 +51,8 @@ class MusicViewModel @Inject constructor(
                 _videoList.emit(videos)
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                _isShowProgress.emit(false)
             }
         }
     }
@@ -67,6 +72,13 @@ class MusicViewModel @Inject constructor(
             _selectedVideo.value?.let {
                 _completeEvent.emit(it)
             }
+        }
+    }
+
+
+    fun onBackClicked() {
+        viewModelScope.launch {
+            _backEvent.emit(Unit)
         }
     }
 }

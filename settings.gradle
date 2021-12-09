@@ -30,3 +30,8 @@ include ':app',
         ':feature:writing:presentation',
         ':feature:writing:domain',
         ':feature:writing:data'
+        ':feature:splash:presentation'
+        ':feature:music:domain'
+
+include ':feature:onboading'
+include ':feature:onboading:presentation'

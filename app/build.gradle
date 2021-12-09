@@ -41,8 +41,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -87,6 +87,9 @@ dependencies {
 
     implementation(project(":feature:writing:presentation"))
     implementation(project(":feature:writing:domain"))
+    implementation(project(":feature:writing:data"))
+
+    implementation(project(':feature:onboading:presentation'))
 
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"

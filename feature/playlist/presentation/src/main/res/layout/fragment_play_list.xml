@@ -27,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
+            android:padding="@dimen/toolbar_back_padding"
             app:onThrottleClick="@{() -> viewModel.onBack()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view_toolbar"
@@ -36,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
+            android:drawablePadding="6dp"
             android:textAppearance="@style/PlayList.ToolbarTitle"
             android:drawableEnd="@drawable/ic_arrow_down"
             app:onThrottleClick="@{() -> viewModel.onChangeDate()}"
