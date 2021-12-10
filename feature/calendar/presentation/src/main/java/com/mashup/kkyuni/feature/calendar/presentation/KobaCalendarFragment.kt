@@ -3,12 +3,19 @@ package com.mashup.kkyuni.feature.calendar.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentKobaCalendarBinding
+import com.mashup.kkyuni.feature.login.presentation.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -22,6 +29,18 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 
 		initView()
 
+		collectFlows()
+	}
+
+	private fun collectFlows() {
+		viewLifecycleOwner.lifecycleScope.launch {
+			lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+				viewModel.currentDate.collect { date ->
+					val token = viewModel.getUserAccessToken().orEmpty()
+					binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=${date.year}-${date.month}-${date.day}")
+				}
+			}
+		}
 	}
 
 	private fun initView() {

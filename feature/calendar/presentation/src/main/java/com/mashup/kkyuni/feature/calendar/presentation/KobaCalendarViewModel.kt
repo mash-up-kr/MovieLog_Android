@@ -126,4 +126,8 @@ class KobaCalendarViewModel @Inject constructor(
 				}
 		}
 	}
+
+	fun getUserAccessToken(): String? {
+		return getAccessToken()
+	}
 }
