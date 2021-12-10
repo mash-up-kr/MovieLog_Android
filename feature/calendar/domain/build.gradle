@@ -33,5 +33,6 @@ android {
 dependencies {
     implementation "androidx.core:core-ktx:$coreVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 }

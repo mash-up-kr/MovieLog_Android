@@ -15,7 +15,7 @@
 
         <action
             android:id="@+id/action_to_calendar"
-            app:destination="@id/calendarFragment"
+            app:destination="@id/kobaCalendarFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"/>
 
@@ -39,6 +39,28 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.mashup.kkyuni.feature.calendar.presentation.CalendarFragment">
+
+        <action
+            android:id="@+id/action_to_setting"
+            app:destination="@id/settingFragment" />
+
+        <action
+            android:id="@+id/action_to_play_list"
+            app:destination="@id/playListFragment"/>
+
+        <action
+            android:id="@+id/action_to_writing"
+            app:destination="@id/writing_graph">
+
+            <argument
+                android:name="key_date"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/kobaCalendarFragment"
+        android:name="com.mashup.kkyuni.feature.calendar.presentation.KobaCalendarFragment">
 
         <action
             android:id="@+id/action_to_setting"
@@ -84,7 +106,7 @@
         android:name="com.mashup.kkyuni.feature.onboading.presentation.OnboadingFragment" >
         <action
             android:id="@+id/action_onBoadingFragment_to_calendarFragment"
-            app:destination="@id/calendarFragment"
+            app:destination="@id/kobaCalendarFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>

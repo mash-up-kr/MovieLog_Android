@@ -2,6 +2,7 @@ package com.mashup.kkyuni.widget
 
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.widget.custom.ThrottleClickListener
 
 @BindingAdapter(requireAll = false, value = ["onThrottleClick", "throttleInterval"])
@@ -25,4 +26,9 @@ fun View.setVisibility(isVisible: Boolean) {
     } else {
         View.GONE
     }
+}
+
+@BindingAdapter("scrollToPosition")
+fun RecyclerView.scrollToPosition(position: Int){
+    smoothScrollToPosition(position)
 }
