@@ -28,7 +28,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_date"
             android:layout_width="0dp"
-            android:layout_height="225dp"
+            android:layout_height="250dp"
             android:layout_marginTop="35dp"
             android:layout_marginBottom="36dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -38,7 +38,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_min="128dp"
             app:scrollToPosition="@{viewModel.scrollToPosition}"
-            app:updateChoiceDates="@{viewModel.choiceDates}" />
+            app:updateChoiceDates="@{viewModel.choiceDates}"
+            tools:listitem="@layout/holder_choice_date"/>
 
         <View
             android:layout_width="0dp"

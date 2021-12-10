@@ -49,23 +49,6 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
             recyclerViewDate.adapter = choiceDateAdapter
 
             snapHelper.attachToRecyclerView(recyclerViewDate)
-
-            recyclerViewDate.addItemDecoration(object : RecyclerView.ItemDecoration(){
-                override fun getItemOffsets(
-                    outRect: Rect,
-                    view: View,
-                    parent: RecyclerView,
-                    state: RecyclerView.State
-                ) {
-                    super.getItemOffsets(outRect, view, parent, state)
-
-                    val offset = resources.getDimensionPixelSize(R.dimen.choice_date_item_offset)
-
-                    outRect.top = offset
-                    outRect.bottom = offset
-                }
-            })
-
             recyclerViewDate.addOnScrollListener(object : RecyclerView.OnScrollListener(){
                 var currentPosition = RecyclerView.NO_POSITION
 
