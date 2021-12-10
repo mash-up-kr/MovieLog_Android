@@ -41,6 +41,9 @@ class ChoiceDateViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
+    private val _dismissEvent = MutableSharedFlow<Unit>()
+    val dismissEvent = _dismissEvent.asSharedFlow()
+
     init {
         viewModelScope.launch {
             val year = savedStateHandle[ChoiceDateDialogFragment.KEY_YEAR] ?: 2021
@@ -118,6 +121,12 @@ class ChoiceDateViewModel @Inject constructor(
                     val list = _choiceDates.value + it
                     _choiceDates.emit(list)
                 }
+        }
+    }
+
+    fun onDissmissEvent() {
+        viewModelScope.launch {
+            _dismissEvent.emit(Unit)
         }
     }
 

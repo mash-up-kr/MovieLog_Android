@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_padding"
             android:src="@drawable/ic_close"
+            app:onThrottleClick="@{() -> viewModel.onDissmissEvent()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

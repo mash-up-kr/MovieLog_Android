@@ -119,6 +119,12 @@ class ChoiceDateDialogFragment: BottomSheetBindingDialogFragment<DialogChoiceDat
                             dismiss()
                         }
                     }
+
+                    launch {
+                        dismissEvent.collect {
+                            dismiss()
+                        }
+                    }
                 }
             }
         }
