@@ -113,18 +113,18 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 				}
 
 				// 날짜 무한 스크롤 구현
-//				(recyclerView.layoutManager as? LinearLayoutManager)?.let {
-//					val visibleItemCount = it.childCount
-//					val totalItemCount = it.itemCount
-//
-//					val lastPosition = it.findLastVisibleItemPosition()
-//
-//					when {
-//						lastPosition < visibleItemCount + 2 -> viewModel.addPreviousDateList()
-//
-//						totalItemCount - lastPosition + 1 < visibleItemCount -> viewModel.addAfterDateList()
-//					}
-//				}
+				(recyclerView.layoutManager as? LinearLayoutManager)?.let {
+					val visibleItemCount = it.childCount
+					val totalItemCount = it.itemCount
+
+					val lastPosition = it.findLastVisibleItemPosition()
+
+					when {
+						lastPosition < visibleItemCount + 2 -> viewModel.addPreviousDateList()
+
+						totalItemCount - lastPosition + 1 < visibleItemCount -> viewModel.addAfterDateList()
+					}
+				}
 			}
 		})
 	}
