@@ -64,7 +64,7 @@ class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     writingPreviewViewModel.uploading.collect {
                         if (it is UploadState.Complete) {
-                            findNavController().popBackStack(R.id.calendarFragment, true)
+                            findNavController().popBackStack(R.id.calendarFragment, false)
                         }
                     }
                 }
