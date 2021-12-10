@@ -2,6 +2,7 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebViewClient
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -32,6 +33,8 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 
 		initView()
 
+		initWebView()
+
 		collectFlows()
 	}
 
@@ -48,7 +51,7 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 
 					launch {
 						onSetting.collect {
-							CalendarFragmentDirections.actionToSetting().run {
+							KobaCalendarFragmentDirections.actionKobaCalendarToSetting().run {
 								findNavController().navigate(this)
 							}
 						}
@@ -56,15 +59,7 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 
 					launch {
 						onWriting.collect {
-							CalendarFragmentDirections.actionToWriting(it).run {
-								findNavController().navigate(this)
-							}
-						}
-					}
-
-					launch {
-						onSetting.collect {
-							CalendarFragmentDirections.actionToSetting().run {
+							KobaCalendarFragmentDirections.actionKobaCalendarToWriting(it).run {
 								findNavController().navigate(this)
 							}
 						}
@@ -118,20 +113,32 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 				}
 
 				// 날짜 무한 스크롤 구현
-				(recyclerView.layoutManager as? LinearLayoutManager)?.let {
-					val visibleItemCount = it.childCount
-					val totalItemCount = it.itemCount
-
-					val lastPosition = it.findLastVisibleItemPosition()
-
-					when {
-						lastPosition < visibleItemCount + 2 -> viewModel.addPreviousDateList()
-
-						totalItemCount - lastPosition + 1 < visibleItemCount -> viewModel.addAfterDateList()
-					}
-				}
+//				(recyclerView.layoutManager as? LinearLayoutManager)?.let {
+//					val visibleItemCount = it.childCount
+//					val totalItemCount = it.itemCount
+//
+//					val lastPosition = it.findLastVisibleItemPosition()
+//
+//					when {
+//						lastPosition < visibleItemCount + 2 -> viewModel.addPreviousDateList()
+//
+//						totalItemCount - lastPosition + 1 < visibleItemCount -> viewModel.addAfterDateList()
+//					}
+//				}
 			}
 		})
+	}
+
+	private fun initWebView() {
+		with(binding.webView) {
+			webViewClient = object : WebViewClient() {
+
+			}
+
+			settings.run {
+				javaScriptEnabled = true
+			}
+		}
 	}
 
 	private fun navigateToPlayListFragment(year: Int, month: Int) {

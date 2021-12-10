@@ -67,7 +67,8 @@ class KobaCalendarViewModel @Inject constructor(
 					.single()
 			}.onSuccess {
 				_calendarDateList.emit(it)
-				_scrollToPosition.emit(it.size / 2 + 2)
+
+				_scrollToPosition.emit(it.size / 2 - 2)
 			}
 		}
 	}
@@ -93,7 +94,7 @@ class KobaCalendarViewModel @Inject constructor(
 
 	fun updateCurrentCalendarDate(calendarDate: CalendarDate){
 		viewModelScope.launch {
-			_currentDate.value = calendarDate
+			_currentDate.emit(calendarDate)
 		}
 	}
 

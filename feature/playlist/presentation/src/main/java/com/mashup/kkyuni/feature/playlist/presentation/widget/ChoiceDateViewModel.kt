@@ -56,7 +56,7 @@ class ChoiceDateViewModel @Inject constructor(
                 _choiceDates.emit(it)
 
                 val position = it.findIndex(Date(year, month))
-                _scrollToPosition.emit(position + 2)
+                _scrollToPosition.emit(position - 2)
             }
         }
     }

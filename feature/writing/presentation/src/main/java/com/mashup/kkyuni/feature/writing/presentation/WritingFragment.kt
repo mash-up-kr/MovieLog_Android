@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragment_writing) {
-    private val writingViewModel: WritingViewModel by viewModels()
+    private val writingViewModel: WritingViewModel by viewModels({requireParentFragment()})
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,10 @@ class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragmen
             "initView",
             ""
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         clearInputAdjust()
     }
 
