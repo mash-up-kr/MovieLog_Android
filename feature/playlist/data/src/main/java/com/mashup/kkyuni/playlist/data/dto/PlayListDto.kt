@@ -17,8 +17,8 @@ data class PlayListDto(
     val emotion: String,
     @Json(name = "musicPlayTime")
     val musicPlayTime: Int,
-    @Json(name = "musicThumbnailImage")
-    val musicThumbnailImage: String,
+    @Json(name = "musicThumbnailImageUrl")
+    val musicThumbnailImageUrl: String,
     @Json(name = "title")
     val title: String,
     @Json(name = "writingDate")

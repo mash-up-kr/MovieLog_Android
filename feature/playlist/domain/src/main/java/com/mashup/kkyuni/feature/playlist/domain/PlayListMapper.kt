@@ -9,7 +9,7 @@ fun List<PlayListDto>.toPlayList(): List<MusicModel> {
     } else {
         map {
             MusicModel.MusicData(
-                thumbnailUrl = it.musicThumbnailImage,
+                thumbnailUrl = it.musicThumbnailImageUrl,
                 title = it.title,
                 playTime = it.musicPlayTime.toString(),
                 releaseDate = it.writingDate,
