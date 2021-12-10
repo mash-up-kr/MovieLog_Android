@@ -20,8 +20,8 @@ class KobaCalendarViewModel @Inject constructor(
 	private val setPreview: SetPreviewUseCase,
 	private val getAccessToken: GetAccessTokenUseCase
 ): ViewModel() {
-	private val _preview = MutableStateFlow(false)
-	val preview: StateFlow<Boolean> get() = _preview
+	private val _isPreviewVisible = MutableStateFlow(false)
+	val isPreviewVisible: StateFlow<Boolean> get() = _isPreviewVisible
 
 	private val _onSetting = MutableSharedFlow<Unit>()
 	val onSetting: SharedFlow<Unit> get() = _onSetting
@@ -52,9 +52,13 @@ class KobaCalendarViewModel @Inject constructor(
 
 	init {
 		fetchCalendarDateList()
+
+		viewModelScope.launch {
+			_isPreviewVisible.emit(!getPreview())
+		}
 	}
 
-	private fun fetchCalendarDateList(){
+	fun fetchCalendarDateList(){
 		val date = _currentDate.value
 
 		viewModelScope.launch {
@@ -63,7 +67,7 @@ class KobaCalendarViewModel @Inject constructor(
 					.single()
 			}.onSuccess {
 				_calendarDateList.emit(it)
-					_scrollToPosition.emit(it.size / 2 + 2)
+				_scrollToPosition.emit(it.size / 2 + 2)
 			}
 		}
 	}
@@ -79,7 +83,7 @@ class KobaCalendarViewModel @Inject constructor(
 
 	fun onClickPreviewBackground() = viewModelScope.launch {
 		setPreview(true)
-		_preview.emit(true)
+		_isPreviewVisible.emit(false)
 	}
 
 	fun onClickWriting() = viewModelScope.launch {

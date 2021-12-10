@@ -86,7 +86,7 @@ class PlayListFragment : BindingFragment<FragmentPlayListBinding>(R.layout.fragm
         findNavController().run {
             previousBackStackEntry?.savedStateHandle?.set("date", playListViewModel.getCurrentDate())
 
-            popBackStack(R.id.calendarFragment, false)
+            popBackStack(R.id.kobaCalendarFragment, false)
         }
     }
 

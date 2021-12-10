@@ -27,7 +27,7 @@
 
         <action
             android:id="@+id/action_to_calendar"
-            app:destination="@id/calendarFragment"
+            app:destination="@id/kobaCalendarFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
         <action

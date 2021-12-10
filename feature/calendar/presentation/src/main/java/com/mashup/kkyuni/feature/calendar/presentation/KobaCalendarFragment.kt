@@ -2,8 +2,11 @@ package com.mashup.kkyuni.feature.calendar.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -11,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.kkyuni.core.BindingFragment
+import com.mashup.kkyuni.feature.calendar.domain.model.CalendarDate
 import com.mashup.kkyuni.feature.calendar.presentation.databinding.FragmentKobaCalendarBinding
-import com.mashup.kkyuni.feature.login.presentation.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -35,12 +38,58 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 	private fun collectFlows() {
 		viewLifecycleOwner.lifecycleScope.launch {
 			lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				viewModel.currentDate.collect { date ->
-					val token = viewModel.getUserAccessToken().orEmpty()
-					binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=${date.year}-${date.month}-${date.day}")
+				viewModel.run {
+					launch {
+						currentDate.collect { date ->
+							val token = viewModel.getUserAccessToken().orEmpty()
+							binding.webView.loadUrl("https://compassionate-wing-0abef6.netlify.app/?token=$token&date=${date.year}-${date.month}-${date.day}")
+						}
+					}
+
+					launch {
+						onSetting.collect {
+							CalendarFragmentDirections.actionToSetting().run {
+								findNavController().navigate(this)
+							}
+						}
+					}
+
+					launch {
+						onWriting.collect {
+							CalendarFragmentDirections.actionToWriting(it).run {
+								findNavController().navigate(this)
+							}
+						}
+					}
+
+					launch {
+						onSetting.collect {
+							CalendarFragmentDirections.actionToSetting().run {
+								findNavController().navigate(this)
+							}
+						}
+					}
+
+					launch {
+						onPlayList.collect { (year, month) ->
+							navigateToPlayListFragment(year, month)
+						}
+					}
 				}
 			}
 		}
+
+		findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
+			?.observe(viewLifecycleOwner) { result ->
+				val (month, year) = result.split("-").map { it.toInt() }
+				val day = viewModel.currentDate.value.day
+				viewModel.updateCurrentCalendarDate(
+					CalendarDate(
+						year, month, day
+					)
+				)
+				viewModel.fetchCalendarDateList()
+			}
 	}
 
 	private fun initView() {
@@ -83,5 +132,15 @@ class KobaCalendarFragment : BindingFragment<FragmentKobaCalendarBinding>(R.layo
 				}
 			}
 		})
+	}
+
+	private fun navigateToPlayListFragment(year: Int, month: Int) {
+		findNavController().navigate(
+			R.id.playListFragment,
+			bundleOf(
+				"year" to year,
+				"month" to month
+			)
+		)
 	}
 }
