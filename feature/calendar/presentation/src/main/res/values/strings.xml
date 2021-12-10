@@ -7,4 +7,5 @@
     <string name="preview_setting">설정화면</string>
     <string name="preview_play_list">기록했던 음악\n리스트 보기</string>
     <string name="preview_left_to_right">좌우로 넘겨서\n티켓 스타일 선택하기</string>
+    <string name="calendar_year_month">%d.%d</string>
 </resources>

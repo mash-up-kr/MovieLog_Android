@@ -30,5 +30,5 @@ fun View.setVisibility(isVisible: Boolean) {
 
 @BindingAdapter("scrollToPosition")
 fun RecyclerView.scrollToPosition(position: Int){
-    smoothScrollToPosition(position)
+    if(position != RecyclerView.NO_POSITION) smoothScrollToPosition(position)
 }
