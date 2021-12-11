@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.writing.domain.model.UploadState
 import com.mashup.kkyuni.feature.writing.presentation.R
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.fragment_preview) {
 
-    private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
+    private val writingViewModel by navGraphViewModels<WritingViewModel>(R.id.writing_graph)
     private val writingPreviewViewModel by viewModels<WritingPreviewViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

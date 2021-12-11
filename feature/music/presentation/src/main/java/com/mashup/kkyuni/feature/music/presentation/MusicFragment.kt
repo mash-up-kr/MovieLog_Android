@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.music.presentation.databinding.FragmentMusicBinding
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 class MusicFragment : BindingFragment<FragmentMusicBinding>(
     R.layout.fragment_music
 ) {
-    private val writingViewModel: WritingViewModel by viewModels ({ requireParentFragment() })
+    private val writingViewModel by navGraphViewModels<WritingViewModel>(R.id.writing_graph)
     private val musicViewModel: MusicViewModel by viewModels()
     private val musicAdapter by lazy { MusicAdapter(musicViewModel) }
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.core.constant.Constant
 import com.mashup.kkyuni.feature.writing.presentation.R
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class WritingEmotionFragment :
     BindingFragment<FragmentWritingEmotionBinding>(R.layout.fragment_writing_emotion) {
-    private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
+    private val writingViewModel by navGraphViewModels<WritingViewModel>(R.id.writing_graph)
     private val emotionViewModel by viewModels<WritingEmotionViewModel>()
 
     private val backPressCallBack = object : OnBackPressedCallback(true) {
@@ -41,11 +42,6 @@ class WritingEmotionFragment :
         addBackPressedCallBack()
         initView()
         collectFlows()
-        initWriting()
-    }
-
-    private fun initWriting() {
-        writingViewModel.initWriting()
     }
 
     private fun addBackPressedCallBack() {

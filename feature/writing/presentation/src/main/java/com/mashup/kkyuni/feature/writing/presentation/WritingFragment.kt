@@ -3,16 +3,15 @@ package com.mashup.kkyuni.feature.writing.presentation
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.writing.presentation.databinding.FragmentWritingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragment_writing) {
-    private val writingViewModel: WritingViewModel by viewModels({requireParentFragment()})
+    private val writingViewModel by navGraphViewModels<WritingViewModel>(R.id.writing_graph)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +20,10 @@ class WritingFragment : BindingFragment<FragmentWritingBinding>(R.layout.fragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        writingViewModel.updateDate(arguments?.getString(KEY_DATE) ?: "")
+        writingViewModel.run {
+            initWriting()
+            updateDate(arguments?.getString(KEY_DATE) ?: "")
+        }
         navigateToEmotionFragment()
     }
 

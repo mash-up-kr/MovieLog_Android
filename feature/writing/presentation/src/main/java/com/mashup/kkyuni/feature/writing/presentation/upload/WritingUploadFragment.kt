@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.mashup.kkyuni.core.BindingFragment
 import com.mashup.kkyuni.feature.writing.presentation.R
 import com.mashup.kkyuni.feature.writing.presentation.WritingViewModel
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 class WritingUploadFragment :
     BindingFragment<FragmentWritingUploadBinding>(R.layout.fragment_writing_upload) {
 
-    private val writingViewModel by viewModels<WritingViewModel>({ requireParentFragment() })
+    private val writingViewModel by navGraphViewModels<WritingViewModel>(R.id.writing_graph)
     private val writingUploadViewModel by viewModels<WritingUploadViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
