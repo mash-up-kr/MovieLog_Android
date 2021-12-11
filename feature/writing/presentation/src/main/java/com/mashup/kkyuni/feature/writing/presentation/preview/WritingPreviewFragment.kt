@@ -35,7 +35,7 @@ class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.
             }
 
             imageviewBack.setOnClickListener {
-                findNavController().popBackStack(R.id.calendarFragment, true)
+                findNavController().popBackStack(R.id.kobaCalendarFragment, false)
             }
 
             webviewPreview.run {
@@ -64,7 +64,7 @@ class WritingPreviewFragment : BindingFragment<FragmentPreviewBinding>(R.layout.
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     writingPreviewViewModel.uploading.collect {
                         if (it is UploadState.Complete) {
-                            findNavController().popBackStack(R.id.calendarFragment, false)
+                            findNavController().popBackStack(R.id.kobaCalendarFragment, false)
                         }
                     }
                 }

@@ -97,7 +97,7 @@ class WritingEmotionFragment :
     }
 
     private fun onBackPressed() {
-        findNavController().popBackStack(R.id.calendarFragment, false)
+        findNavController().popBackStack(R.id.kobaCalendarFragment, false)
     }
 
     override fun onDetach() {

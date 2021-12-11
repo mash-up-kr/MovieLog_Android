@@ -4,12 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View" />
-
         <variable
             name="viewModel"
-            type="com.mashup.kkyuni.feature.calendar.presentation.CalendarViewModel" />
+            type="com.mashup.kkyuni.feature.calendar.presentation.KobaCalendarViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:onClick="@{() -> viewModel.onClickSetting()}"
+                app:onThrottleClick="@{() -> viewModel.onClickSetting()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -45,6 +42,7 @@
                 android:fontFamily="@font/numbser_blackopsone_regular"
                 android:textColor="@color/white"
                 android:textSize="22sp"
+                android:text="@{@string/calendar_year_month(viewModel.currentDate.year, viewModel.currentDate.month)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="3dp"
-                android:onClick="@{() -> viewModel.onClickPlayList()}"
+                app:onThrottleClick="@{() -> viewModel.onClickPlayList()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -83,11 +81,12 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="14dp"
                 android:orientation="horizontal"
+                android:layout_gravity="center"
+                app:updateCalendarDates="@{viewModel.calendarDateList}"
+                app:scrollToPosition="@{viewModel.scrollToPosition}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_calendar_day" />
 
@@ -100,9 +99,9 @@
 
         <WebView
             android:id="@+id/web_view"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler_view_container" />
@@ -129,9 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#B2000000"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{() -> viewModel.onClickPreviewBackground()}" />
+            app:onThrottleClick="@{() -> viewModel.onClickPreviewBackground()}" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/preview_setting"
@@ -204,7 +201,7 @@
             android:id="@+id/preview_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.preview ? View.GONE : View.VISIBLE}"
+            app:visible="@{viewModel.isPreviewVisible}"
             app:constraint_referenced_ids="preview_background,preview_play_list,preview_play_list_text,preview_scroll_green,preview_scroll_green_text,preview_setting,preview_setting_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

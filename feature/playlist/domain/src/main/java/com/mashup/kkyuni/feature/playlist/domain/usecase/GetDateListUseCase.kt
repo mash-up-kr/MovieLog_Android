@@ -22,42 +22,26 @@ class GetDateListUseCase @Inject constructor() {
         }
 
         repeat(ITEM_COUNT) {
-            if(calendar.get(Calendar.YEAR) <= 2021
-                && calendar.get(Calendar.MONTH) < 9){
-                // 캘린더영역에 start date가 2021년 9월로 고정되어 있어
-                // 추가 해주지 않는다. 추후 개선시 해당 조건문 제거
-                if(calendar.get(Calendar.YEAR) == 2021
-                    && (calendar.get(Calendar.MONTH) == 7
-                        || calendar.get(Calendar.MONTH) == 8)){
-                    dates.add(
-                        ChoiceDate(
-                            Date(-1, -1)
-                        )
-                    )
-                }
+            val calendarYear = calendar.get(Calendar.YEAR)
+            val calendarMonth = calendar.get(Calendar.MONTH)
 
-            }else {
-                val calendarYear = calendar.get(Calendar.YEAR)
-                val calendarMonth = calendar.get(Calendar.MONTH)
-
-                dates.add(
-                    ChoiceDate(
-                        Date(
-                            if(calendarMonth == 0){
-                                calendarYear - 1
-                            }else {
-                                calendarYear
-                            },
-                            if(calendarMonth == 0){
-                                12
-                            }else {
-                                calendarMonth
-                            }
-                        ),
-                        it == ITEM_COUNT / 2
-                    )
+            dates.add(
+                ChoiceDate(
+                    Date(
+                        if(calendarMonth == 0){
+                            calendarYear - 1
+                        }else {
+                            calendarYear
+                        },
+                        if(calendarMonth == 0){
+                            12
+                        }else {
+                            calendarMonth
+                        }
+                    ),
+                    it == ITEM_COUNT / 2
                 )
-            }
+            )
             calendar.add(Calendar.MONTH, 1)
         }
 
